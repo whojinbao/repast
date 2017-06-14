@@ -1,0 +1,77 @@
+/* For treemenu.js */
+*{list-style:none;border:none;padding:0px;margin:0px;}
+#left-navigation{
+	position:absolute;
+	top:0px;
+	left:0px;
+	font-family:Arial;
+	background-color:#2C3E50;
+	width:200px;
+	height:100%;
+	z-index:999;
+}
+.tree {  
+	color:#46CFB0;width:200px;
+	padding-top:130px;}
+.tree li,
+.tree li > a,
+.tree li > span {
+    padding: 3pt;
+    border-radius: 4px;
+   
+}
+li{
+    margin-left:20px;}
+.tree li a {
+   color:#46CFB0;
+    text-decoration: none;
+    line-height: 20pt;
+    border-radius: 4px;
+}
+
+.tree li a:hover {
+    background-color: #34BC9D;
+    color: #fff;
+}
+
+.active {
+    background-color: #34495E;
+    color: white;
+}
+
+.active a {
+    color: #fff;
+}
+
+.tree li a.active:hover {
+    background-color: #34BC9D;
+}
+.treemenu li { list-style: none; }
+
+.treemenu .toggler {
+    cursor: pointer;
+}
+.treemenu .toggler:before {
+    display: inline-block;
+    margin-right: 1pt;
+}
+li.tree-empty > .toggler { color: #aaa; }
+li.tree-empty > .toggler:before { content: "\2212"; }
+li.tree-closed > .toggler:before { content: "+"; }
+li.tree-opened > .toggler:before { content: "\2212"; }
+
+#top{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100px;
+	background-color:#2C3E50;
+}
+#main_div{
+	margin:100px 0px 0px 200px;
+	border:1px solid red;
+	height:80%;
+	
+}
+

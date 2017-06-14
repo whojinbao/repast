@@ -1,0 +1,147 @@
+/* body{
+	background-color:red;
+	background:url(../images/h_beijing.jpg) no-repeat; 
+} */
+*{
+	margin:0px;
+	padding:0px;
+}
+a{
+	text-decoration: none;
+}
+ul,li{
+	list-style:none;
+	float:left;
+	
+}
+#center_left_ul li{
+	margin-left:30px;
+	margin-right:40px;
+}
+#center_right_ul{
+	margin-left:40px;
+}
+/* #bottom div{
+	border:1px solid red;
+} */
+#top{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:12%;
+	background-color:#99FF99; 
+	color:white;
+}
+#top_name{
+	margin-top:20px;
+	height:70%;
+	font-size:30px;
+	text-align:center;
+}
+#top_login{
+	position:absolute;
+	top:5px;
+	right:0px;
+	width:170px;
+	height:20px;
+}
+#top_login_show{
+	color:red;
+}
+#top_sort{
+	position:absolute;
+	right:0px;
+	bottom:5px;
+	width:280px;
+	height:30px;
+}
+
+#bottom{
+	position:absolute;
+	top:12%;
+	left:0px;
+	width:100%;
+	height:88%;
+}
+#center_top{
+	position:absolute;
+	top:25px;
+	left:0px;
+	width:100%;
+}
+#center_top div{
+	float:left;
+	margin-left:5px;
+}
+#left{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:20%;
+	height:100%;
+}
+#right_left{
+	position:absolute;
+	top:0px;
+	left:68%;
+	width:16%;
+	height:100%;
+}
+#right_right{
+	position:absolute;
+	top:0px;
+	left:84%;
+	width:16%;
+	height:100%;
+}
+#center{
+	position:absolute;
+	top:0px;
+	left:20%;
+	width:48%;
+	height:100%;
+}
+#center1_top1{
+	position:absolute;
+	top:100px;
+	left:0px;
+}
+#center_left{
+	position:absolute;
+	top:50px;
+	left:0px;
+	height:85%;
+	width:60%;
+}
+#center_right{
+	position:absolute;
+	top:50px;
+	right:0px;
+	height:85%;
+	width:40%;
+}
+#table_zhuo{
+	font-size:13px;
+	text-align:center;
+}
+#table{
+	text-align:center;
+}
+#right_left_bottom{
+	position:absolute;
+	top:50px;
+	left:0px;
+	height:85%;
+	width:100%;
+}
+#main_font_show{
+	background-color:#00FF66;
+	text-align:center;
+}
+
+#center_left td{
+	text-align:center; 
+}
+
+
