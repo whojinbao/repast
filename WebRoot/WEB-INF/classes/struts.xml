@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+               
+     <package name="default" extends="struts-default">
+      <!-- 全局配置 -->
+       <global-results>
+            <result name="error">/error.jsp</result>
+            <result name="crash">/crash.jsp</result>
+            <result name="needsLogin">/needsLogin.jsp</result>
+            <result name="input">/needsInit.jsp</result>
+            <result name="needsInit">/needsInit.jsp</result>
+        </global-results>
+     <!-- 菜品 ，菜品分类的action，xml设置 -->
+     <action name="menuType_*" class="com.zf.action.UseMenuTypeAction" method="{1}">
+       <result name="ok">/houtai/menuType.jsp </result>
+       <result name="menuAdd">/houtai/menuAdd.jsp</result>
+     
+     </action>
+       
+      <action name="menu_*" class="com.zf.action.UseMenuAction" method="{1}">
+       <result name="ok">/houtai/menu.jsp</result>
+      
+     </action>    
+     <!--  -->
+     
+     <!-- 订单，的action，Xml设置 -->
+     <action name="order_*" class="com.zf.action.UseOrderAction" method="{1}">
+       <result name="ok">/houtai/orderList.jsp</result>
+       
+     </action> 
+     
+     <!--  -->
+     
+     <!-- 订单详情的action，Xml设置 -->
+     <action name="detailed_*" class="com.zf.action.UseDetailedAction" method="{1}">
+       <result name="ok">/houtai/detailed.jsp</result>
+       <result name="error">/error.jsp</result>
+     </action> 
+     
+     <!--  -->
+    </package>
+</struts>    
+ 

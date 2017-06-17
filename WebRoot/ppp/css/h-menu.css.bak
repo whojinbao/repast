@@ -1,0 +1,408 @@
+*{padding:0px;margin:0px;}
+ul,li{list-style-type:none;}
+a {color:#00007F;text-decoration:none;}
+	/*div{
+		border:1px solid red;
+	}
+	/*
+	*主div，相当于body
+	*/
+	#master_memu{      
+		position:absolute;
+		width:99%;
+	}
+	/*
+	*上边工具栏
+	*/
+	#master_memu_top{
+		position:absolute;
+		top:0px;left:0px;
+		height:40px;
+		width:100%;
+		POSITION: fixed; 
+		z-index:100;
+		background:#CCFFCC;
+	}
+	/*
+	*下方菜单购物篮
+	*/
+	#master_memu_bottom{
+		position:absolute;
+		bottom:0px;right:0px;
+		width:300px;
+		height:50px;
+		position:fixed;
+		z-index:10;
+		background:#F1F1F1;
+
+	}
+	#master_memu_bottom img{
+		width:40px;
+		height:40px;
+		border-radius: 50%;
+		position:absolute;
+		top:5px;
+		left:5px;
+	}
+	#master_memu_bottom_lognum{
+		width:16px;
+		height:16px;
+		border-radius: 50%;
+		position:absolute;
+		top:5px;
+		left:35px;
+		z-index:10;
+		background:red;
+		color:white;
+		font-size:12px;
+		text-align:center;
+		line-height:15px;
+		display:none;
+	}
+	#master_memu_bottom_prices{
+		position:absolute;
+		width:60%;
+		height:20px;
+		top:20px;
+		left:60px;
+		color:#FF0033;
+	}
+	/*
+	*左边div，菜品导航栏
+	*/
+	#master_memu_left{
+		position:absolute;
+		top:100px;left:0px;
+		width:200px;
+		POSITION: fixed; 
+	}
+	/*
+	*右边div，全部菜品总框架
+	*/
+	#master_memu_right{
+		position:absolute;
+		overflow:auto;
+		top:40px;left:200px;
+	}
+	.master_memu_right_classify{
+		width:100%;
+		height:auto;
+		overflow:auto;
+	}
+	/*
+	*单个菜品图片属性
+	*长宽适应于.product
+	*/
+	.product img{
+		width:100%;
+		height:100%;
+	}
+	/*
+	*动画总框架
+	*/
+	.product{
+		width:200px;
+		height:200px;
+		float:left;
+		margin-left:50px;
+		margin-top:30px;
+		position:relative;
+		text-align: center;
+		overflow: hidden;
+		color: #fff;
+		
+	}
+	/*
+	*设置遮罩层透明度
+	*/
+	.product:after{
+		content: "";
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.08) 69%, rgba(0, 0, 0, 0.76) 100%);
+		position: absolute;
+		top: 0;
+		left: 0;
+		transition: all 0.5s ease 0s;
+	}
+	/*
+	*鼠标悬浮时设置遮罩层透明度
+	*/
+	 .product:hover:after{
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.09) 11%, rgba(0, 0, 0, 0.12) 13%, rgba(0, 0, 0, 0.19) 20%, rgba(0, 0, 0, 0.29) 28%, rgba(0, 0, 0, 0.29) 29%, rgba(0, 0, 0, 0.42) 38%, rgba(0, 0, 0, 0.46) 43%, rgba(0, 0, 0, 0.53) 47%, rgba(0, 0, 0, 0.75) 69%, rgba(0, 0, 0, 0.87) 84%, rgba(0, 0, 0, 0.98) 99%, rgba(0, 0, 0, 0.94) 100%);
+	}
+	 .product .product-content{
+		width: 100%;
+		height:100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+	}
+	/*
+	*菜品名字
+	*/
+	.product .name{
+		font-size: 12px;
+		font-weight: 50;
+		transform: translateY(125px);
+		transition: all 0.4s cubic-bezier(0.13, 0.62, 0.81, 0.91) 0s;
+	}
+	/*
+	*菜品价格
+	*/
+	.product .name span{
+		color:red;
+	}
+	/*
+	*菜品简介
+	*/
+	.product .cost{
+		display: block;
+		font-size: 10px;
+		transform: translateY(125px);
+		transition: all 0.4s cubic-bezier(0.13, 0.62, 0.81, 0.91) 0s;
+	}
+	/*
+	*菜品价格和菜品简介鼠标浮动上移位置
+	*/
+	.product:hover .name,
+	.product:hover .cost{
+		transform: translateY(110px);
+	}
+	/*
+	*菜品点餐按钮
+	*/
+	.product .add{
+		list-style: none;
+		margin: 115px 0 25px;
+		position: relative;
+		transform: perspective(100px) rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
+		transition: all 0.6s cubic-bezier(0, 0, 0.58, 1) 0s;
+	}
+	/*
+	*鼠标悬浮时点餐按钮位置
+	*/
+	.product:hover .add{
+		transform: perspective(100px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+	}
+	.product .add:before{
+		width: 50px;
+		height: 2px;
+		position: absolute;
+		top: -23px;
+		left: 0;
+		right: 0;
+	}
+	.product .add li{
+		display: inline-block;
+	}
+	.product .add li input{
+		display: block;
+		width: 20px;
+		height: 20px;
+		line-height: 17px;
+		/*border-radius: 50%;*/
+		background: #33CCFF;
+		font-size: 20px;
+		color: #fff;
+		margin-left: 5px;
+		transition: all 0.3s ease 0s;
+	}
+	.product .add li .putIn{
+		width: 50px;
+		font-size: 10px;
+		
+	}
+	/*
+	*菜品设置透明度
+	*/
+	.product_shade{
+		position:absolute;
+		top:0px;right:0px;
+		width:100%;
+		height:100%;
+		background-color:#000;
+		position:absolute;
+		top:0;
+		left:0;
+		opacity:0.7;
+		/*兼容IE8及以下版本浏览器*/
+		filter: alpha(opacity=70);
+		display:none;
+	}
+	/*
+	*左侧导航栏
+	*/
+	#master_memu_left ul{
+		list-style:none;
+	}
+	#master_memu_left ul li{
+		display:block;
+		border:1px solid red;
+		width:150px;
+		height:30px;
+		margin:10px 10px 5px 10px;
+		text-align:center;
+		background:#FFCC33;
+		color:white;
+	} 
+	/*
+	*滚动心形样式
+	*/
+	.img123654789{ width: 20px; height: 20px; margin-left: -10px; }
+	/*
+	*滚动心形最终回落的地方
+	*/
+	.hah{position:absolute;
+		bottom:50px;right:300px;
+		width:1px;
+		height:1px;
+		position:fixed;
+		z-index:9;}
+	/*
+	*菜单详情
+	*/
+	#menuDetails{
+		position:absolute;
+		bottom:0px;right:0px;
+		width:400px;
+		overflow:auto;
+		position:fixed;z-index:20;
+		background:white;
+		display:none;
+	}
+	
+	#menuDetails_son{
+		margin-top:20px;
+		width:100%;
+	}
+	#menuDetails div{
+		margin:0px 20px 10px 0px;
+		padding-left:10px;
+	}
+	.menuDetails_span{
+		display:inline-block;
+		width:150px;
+		text-align:center;
+	}
+	.menuDetails_sub{
+		width:20px;
+		margin-left:5px;
+	}
+	.menuDetails_txt{
+		width:20px;
+		margin-left:5px;
+	}
+	.menuDetails_add{
+		width:20px;
+		margin-left:5px;
+	}
+	.menuDetails_delete{
+		width:40px;
+		background:red;
+		color:white;
+		font-size:12px;
+	}
+	.menuDetails_prices{
+		display:inline-block;
+		width:25px;
+		color:red;
+	}
+	/*
+	*菜单详情关闭按钮
+	*/
+	#menuDetails .menuDetails_close{
+		width:20px;
+		height:15px;
+		line-height:0px;
+		position:absolute;
+		top:0px;
+		right:60px;
+		background:
+	}
+	/*
+	*菜单提交汇总总样式
+	*/
+	#menuDetails_details{
+		width:100%;
+		font-size:15px;
+	}
+	/*
+	*总数量
+	*/
+	#menuDetails_details_span{
+		display:inline-block;
+		margin-left:30px;
+		width:80px;
+		text-align:center;
+	}
+	#menuDetails_details_num{
+		display:inline-block;
+		width:40px;
+		text-align:center;
+	}
+	#menuDetails_details_price{
+		display:inline-block;
+		margin-left:20px;
+		text-align:center;
+	}
+	#menuDetails_details_price_num{
+		display:inline-block;
+		text-align:left;
+		color:red;
+	}
+	#menuDetails_submit1{
+		height:36px;
+		margin-bottom:10px;
+	}
+	#menuDetails_submit1 button{
+		width:80px;
+		height:28px;
+		font-size:15px;
+		margin-left:40px;
+	}
+	#master_memu_tel{
+			position:absolute;
+			top:300px;right:10px;
+			width:30px;
+			POSITION: fixed; 
+			z-index:200;
+	}
+	#master_memu_top_search{
+		width:400px;
+		display:inline-block;
+		position:absolute;
+		top:0;
+		left:60%;
+		float:left;
+	}
+	#master_memu_top_search input{
+		width:200px;
+		display:inline-block;
+		float:left;
+	}
+	#menuDetailsShow{
+		position:absolute;
+		width:400px;
+		bottom:0px;right:0px;
+		position: fixed; 
+		z-index:30;
+		display:none;
+		background:white;
+	}
+	#menuDetailsShow_son{
+		width:100%;
+	}
+	#menuDetailsShow span{
+		margin-left:20px;
+	}
+	#menuDetailsShow_close{
+		width:20px;
+		height:15px;
+		line-height:0px;
+		position:absolute;
+		top:0px;
+		right:60px;
+		background:white;
+	}
