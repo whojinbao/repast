@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="default" extends="struts-default">
+		<action name="user_*" class="com.yang.action.staffAction" method="{1}">
+			<result name="ok">/houtai/yang_jsp/staff.jsp</result>
+			<result name="oq">/houtai/yang_jsp/staff.jsp</result>
+			<result name="ow">/houtai/yang_jsp/staff.jsp</result>
+			<result name="ot">/houtai/yang_jsp/staff.jsp</result>
+		</action>
+		<action name="auth_*" class="com.yang.action.authAction" method="{1}">
+			<result name="sa">/houtai/yang_jsp/auth.jsp</result>
+			<result name="sx">/houtai/yang_jsp/auth.jsp</result>
+			<result name="sd">/houtai/yang_jsp/auth.jsp</result>
+			<result name="sw">/houtai/yang_jsp/auth.jsp</result>
+		</action>
+	</package>
+</struts>    
