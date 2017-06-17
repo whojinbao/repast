@@ -1,4 +1,6 @@
+<%@page import="com.who.struts.ArrangeAction"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"
@@ -146,12 +148,22 @@ ul,li {
 							<td>最后上餐时间</td>
 							<td>预计等待时间</td>
 						</tr>
+						
 					</table>
 				</div>
 				<div  style="width:100%;height:88%;overflow: auto;">
 				<table  id="sortname_table">
 					<tr><td width=10% ></td><td width=10% ></td><td width=10% ></td><td  width=22% ></td><td  width=22% ></td></tr>
-					<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+					<c:forEach items="${total}"var="dishes">
+			    		<tr>
+			    			<td>${dishes.seatId }</td>
+			    			<td>${dishes.countNum }</td>
+			    			<td>${dishes.have }</td>
+			    			<td>${dishes.lastTime }</td> 
+			    			<td>${dishes.waitTime }</td>
+			    			
+			    		</tr>
+    				</c:forEach>
 				</table></div>
 			</div>
 		</div>
@@ -162,7 +174,7 @@ ul,li {
 					<tr>
 						<td  width=10% >菜品名称</td>
 						<td  width=10% >数量（份）</td>
-						<td  width=10% >所需时间</td>
+						<td  width=10% >等待时间</td>
 						<td  width=30% >操作</td>
 						<td  width=10% >所属桌台号</td>
 					</tr>
@@ -171,7 +183,21 @@ ul,li {
 			<div  style="width:100%;height:88%;overflow: auto;">
 				<table  id="sortname_table">
 					<tr><td width=10% ></td><td width=10% ></td><td width=10% ></td><td  width=30% ></td><td  width=10% ></td></tr>
-					<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+				
+					<c:forEach items="${dishesing}"var="dishes">
+			    		<tr>
+			    			<td>${dishes.menuName }</td>
+			    			<td>
+			    				<c:forEach items="${dishes.detailednum }"var="detailednum">
+			    				${detailednum}、
+			    				</c:forEach>
+			    			</td>
+			    			<td>${dishes.EWT }</td>
+			    			<td>${dishes.startTime }</td> 
+			    			<td>${dishes.seatId }</td>
+			    			
+			    		</tr>
+    				</c:forEach>
 				</table>
 			</div>
 
