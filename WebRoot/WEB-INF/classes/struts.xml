@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-<<<<<<< HEAD
+
                
      <package name="default" extends="struts-default">
       <!-- 全局配置 -->
@@ -21,7 +21,6 @@
        
       <action name="menu_*" class="com.zf.action.UseMenuAction" method="{1}">
        <result name="ok">/houtai/menu.jsp</result>
-      
      </action>    
      <!--  -->
      
@@ -39,15 +38,15 @@
        <result name="error">/error.jsp</result>
      </action> 
      
-     <!--  -->
-    </package>
-</struts>    
- 
-=======
-	<package name="default" extends="struts-default">
+     <!-- 跳转到派餐界面 -->
+     
 		<action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
 			<result name="arrange">/jsp/arrange.jsp</result>
 		</action>
-	</package>
+	
+    </package>
 </struts>    
->>>>>>> 671947d12c25baa87950088d1a09e396cb8c8472
+ 
+
+	   
+

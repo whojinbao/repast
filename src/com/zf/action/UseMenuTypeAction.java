@@ -97,8 +97,12 @@ public class UseMenuTypeAction {
 		if(ip.equals("addMenu")){
 			System.out.println("menuAdd");
 			return "menuAdd";
-		}else{
-		    return "ok";
+		}
+		if(ip.equals("addMenuType")){
+			return "ok";
+		}
+		else{
+		    return null;
 		}
 
 	}

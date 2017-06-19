@@ -38,7 +38,7 @@
 	<!-- 	<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>菜品Id：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="menu.menu_id">
+				<input type="text" class="input-text" value="" placeholder="" id="" name="menu.menuId">
 			</div>
 		</div> -->
 		
@@ -104,6 +104,7 @@
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
 			    <input type="submit" value="提交" class="btn btn-primary radius"> 
+			    
 				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
@@ -126,19 +127,22 @@
 <script type="text/javascript" src="lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
 <script type="text/javascript" src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
+
 function selMenuType(){
-     $.ajax({
+
+     $.ajax({          
 			type: 'POST',
 			url: 'menuType_sel.action?ip=addMenu',
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
+				
 			},
 			error:function(data) {
 				console.log(data.msg);
 			},
 		});	
+
 }
 $(function(){
 	$('.skin-minimal input').iCheck({
