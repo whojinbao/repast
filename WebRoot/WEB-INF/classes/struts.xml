@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+<<<<<<< HEAD
 
+=======
+>>>>>>> cbe191090606f98b0265a15d04257301afc0d2a4
                
      <package name="default" extends="struts-default">
       <!-- 全局配置 -->
@@ -39,14 +42,24 @@
      </action> 
      
      <!-- 跳转到派餐界面 -->
+<<<<<<< HEAD
      
 		<action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
 			<result name="arrange">/jsp/arrange.jsp</result>
 		</action>
 	
+=======
+     <action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
+			<result name="arrange">/jsp/arrange.jsp</result>
+		</action>
+>>>>>>> cbe191090606f98b0265a15d04257301afc0d2a4
     </package>
 </struts>    
  
 
+<<<<<<< HEAD
 	   
+=======
+		
+>>>>>>> cbe191090606f98b0265a15d04257301afc0d2a4
 
