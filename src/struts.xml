@@ -2,17 +2,69 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 	<package name="default" extends="struts-default">
-		<action name="p_*" class="com.caoqi_strutsaction.strutsAction" method="{1}">
+		<!-- 全局配置 -->
+       
+       
+       <global-results>
+            <result name="error">/error.jsp</result>
+            <result name="crash">/crash.jsp</result>
+            <result name="needsLogin">/needsLogin.jsp</result>
+            <result name="input">/needsInit.jsp</result>
+            <result name="needsInit">/needsInit.jsp</result>
+        </global-results>
+	
+		<action name="p_*" class="com.caoqi.strutsaction.strutsAction" method="{1}">
 			<result name="ok">/houtai/caoqi/zhuozi.jsp</result>
 			<result name="oq">/houtai/caoqi/zhuozi.jsp</result>
 			<result name="ow">/houtai/caoqi/zhuozi.jsp</result>
 			<result name="ot">/houtai/caoqi/zhuozi.jsp</result>
 		</action>
-		<action name="k_*" class="com.caoqi_strutsaction.strutsQianImgAction" method="{1}">			
+		<action name="k_*" class="com.caoqi.strutsaction.strutsQianImgAction" method="{1}">			
 			<result name="pk">/qiantai/waiter/waiter.jsp</result>
 			<result name="py">/qiantai/waiter/waiter.jsp</result>
 			<result name="pm">/qiantai/waiter/waiter.jsp</result>
 			<result name="po">/qiantai/waiter/waiter.jsp</result>
 		</action>
-	</package>
-</struts>    
+      
+     <!-- 菜品 ，菜品分类的action，xml设置 -->
+     <action name="menuType_*" class="com.zf.action.UseMenuTypeAction" method="{1}">
+       <result name="ok">/houtai/menuType.jsp </result>
+       <result name="menuAdd">/houtai/menuAdd.jsp</result>
+     
+     </action>
+       
+      <action name="menu_*" class="com.zf.action.UseMenuAction" method="{1}">
+       <result name="ok">/houtai/menu.jsp</result>
+     </action>    
+     <!--  -->
+     
+     <!-- 订单，的action，Xml设置 -->
+     <action name="order_*" class="com.zf.action.UseOrderAction" method="{1}">
+       <result name="ok">/houtai/orderList.jsp</result>
+       
+     </action> 
+     
+     <!--  -->
+     
+     <!-- 订单详情的action，Xml设置 -->
+     <action name="detailed_*" class="com.zf.action.UseDetailedAction" method="{1}">
+       <result name="ok">/houtai/detailed.jsp</result>
+       <result name="error">/error.jsp</result>
+     </action> 
+     
+     <!-- 跳转到派餐界面 -->
+
+     
+		<action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
+			<result name="arrange">/jsp/arrange.jsp</result>
+		</action>
+	
+
+     <action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
+			<result name="arrange">/jsp/arrange.jsp</result>
+		</action>
+
+    </package>  
+    </struts> 
+ 
+

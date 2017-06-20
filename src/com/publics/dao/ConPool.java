@@ -12,7 +12,6 @@ public class ConPool {
 		dataSource.setUrl("jdbc:sqlserver://172.16.22.44:1433;DatabaseName=repast");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("123456");
-		
 	}
 	public Connection getConnection(){
 		try {
@@ -23,6 +22,7 @@ public class ConPool {
 			// TODO: handle exception
 		}return null;
 	}
+	
 	public void close(){
 		try {
 				dataSource.close();
@@ -30,4 +30,12 @@ public class ConPool {
 			// TODO: handle exception
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
