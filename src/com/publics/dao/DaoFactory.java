@@ -15,7 +15,7 @@ public class DaoFactory {
 			if(rs!=null){rs.close();rs=null;};
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e.getMessage());
+			System.out.println("99"+e.getMessage());
 		}
 	}
 	public static void setParams(PreparedStatement ps,Object[] params){
@@ -41,6 +41,7 @@ public class DaoFactory {
 			System.out.println(e.getMessage());
 		}finally{
 			closeAll(con, ps, null);
+			conPool.close();
 		}
 		return -1;
 	}
@@ -56,7 +57,10 @@ public class DaoFactory {
 			rs=ps.executeQuery();
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e.getMessage());
-		}return rs;
+			System.out.println("0"+e.getMessage());
+		}finally{
+			conPool.close();
+		}
+		return rs;
 	}
 }
