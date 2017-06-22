@@ -9,7 +9,7 @@ import com.who.getdata.DishesDao;
 public class Combine {
 	DishesDao dd=new DishesDao();
 	List<Dishes> liDishes=dd.getDishes();
-	List<Integer> liNum=dd.getDetailed();
+	List<String> liNum=dd.getDetailed();
 	/*
 	 * 数据库中读取到的值进行分桌
 	 * 每一桌所有数据放进一个List<Dishes>中
@@ -20,11 +20,11 @@ public class Combine {
 		List<List<Dishes>> lli=new ArrayList<List<Dishes>>();
 		for (int i = 0; i < liNum.size(); i++) {			//分桌
 			List<Dishes> ld=new ArrayList<Dishes>();
-			int b=liNum.get(i);
+			String b=liNum.get(i);
 			int flag=-1;
 			for (int j = 0; j < liDishes.size(); j++) {
-				int a=liDishes.get(j).getDetailedId();
-				if (a==b) {
+				String a=liDishes.get(j).getDetailedId().get(0);
+				if (a.equals(b)) {
 					ld.add(liDishes.get(j));
 					flag=1;
 				}
@@ -84,24 +84,29 @@ public class Combine {
 	*/
 	private List<List<Dishes>> fencai(int i,int j,List<List<Dishes>> ll,int max){
 		Dishes din=ll.get(i).get(j);
-		int a=din.getQuantity().get(0);
-		din.getQuantity().add(0, max);
+		String a=din.getQuantity().get(0);
+		String max1=Integer.toString(max);
+		din.getQuantity().add(0, max1);
 		din.getQuantity().remove(1);
 		Dishes dink=new Dishes();
-		dink.setDetailedId(din.getDetailedId());
+		List<String> ss=new ArrayList<String>();
+		ss.add(din.getDetailedId().get(0));
+		dink.setDetailedId(ss);
 		dink.setDoTime(din.getDoTime());
 		dink.setMaxNum(din.getMaxNum());
 		dink.setMenuId(din.getMenuId());
 		dink.setMenuName(din.getMenuName());
 		dink.setProduct(din.getProduct());
-		List<Integer> num=new ArrayList<Integer>();
-		num.add(a-max);
+		List<String> num=new ArrayList<String>();
+		int ab=Integer.parseInt(a)-max;
+		String abc=Integer.toString(ab);
+		num.add(abc);
 		dink.setQuantity(num);
 		dink.setSeat(din.getSeat());
-		dink.setSeatId(din.getSeatId());
+		dink.setSeatId(din.getSeatId().get(0));
 		j++;
 		ll.get(i).add(j, dink);
-		if(a-max>max){fencai(i,j,ll,max);}
+		if(ab>max){fencai(i,j,ll,max);}
 		return ll;
 	};
 	/*
@@ -115,7 +120,7 @@ public class Combine {
 				Dishes din=ll.get(i).get(j);
 				int num=0;
 				for (int k = 0; k < din.getQuantity().size(); k++) {
-					num+=din.getQuantity().get(k);
+					num+=Integer.parseInt(din.getQuantity().get(k));
 				}
 				if (num<din.getMaxNum()) {
 					int flag=-1;
@@ -125,11 +130,12 @@ public class Combine {
 							if(din.getMenuId()==dink.getMenuId()){
 								int num_1=0;
 								for (int k_1 = 0; k_1 < din.getQuantity().size(); k_1++) {
-									num_1 +=din.getQuantity().get(k_1);
+									num_1 +=Integer.parseInt(din.getQuantity().get(k_1));
 								}
-								int num_2=dink.getQuantity().get(0);
+								int num_2=Integer.parseInt(dink.getQuantity().get(0));
 								if (num_1+num_2<=din.getMaxNum()) {
 									din.getSeatId().add(dink.getSeatId().get(0));
+									din.getDetailedId().add(dink.getDetailedId().get(0));
 									din.getQuantity().add(dink.getQuantity().get(0));
 									ll.get(k).remove(k2);
 									k2--;
@@ -140,8 +146,9 @@ public class Combine {
 								}else{
 									din.getSeatId().add(dink.getSeatId().get(0));
 									int minnun=din.getMaxNum()-num_1;
-									din.getQuantity().add(minnun);
-									dink.getQuantity().set(0, dink.getQuantity().get(0)-minnun);
+									din.getQuantity().add(Integer.toString(minnun));
+									din.getDetailedId().add(dink.getDetailedId().get(0));
+									dink.getQuantity().set(0, Integer.toString(Integer.parseInt(dink.getQuantity().get(0))-minnun));
 									flag=1;
 									break;
 								}
@@ -150,6 +157,9 @@ public class Combine {
 						if (flag==1) {
 							break;
 						}
+						
+						
+						
 					}
 				}else if (num>din.getMaxNum()){         //调用分菜方法
 					ll=fencai(i,j,ll,din.getMaxNum());

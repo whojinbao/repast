@@ -11,7 +11,7 @@ public class HearthDao {
 	 */
 	public int getHearth(){
 		DaoFactory dd=new DaoFactory();
-		String sql="select num from hearth where id=1";
+		String sql="select num from hearth";
 		ResultSet rs=dd.executeQuery(sql, null);
 		int num=0;
 		try {

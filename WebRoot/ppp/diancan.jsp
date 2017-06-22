@@ -332,7 +332,7 @@ a {
 							<button class="add_shopp">放入购物车</button>					<!-- 蓝色放入购物车 -->
 							<div class="add_shopp_div">	
 								<button class="shopping_minus" >-</button>				<!-- -按钮 -->
-								<input class="shopping_input" type="text" value="1">				<!-- +-中间的输入框	 -->
+								<input class="shopping_input" type="text" value="1">	<!-- +-中间的输入框	 -->
 								<button class="shopping_add">+</button>					<!-- +按钮 -->
 							</div>
 						</div>

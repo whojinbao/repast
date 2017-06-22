@@ -4,18 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.who.getdata.Dishes;
-import com.who.getdata.DishesDao;
 
-public class Sort2 {
+public class Sort3 {
 	/*
 	 * 按照每桌第一道菜进行排序
 	 * 把List<List<Dishes>>按照每桌第一道添加List<Dishes>
 	 * 
 	 */
 	private List<Dishes> heList(){
-		
-		DishesDao dd=new DishesDao();
-		List<String> lls=dd.getSeatList();
 		Combine pp=new Combine();
 		List<List<Dishes>> ll=pp.sort();
 		List<Dishes> ld=new ArrayList<Dishes>();
@@ -25,8 +21,8 @@ public class Sort2 {
 				flag++;
 			}
 		}
-		List<String> strings=lls;
 		for (int i = 0; i < flag; i++) {
+			List<String> strings=new ArrayList<String>();
 			for (int k = 0; k <ll.size(); k++) {
 				if(ll.get(k).size()>0){
 					int flag1=1;
@@ -44,9 +40,6 @@ public class Sort2 {
 						}
 						ll.get(k).remove(0);
 					}
-				}
-				if(k==(ll.size()-1)){
-					strings=new ArrayList<String>();
 				}
 			}
 
