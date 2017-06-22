@@ -46,14 +46,14 @@ public class UseDetailedDao {
      * 对订单详情表 detailed 的查询，全部数据
      */
     public List<Detailed> selDetailed(Integer orderId){
-    	System.out.println("dao");
-    	ResultSet rs = null;
     	
-    	if( orderId != null){
+    	ResultSet rs = null;
+    	if( orderId != null && orderId >=0){
     		String sql2 = "select * from detailed where orderId = (?) ";
     		Object [] obj = {orderId};
     		 rs= da1.executeQuery(sql2, obj);
     	}else{
+    		System.out.println("null");
     		String sql1 = "select * from detailed";
     		
     		 rs= da1.executeQuery(sql1, null);

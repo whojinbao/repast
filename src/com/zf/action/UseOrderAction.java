@@ -66,8 +66,7 @@ public class UseOrderAction {
 	 * 
 	 */
 	public String  delOrder(){
-		int orderId =Integer.parseInt( request.getParameter("orderId"));
-		System.out.println(orderId);
+		int orderId =Integer.parseInt( request.getParameter("orderId"));	
         useOrderDao.delOrder(orderId);
         selOrder();
         return "ok";

@@ -89,7 +89,6 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
 	]
 });
-$(".f-14 product-brand-manage");
 
 
 /**
@@ -99,18 +98,24 @@ $(".f-14 product-brand-manage");
 
 
 function product_del(obj,id){
+if(confirm("确认要删除吗？")){
 		$.ajax({
 			type: 'POST',
-			url: 'menuType_del.action?menuTypeId='+id,
+			url: 'menuType_del.action',
+			data:{menuTypeId:id},
 			dataType: 'json',
 			success: function(data){
-				$(obj).parents("tr").remove();				
+				
+				$(obj).parents("tr").remove();	
+					
 			},
 			error:function(data) {
 				console.log(data.msg);
+				
 			},
+			
 		});		
-	
+}
 }
 </script>
 </body>

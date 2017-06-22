@@ -9,7 +9,7 @@ public class ConPool {
 	static {
 		dataSource =new BasicDataSource();
 		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		dataSource.setUrl("jdbc:sqlserver://localhost:1433;DatabaseName=repast");
+		dataSource.setUrl("jdbc:sqlserver://172.16.22.44:1433;DatabaseName=repast");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("123456");
 	}

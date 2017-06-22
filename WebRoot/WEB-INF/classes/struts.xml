@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-               
-     <package name="default" extends="struts-default">
-      <!-- 全局配置 -->
+	<package name="default" extends="struts-default">
+		<!-- 全局配置 -->
+       
+       
        <global-results>
             <result name="error">/error.jsp</result>
             <result name="crash">/crash.jsp</result>
@@ -11,6 +12,20 @@
             <result name="input">/needsInit.jsp</result>
             <result name="needsInit">/needsInit.jsp</result>
         </global-results>
+	
+		<action name="p_*" class="com.caoqi.strutsaction.strutsAction" method="{1}">
+			<result name="ok">/houtai/caoqi/zhuozi.jsp</result>
+			<result name="oq">/houtai/caoqi/zhuozi.jsp</result>
+			<result name="ow">/houtai/caoqi/zhuozi.jsp</result>
+			<result name="ot">/houtai/caoqi/zhuozi.jsp</result>
+		</action>
+		<action name="k_*" class="com.caoqi.strutsaction.strutsQianImgAction" method="{1}">			
+			<result name="pk">/qiantai/waiter/waiter.jsp</result>
+			<result name="py">/qiantai/waiter/waiter.jsp</result>
+			<result name="pm">/qiantai/waiter/waiter.jsp</result>
+			<result name="po">/qiantai/waiter/waiter.jsp</result>
+		</action>
+      
      <!-- 菜品 ，菜品分类的action，xml设置 -->
      <action name="menuType_*" class="com.zf.action.UseMenuTypeAction" method="{1}">
        <result name="ok">/houtai/menuType.jsp </result>
@@ -20,7 +35,6 @@
        
       <action name="menu_*" class="com.zf.action.UseMenuAction" method="{1}">
        <result name="ok">/houtai/menu.jsp</result>
-      
      </action>    
      <!--  -->
      
@@ -39,13 +53,13 @@
      </action> 
      
      <!-- 跳转到派餐界面 -->
+
      <action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
 			<result name="arrange" type="redirect">/jsp/arrange.jsp</result>
 			<result name="updateStatus" type="redirect">/jsp/arrange.jsp</result>
 		</action>
-    </package>
-</struts>    
- 
 
-		
+    </package>  
+    </struts> 
+ 
 

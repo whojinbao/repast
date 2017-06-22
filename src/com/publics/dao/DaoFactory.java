@@ -15,7 +15,7 @@ public class DaoFactory {
 			if(rs!=null){rs.close();rs=null;};
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e.getMessage());
+			System.out.println("99"+e.getMessage());
 		}
 	}
 	public static void setParams(PreparedStatement ps,Object[] params){
@@ -61,5 +61,6 @@ public class DaoFactory {
 		}finally{
 			conPool.close();
 		}return rs;
+
 	}
 }

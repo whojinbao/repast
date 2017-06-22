@@ -40,14 +40,14 @@
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="100">订单Id</th>
-					<th width="100">详单Id</th>
+				
 					<th width="100">下单时间</th>
 					<th width="130">桌号（或客户id）</th>
 					<th width="100">员工Id</th>
 					<th width="100">订单状态（是否结账）</th>
 					<th width="100">订单类别（外卖，线下）</th>
 					<th width="100">总价</th>
-					<th>URL</th>
+					<th width="100">订单详情表</th>
 					<th width="60">操作</th>
 				</tr>
 			</thead>
@@ -62,8 +62,8 @@
 					<td>${order.orderStatus }</td>
 					<td>${order.orderSort }</td>
 					<td>${order.totalPrice }</td>
-						<td><a href="detailed_selDetailed.action?ip=detailedJsp&&orderId='${order.orderId }'"/>订单详情表</a></td>
-					<td class="text-l"></td>
+					<td><a href="detailed_selDetailed.action?orderId=${order.orderId }"/>订单详情表</a></td>
+					
 					<td class="f-14">
 					    <a title="删除" href="javascript:;" onclick="user_del(this,'${order.orderId }')" class="ml-5" style="text-decoration:none">
 					    <i class="Hui-iconfont">&#xe6e2;</i></a>
@@ -99,7 +99,8 @@ $('.table-sort').dataTable({
 function user_del(obj,id){
 		$.ajax({
 			type: 'POST',
-			url: 'order_delOrder.action?orderId='+id,
+			url: 'order_delOrder.action?',
+			data:{orderId:id},
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();
