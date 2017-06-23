@@ -7,26 +7,34 @@ import java.util.List;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class Dishesing {
-	private List<Integer> seatId=new ArrayList<Integer>();
+	private List<String> seatId=new ArrayList<String>();
 	private int menuId;
 	private String menuName;
 	private int maxNum;
 	private int doTime;
-	private int detailedId;
+	private List<String> detailedId =new ArrayList<String>();
 	private Date startTime;
 	private int EWT;
+	private int percentage;
 	private List<Integer> detailednum=new ArrayList<Integer>();
+	public int getPercentage() {
+		percentage=99;
+		if(EWT>0){
+			percentage=(doTime*60000-EWT)*100/(doTime*60000);
+		}
+		return percentage;
+	}
 	public List<Integer> getDetailednum() {
 		return detailednum;
 	}
 	public void setDetailednum(int detailednum) {
 		this.detailednum.add(detailednum);
 	}
-	public void setSeatId(List<Integer> seatId) {
+	public void setSeatId(List<String> seatId) {
 		this.seatId = seatId;
 	}
 	public int getEWT() {
-		return EWT;
+		return EWT/60000;
 	}
 	public void setEWT(int eWT) {
 		EWT = eWT;
@@ -43,10 +51,10 @@ public class Dishesing {
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
-	public List<Integer> getSeatId() {
+	public List<String> getSeatId() {
 		return seatId;
 	}
-	public void setSeatId(int seatId) {
+	public void setSeatId(String seatId) {
 		this.seatId.add(seatId);
 	}
 	public int getMenuId() {
@@ -67,11 +75,14 @@ public class Dishesing {
 	public void setDoTime(int doTime) {
 		this.doTime = doTime;
 	}
-	public int getDetailedId() {
+	public List<String> getDetailedId() {
 		return detailedId;
 	}
-	public void setDetailedId(int detailedId) {
-		this.detailedId = detailedId;
+	public void setDetailedId(String detailedId) {
+		this.detailedId.add(detailedId);
+	}
+	public void setDetailedId(List<String> detailedId) {
+		this.detailedId=detailedId;
 	}
 	
 	

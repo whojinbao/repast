@@ -23,7 +23,7 @@
 <![endif]-->
 <title>查询订单详情表</title>
 </head>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 订单管理 <span class="c-gray en">&gt;</span> 查询订单详情表<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="detailed_selDetailed.action" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 订单管理 <span class="c-gray en">&gt;</span> 查询订单详情表<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="detailed_selDetailed.action?orderId=-1" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c"> 日期范围：
 		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
@@ -98,8 +98,8 @@ $('.table-sort').dataTable({
 function user_del(obj,id){
 		$.ajax({
 			type: 'POST',
-			url: 'detailed_selDetailed.action?detailedId'+id,
-			dataType: 'json',
+			url: 'detailed_delDetailed.action',
+			dataType: {detailedId:id},
 			success: function(data){
 				$(obj).parents("tr").remove();
 				alert("已删除！");

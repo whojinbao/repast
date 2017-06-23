@@ -27,9 +27,9 @@
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 
-<span class="c-gray en">&gt;</span> 菜品分类
- <span class="c-gray en">&gt;</span>  
- <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="menuType_sel.action?ip=addMenuType" title="刷新" >
+ <span class="c-gray en">&gt;</span>菜谱设置
+ <span class="c-gray en">&gt;</span>菜品分类
+ <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="menuType_sel.action?" title="刷新" >
  <i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
@@ -41,9 +41,9 @@
 			<!-- <button type="submit" class="btn btn-success" id="" name="submit" onClick="picture_colume_add(this);"> 添加</button> -->
 		</form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"></span>每页${MenuTypePageUtil.maxPage }  条 <span class="r">共有数据：<strong>${MenuTypePageUtil.count }</strong> 条</span> </div>
 	<div class="mt-20">
-		<table class="table table-border table-bordered table-bg table-sort">
+		<table class="table table-border table-bordered table-bg ">
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
@@ -55,7 +55,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			   <c:forEach items="${menuTypeList }" var="menuType">
+			   <c:forEach items="${MenuTypePageUtil.list }" var="menuType">
 			      <tr class="text-c">
 				    	<td><input name="" type="checkbox" value=""></td>
 					    <td>${menuType.typeId }</td>					
@@ -67,7 +67,9 @@
 			   </c:forEach>
 								
 			</tbody>
+			
 		</table>
+		<div>${MenuTypePageUtil.pageStr }</div>
 	</div>
 </div>
 <!--_footer 作为公共模版分离出去-->
@@ -89,7 +91,6 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
 	]
 });
-$(".f-14 product-brand-manage");
 
 
 /**
@@ -99,18 +100,24 @@ $(".f-14 product-brand-manage");
 
 
 function product_del(obj,id){
+if(confirm("确认要删除吗？")){
 		$.ajax({
 			type: 'POST',
-			url: 'menuType_del.action?menuTypeId='+id,
+			url: 'menuType_del.action',
+			data:{menuTypeId:id},
 			dataType: 'json',
 			success: function(data){
-				$(obj).parents("tr").remove();				
+				
+				$(obj).parents("tr").remove();	
+					
 			},
 			error:function(data) {
 				console.log(data.msg);
+				
 			},
+			
 		});		
-	
+}
 }
 </script>
 </body>

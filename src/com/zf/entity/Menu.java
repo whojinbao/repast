@@ -14,8 +14,11 @@ public class Menu {
     private int doTime;
     private int maxNum;
     private int menuTypeId;
-   private String menuTypeName;
+	private String menuTypeName;
     private int menuPrice;
+    private String imgUrl;
+    private String menuDescribe;
+    
 	public int getMenuPrice() {
 		return menuPrice;
 	}
@@ -58,6 +61,18 @@ public class Menu {
 	}
 	public void setMenuTypeName(String menuTypeName) {
 		this.menuTypeName = menuTypeName;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+	public String getMenuDescribe() {
+		return menuDescribe;
+	}
+	public void setMenuDescribe(String menuDescribe) {
+		this.menuDescribe = menuDescribe;
 	}
 
 	

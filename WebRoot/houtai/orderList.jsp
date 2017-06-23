@@ -26,28 +26,28 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 订单管理 <span class="c-gray en">&gt;</span> 查询订单<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="order_selOrder.action" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
+    <form action="order_selMhOrder.action" method="post">
 	<div class="text-c"> 日期范围：
-		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
-		-
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-		<input type="text" class="input-text" style="width:250px" placeholder="" id="" name="">
+		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;" name="startTime">
+		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;" name="endTime">
+		<input type="text" class="input-text" style="width:250px" placeholder="桌号" id="" name="mhOredrSeatId">
 		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜记录</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <!--<span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> --> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="100">订单Id</th>
-					<th width="100">详单Id</th>
+					<th width="100">订单Id</th>				
 					<th width="100">下单时间</th>
 					<th width="130">桌号（或客户id）</th>
 					<th width="100">员工Id</th>
 					<th width="100">订单状态（是否结账）</th>
 					<th width="100">订单类别（外卖，线下）</th>
 					<th width="100">总价</th>
-					<th>URL</th>
+					<th width="100">订单详情表</th>
 					<th width="60">操作</th>
 				</tr>
 			</thead>
@@ -62,8 +62,8 @@
 					<td>${order.orderStatus }</td>
 					<td>${order.orderSort }</td>
 					<td>${order.totalPrice }</td>
-						<td><a href="detailed_selDetailed.action?ip=detailedJsp&&orderId='${order.orderId }'"/>订单详情表</a></td>
-					<td class="text-l"></td>
+					<td><a href="detailed_selDetailed.action?orderId=${order.orderId }"/>订单详情表</a></td>
+					
 					<td class="f-14">
 					    <a title="删除" href="javascript:;" onclick="user_del(this,'${order.orderId }')" class="ml-5" style="text-decoration:none">
 					    <i class="Hui-iconfont">&#xe6e2;</i></a>
@@ -91,7 +91,7 @@ $('.table-sort').dataTable({
 	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 	"bStateSave": true,//状态保存
 	"aoColumnDefs": [
-	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"bVisible": false, "aTargets": [ 3 ]}, //控制列的隐藏显示
 	  {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
 	]
 });
@@ -99,7 +99,8 @@ $('.table-sort').dataTable({
 function user_del(obj,id){
 		$.ajax({
 			type: 'POST',
-			url: 'order_delOrder.action?orderId='+id,
+			url: 'order_delOrder.action?',
+			data:{orderId:id},
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();

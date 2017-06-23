@@ -26,7 +26,10 @@ public class Sort1 {
 	 * Êä³ö½á¹û
 	 */
 	public List<Dishes> outPuttimes(){
+
+		
 		Allot cc=new Allot();
-		return cc.outPuttimes(heList()) ;
+		return cc.outPuttimes(heList());
+		
 	}
 }

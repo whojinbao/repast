@@ -1,0 +1,49 @@
+*{margin:0px;padding:0px;}
+	ul{
+			list-style:none;
+		}
+		a{
+			text-decoration:none;
+			width:20%
+		}
+		#tab{
+			width:100%;;
+			border:1px solid white;
+			overflow:auto;
+		}
+		#map{
+			background:url(../image/5.jpg.jpg);
+			height:50px;
+
+		}
+		li{
+			float:left;
+			width:20%;
+			height:50px;
+			text-align:center;
+			line-height:50px;
+		}
+		#div2,#div3,#div4{
+			display:none;
+		}
+		.tabstyle{
+			border-left:1px solid blue;
+			border-top:1px solid blue;
+			border-right:1px solid blue;
+			width:20%;
+			background:url(../image/3.jpg.jpg);
+		}
+		#content{
+			clear:both;
+			float:left;
+			width:91%;
+		}
+		button{
+			width:100px;
+			margin-buttom:-10px;
+		}
+		#bb1{
+			width:109px;
+			float:left;
+		}
+		

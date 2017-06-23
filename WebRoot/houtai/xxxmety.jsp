@@ -9,10 +9,9 @@
   </head>
   
   <body>
-     <a href="menuType_sel.action">查询</a>
-
-    <c:forEach items="${menuTypeList }" var="menuType">
-					    <option value="${menuType.typeId }">${menuType.typeName }</option>					
-	</c:forEach>
+  <a href="shopCart_del.action">xx</a>
+     <c:forEach items="${MenuTypeList }" var="menuType">
+       ${menuType.typeName}
+    </c:forEach>
   </body>
 </html>

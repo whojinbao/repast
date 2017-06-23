@@ -37,19 +37,20 @@ public class UseDetailedAction {
 	public void setDetailed1(Detailed detailed1) {
 		this.detailed1 = detailed1;
 	}
-	
-	
+
+
 	/**
 	 * addDetailed()订单的添加
 	 * detailed1
 	 * 
 	 */
-	public String addDetailed(){
-		useDetailedDao.addDetailed(detailed1);
-		//刷新
-		return "ok";
+	public String addDetailed(Detailed detailed){
+		System.out.println(detailed.getMenuId());
+		useDetailedDao.addDetailed(detailed);
+		/*selDetailed();  //刷新
+*/		return "ok";
 	}
-	
+
 	/**
 	 * delDetailed()订单的删除
 	 * detailedId
@@ -58,11 +59,11 @@ public class UseDetailedAction {
 	public String delDetailed(){
 		int detailedId = Integer.parseInt(request.getParameter("detailedId"));
 		useDetailedDao.delDetailed(detailedId);
-		
+		selDetailed();
 		return "ok";
 	}
-	
-	
+
+
 	/**
 	 * selDetailed()订单的查询，
 	 * detailedList detailed 订单详情单的链表 ，放入session中
@@ -71,23 +72,12 @@ public class UseDetailedAction {
 	 * 如果ip 为空 则为detailed.jsp发的请求
 	 */
 	public String selDetailed(){
-		System.out.println("sel");
-	  	 List<Detailed> detailedList = null;
-	  	  Integer orderId;
-		  String ip = request.getParameter("ip");
-		  System.out.println( request.getParameter("ip"));
-		  orderId = Integer.parseInt(request.getParameter("orderId"));
-		  System.out.println(orderId);
-		  if(ip == null){
-			  System.out.println("kong");			 
-			  detailedList = useDetailedDao.selDetailed(orderId);
-		  }
-		  if(ip.equals("detailedJsp")){
-			  System.out.println("de");			 
-			  detailedList = useDetailedDao.selDetailed(orderId);
-		  }
 
-			session.setAttribute("detailedList", detailedList);
+		System.out.println("sel"); 	  		  	 
+		Integer orderId = Integer.parseInt(request.getParameter("orderId"));
+		System.out.println(orderId);
+		List<Detailed> detailedList = useDetailedDao.selDetailed(orderId);
+		session.setAttribute("detailedList", detailedList);
 
 		return "ok";
 	}

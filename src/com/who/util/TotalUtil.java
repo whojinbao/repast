@@ -43,11 +43,10 @@ public class TotalUtil {
 	public String getWaitTime() {
 		return waitTime;
 	}
-	public void setWaitTime(Integer waitTime) {
+	public void setWaitTime(String time) {
 		String lastString="--";
-		if(waitTime!=null&&waitTime!=0){
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		 lastString=sdf.format(waitTime);
+		if(time!=null){
+			lastString=time;
 		}
 		this.waitTime = lastString;
 	}

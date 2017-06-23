@@ -75,8 +75,8 @@ a {color:#00007F;text-decoration:none;}
 	*/
 	#master_memu_left{
 		position:absolute;
-		top:300px;left:0px;
-		width:200px;
+		top:160px;left:0px;
+		width:160px;
 		POSITION: fixed; 
 	}
 	/*

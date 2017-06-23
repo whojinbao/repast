@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * 
- * 订单ID	                     详单ID        	下单时间	                 菜id	数量	       状态（是否上菜）	开始时间                               上菜时间
+ * 订单ID	                     详单ID        	下单时间	                 菜id	数量	       状态（是否上菜）	开始时间                    上菜时间
   orderId	detailedId	detailedTime	menuId	num	  dishesStatus	stateTime	outTime
 
  * @author Administrator
@@ -21,7 +21,8 @@ public class Detailed {
 	private int dishesStatus;
     private Date stateTime;
     private Date outTime;
-    public int getMenuName() {
+
+	public int getMenuName() {
 		return menuName;
 	}
 	public void setMenuName(int menuName) {
