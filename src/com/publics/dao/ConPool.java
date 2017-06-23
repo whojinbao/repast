@@ -9,10 +9,10 @@ public class ConPool {
 	static {
 		dataSource =new BasicDataSource();
 		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		dataSource.setUrl("jdbc:sqlserver://localhost:1433;DatabaseName=repast");
+		dataSource.setUrl("jdbc:sqlserver://172.16.22.44:1433;DatabaseName=repast");
+		 //dataSource.setUrl("jdbc:sqlserver://localhost:1433;DatabaseName=repast");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("123456");
-		
 	}
 	public Connection getConnection(){
 		try {
@@ -23,6 +23,7 @@ public class ConPool {
 			// TODO: handle exception
 		}return null;
 	}
+	
 	public void close(){
 		try {
 				dataSource.close();
@@ -30,4 +31,5 @@ public class ConPool {
 			// TODO: handle exception
 		}
 	}
+	
 }

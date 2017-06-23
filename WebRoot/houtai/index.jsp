@@ -86,18 +86,13 @@
 			<dd>
 				<ul>
 					<li><a data-href="picture-list.html" data-title="设置权限" href="javascript:void(0)">设置权限</a></li>
+					<li><a data-href="yang_jsp/staff.jsp" data-title="员工管理" href="javascript:void(0)">员工管理</a></li>
+					<li><a data-href="yang_jsp/role.jsp" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
+					<li><a data-href="yang_jsp/auth.jsp" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
 			</ul>
 		</dd>
 	</dl>
-		<dl id="menu-product">
-			<dt><i class="Hui-iconfont">&#xe620;</i> 员工管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="product-brand.html" data-title="添加员工" href="javascript:void(0)">添加员工</a></li>
-					<li><a data-href="product-category.html" data-title="员工修改" href="javascript:void(0)">员工修改</a></li>
-			</ul>
-		</dd>
-	</dl>
+		
 		<dl id="menu-comments">
 			<dt><i class="Hui-iconfont">&#xe622;</i>菜谱配置<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>

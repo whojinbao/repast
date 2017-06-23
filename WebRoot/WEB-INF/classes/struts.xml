@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+	
 	<package name="default" extends="struts-default">
+		
 		<action name="user_*" class="com.yang.action.staffAction" method="{1}">
 			<result name="ok">/houtai/yang_jsp/staff.jsp</result>
 			<result name="oq">/houtai/yang_jsp/staff.jsp</result>
@@ -14,5 +16,21 @@
 			<result name="sd">/houtai/yang_jsp/auth.jsp</result>
 			<result name="sw">/houtai/yang_jsp/auth.jsp</result>
 		</action>
+		<action name="role_*" class="com.yang.action.roleAction" method="{1}">
+			<result name="rq">/houtai/yang_jsp/role.jsp</result>
+			<result name="rw">/houtai/yang_jsp/role.jsp</result>
+			<result name="re">/houtai/yang_jsp/role.jsp</result>
+			<result name="rr">/houtai/yang_jsp/role.jsp</result>
+		</action>
+		<action name="login_*" class="com.yang.action.LoginAction" method="{1}">
+			<result name="ow">/houtai/index.jsp</result>	
+		</action>
+		<action name="QT_*" class="com.yang.dao.QTAction" method="{1}">
+			<result name="ow1">/houtai/index.jsp</result>	
+		</action>
 	</package>
 </struts>    
+
+         
+
+
