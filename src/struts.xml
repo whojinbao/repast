@@ -3,8 +3,6 @@
 <struts>
 	<package name="default" extends="struts-default">
 		<!-- 全局配置 -->
-       
-       
        <global-results>
             <result name="error">/error.jsp</result>
             <result name="crash">/crash.jsp</result>
@@ -24,6 +22,7 @@
 			<result name="py">/qiantai/waiter/waiter.jsp</result>
 			<result name="pm">/qiantai/waiter/waiter.jsp</result>
 			<result name="po">/qiantai/waiter/waiter.jsp</result>
+			<result name="mk">/qiantai/waiter/waiter.jsp</result>
 		</action>
       
      <!-- 菜品 ，菜品分类的action，xml设置 -->
@@ -39,8 +38,7 @@
      
      <!-- 订单，的action，Xml设置 -->
      <action name="order_*" class="com.zf.action.UseOrderAction" method="{1}">
-       <result name="ok">/houtai/orderList.jsp</result>
-       
+       <result name="ok">/upload/upload.jsp</result>
      </action> 
      
      <!--  -->
@@ -57,7 +55,12 @@
        <result name="ok">/houtai/detailed.jsp</result> 
      </action> 
      
-     <!-- 跳转到派餐界面 -->
+      <!-- 上传的配置 -->
+     <action name="u_*" class="com.upload.upload" method="{1}">
+     	<result name="error">/upload/upload.jsp</result>
+     </action>
+     
+     <!-- 跳转到派餐界面 --> 
      <action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
 			<result name="arrange" type="redirect">/jsp/arrange.jsp</result>
 			<result name="updateStatus" type="redirect">/jsp/arrange.jsp</result>

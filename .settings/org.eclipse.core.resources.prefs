@@ -1,8 +1,12 @@
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 #Mon Jun 19 23:37:43 CST 2017
 =======
 #Fri Jun 16 16:41:05 CST 2017
 >>>>>>> 3335af9188283ec1fad2c99cddb7956a3f8648a0
+=======
+#Tue Jun 20 14:14:32 CST 2017
+>>>>>>> Stashed changes
 eclipse.preferences.version=1
 encoding//WebRoot/houtai/lib/ueditor/1.4.3/third-party/webuploader/webuploader.custom.js=UTF-8
 encoding//WebRoot/houtai/static/h-ui.admin/js/de_DE.txt=UTF-8

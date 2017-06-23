@@ -93,7 +93,7 @@
 			<dt><i class="Hui-iconfont">&#xe620;</i> 员工管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="product-brand.html" data-title="添加员工" href="javascript:void(0)">添加员工</a></li>
+					<li><a data-href="‘【oduct-brand.html" data-title="添加员工" href="javascript:void(0)">添加员工</a></li>
 					<li><a data-href="product-category.html" data-title="员工修改" href="javascript:void(0)">员工修改</a></li>
 			</ul>
 		</dd>

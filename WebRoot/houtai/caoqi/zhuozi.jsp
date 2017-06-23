@@ -26,12 +26,11 @@
 </head>
 
 <body>
-	<nav class="breadcrumb">
 	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
 	桌子管理 <span class="c-gray en">&gt;</span> 桌子数据 </nav>
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
-		<a href="p_select.action?">
-			<button type="button" class="btn btn-primary">查询</button> </a>
+		<a href="p_select1.action?">
+			<button type="button" class="btn btn-primary">查询全部</button> </a>
 		<button type="button" class="btn btn-primary btn-lg"
 			data-toggle="modal" data-target="#myModal">增加</button>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"

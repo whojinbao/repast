@@ -26,12 +26,11 @@
 </head>
 
 <body>
-	<nav class="breadcrumb">
 	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
 	桌子管理 <span class="c-gray en">&gt;</span> 桌子数据 </nav>
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
-		<a href="p_select.action?">
-			<button type="button" class="btn btn-primary">查询</button> </a>
+		<a href="p_select1.action?">
+			<button type="button" class="btn btn-primary">查询全部</button> </a>
 		<button type="button" class="btn btn-primary btn-lg"
 			data-toggle="modal" data-target="#myModal">增加</button>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -104,8 +103,8 @@
 										</div>
 									</div>
 								</div>
-							</div> <a title="删除" href="p_delete.action?a=${pp.seatid}"><i
-								class="Hui-iconfont">&#xe6e2;</i>
+							</div><a title="删除" href="p_delete.action?a=${pp.seatid}"><i
+								class="Hui-iconfont"id="de1">&#xe6e2;</i>
 						</a>
 						</td>
 					</tr>
@@ -164,6 +163,18 @@
 				});
 			});
 		}
+	//删除的样式；
+		$("#de1").click(
+			function(){
+				var a=confirm("确认要删除吗");
+				if(a==true){
+					return true;
+				}else if(a==false){
+					return false
+				}
+				
+			}
+		)
 	</script>
 </body>
 </html>

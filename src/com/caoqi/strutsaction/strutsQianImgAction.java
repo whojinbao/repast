@@ -1,7 +1,10 @@
 package com.caoqi.strutsaction;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
@@ -42,6 +45,9 @@ public class strutsQianImgAction {
 		se.setAttribute("ld", ld);
 		return "pm";
 	}
+	/*
+	 *开台，结账,换台桌子的更新
+	 */
 	public String update(){
 		dg.setSeatid(jz.getSeatid());
 		dg.setStaticName(jz.getStaticName());
@@ -50,6 +56,16 @@ public class strutsQianImgAction {
 		HttpSession se=ServletActionContext.getRequest().getSession();
 		se.setAttribute("ld", ld);
 		return "po";
-	}
-	
+	}	
+	/*
+	 * 根据桌子表的id和桌子状态表的name查询；
+	 */
+	public String select3(){
+		dg.setMaxPerson(jz.getMaxPerson());
+		dg.setStaticName(jz.getStaticName());
+		List<Deskimg> ld=dd.select3(dg);
+		HttpSession se=ServletActionContext.getRequest().getSession();
+		se.setAttribute("ld", ld);
+		return "mk";
+	}	
 }
