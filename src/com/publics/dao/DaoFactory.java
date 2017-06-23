@@ -38,7 +38,7 @@ public class DaoFactory {
 			return ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e.getMessage());
+			System.out.println("ss"+e.getMessage());
 		}finally{
 			conPool.close();
 			closeAll(con, ps, null);

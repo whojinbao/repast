@@ -14,7 +14,6 @@
      <!-- 菜品 ，菜品分类的action，xml设置 -->
      <action name="menuType_*" class="com.zf.action.UseMenuTypeAction" method="{1}">
        <result name="ok">/houtai/menuType.jsp </result>
-       <result name="menuAdd">/houtai/menuAdd.jsp</result>
      
      </action>
        
@@ -30,11 +29,17 @@
      </action> 
      
      <!--  -->
+     <!-- 购物车，的action，Xml设置 -->
+     <action name="shopCart_*" class="com.zf.action.ShopCartAction" method="{1}">
+       <result name="ok">/ppp/order.jsp</result>
+       
+     </action> 
+     
+     <!--  -->
      
      <!-- 订单详情的action，Xml设置 -->
      <action name="detailed_*" class="com.zf.action.UseDetailedAction" method="{1}">
-       <result name="ok">/houtai/detailed.jsp</result>
-       <result name="error">/error.jsp</result>
+       <result name="ok">/houtai/detailed.jsp</result> 
      </action> 
      
      <!-- 跳转到派餐界面 -->
@@ -44,10 +49,6 @@
 			<result name="arrange">/jsp/arrange.jsp</result>
 		</action>
 	
-
-     <action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
-			<result name="arrange">/jsp/arrange.jsp</result>
-		</action>
 
     </package>
 </struts>    

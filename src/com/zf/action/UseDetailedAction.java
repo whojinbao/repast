@@ -44,10 +44,11 @@ public class UseDetailedAction {
 	 * detailed1
 	 * 
 	 */
-	public String addDetailed(){
-		useDetailedDao.addDetailed(detailed1);
-		selDetailed();  //Ë¢ÐÂ
-		return "ok";
+	public String addDetailed(Detailed detailed){
+		System.out.println(detailed.getMenuId());
+		useDetailedDao.addDetailed(detailed);
+		/*selDetailed();  //Ë¢ÐÂ
+*/		return "ok";
 	}
 
 	/**

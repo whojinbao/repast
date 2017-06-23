@@ -59,12 +59,14 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>菜品分类：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select name="menu.menuTypeId" class="select" onClick="selMenuType()"">
+				<select name="menu.menuTypeId" class="select" onClick="selMenuType()">
 				   <c:forEach items="${menuTypeList }" var="menuType">
 					    <option value="${menuType.typeId }">${menuType.typeName }</option>					
 				   </c:forEach>
 				</select> 
-				</span> </div>
+				</span> 
+				
+			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>制作时间：</label>
@@ -100,8 +102,7 @@
 		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-			    <input type="submit" value="保存并提交" class="btn btn-primary radius"> 
-			    
+			    <input type="submit" value="保存并提交" class="btn btn-primary radius"> 			    
 				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
@@ -129,7 +130,7 @@ function selMenuType(){
 
      $.ajax({          
 			type: 'POST',
-			url: 'menuType_sel.action?ip=addMenu',
+			url: 'menuType_sel.action?ip=UpdateMenu',
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();

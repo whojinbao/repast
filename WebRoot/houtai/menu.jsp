@@ -38,14 +38,14 @@
 		  	<button name="" id="" class="btn btn-success" type="submit" > <i class="Hui-iconfont">&#xe665;</i> 搜产品</button>
 		    </form>
 		</div>
-		<div id="menuSelResult" class="text-c" border="1px">
+		<%-- <div id="menuSelResult" class="text-c" border="1px">
 		     <c:forEach items="${menuList }" var="menu">
 		         <span id="mhSelMenuResult">${menu.menuName }</span> <br>
 		     </c:forEach>
-		</div>
+		</div> --%>
 		
 		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
-		<a class="btn btn-primary radius" onclick="product_add('添加产品','menuAdd.jsp')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加产品</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+		<a class="btn btn-primary radius" onclick="product_add('添加产品','menuAdd.jsp')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加产品</a></span> <span class="r">共有数据：<strong>${MenuPageUtil.count }</strong> 条</span> </div>
 		<div class="mt-20">
 			<table class="table table-border table-bordered table-bg table-hover table-sort">
 				<thead>
@@ -64,17 +64,17 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${menuList }" var="menu">
+				<c:forEach items="${MenuPageUtil.list }" var="menu">
 					<tr class="text-c va-m">
 						<td><input name="" type="checkbox" value=""></td>
 						<td>${menu.menuId }</td>
-						 <td><img width="60" class="product-thumb" src="temp/product/Thumb/6204.jpg"></td>
+						<td><img width="40" height="40" class="product-thumb" src="../fileUpload/5.jpg"></img>${menu.imgUrl }</td>
 						<td class="text-l">${menu.menuName} </td>
 						<td class="text-l">${menu.menuTypeName }</td>
-					   <td class="text-l" >${menu.doTime }</td>
+					    <td class="text-l" >${menu.doTime }</td>
 						<td class="text-l">${menu.maxNum }</td> 
 						
-						<td class="text-l"></td>
+						<td class="text-l">${menu.menuDescribe }</td>
 						<td><span class="price">${menu.menuPrice }</span> 元/份</td>
 						<td class="td-status"><span class="label label-success radius">已发布</span></td>
 						<td class="td-manage">
@@ -86,6 +86,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div>${MenuPageUtil.pageStr }</div>
 		</div>
 	</div>
 </div>

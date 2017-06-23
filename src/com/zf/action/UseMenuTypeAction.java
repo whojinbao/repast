@@ -1,9 +1,6 @@
 package com.zf.action;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,6 +12,8 @@ import org.apache.struts2.ServletActionContext;
 
 import com.zf.dao.UseMenuTypeDao;
 import com.zf.entity.MenuType;
+import com.zf.util.PageUtil;
+import com.zf.util.UtilService;
 
 /**
  *     对菜品分类menuType的操作
@@ -27,7 +26,8 @@ import com.zf.entity.MenuType;
 public class UseMenuTypeAction {
 
 	private UseMenuTypeDao  useTypeDao = new UseMenuTypeDao();
-    private MenuType menuType = new MenuType();
+	private UtilService utilService = new UtilService();
+	private MenuType menuType = new MenuType();
 	/**
 	 * 得到  request ，session
 	 */
@@ -72,9 +72,9 @@ public class UseMenuTypeAction {
 	 * @return
 	 */
 	public String del(){
-		
-		 int typeId =Integer.parseInt(request.getParameter("menuTypeId")) ;
-		
+
+		int typeId =Integer.parseInt(request.getParameter("menuTypeId")) ;
+
 		useTypeDao.deltype(typeId);
 		sel();
 		return "ok";
@@ -85,26 +85,76 @@ public class UseMenuTypeAction {
 	 * @return
 	 */
 	public String sel(){
-		
+		System.out.println("sel");
 		List<MenuType> menuTypeList = useTypeDao.seltype();
-		session.setAttribute("menuTypeList", menuTypeList);
-		
-		String ip = request.getParameter("ip");
-		System.out.println("ip"+ip);
-		if(ip == null){	
-			return "ok";
-		}
+		session.setAttribute("MenuTypeList", menuTypeList);
+		String currPageStr = request.getParameter("currPage");
+		String pageSizeStr = request.getParameter("pageSize");
+		Integer currPage = null;
+		Integer pageSize = null;
+		try{
+			currPage = Integer.parseInt(currPageStr);
+		}catch(Exception e){
+
+		}     
+		PageUtil util = utilService.sel(currPage, pageSize, menuTypeList);
+		session.setAttribute("MenuTypePageUtil",util);
+
+
+        String ip = null;
+        
+        try{
+        	ip= request.getParameter("ip");
+ 			if(ip == null){
+ 				return "ok";
+ 			}
+ 		}	
+ 		catch(Exception e){
+
+ 		}
+		 System.out.println("ip"+ip);
+		if(ip == "UpdateMenu"){	
+			try {
+				request.getRequestDispatcher("menuUpdate.jsp").forward(request, response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		} 
 		if(ip.equals("addMenu")){
-			System.out.println("menuAdd");
-			return "menuAdd";
+			try {
+				request.getRequestDispatcher("menuAdd.jsp").forward(request, response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return null;
+
 		}
-		if(ip.equals("addMenuType")){
-			return "ok";
-		}
-		else{
-		    return null;
+		
+		if(ip.equals("diancan")){
+			try {
+				request.getRequestDispatcher("diancan.jsp").forward(request, response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return "diancan";
 		}
 
+		return "ok";
 	}
-	
+
 }

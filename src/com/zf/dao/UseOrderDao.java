@@ -2,6 +2,7 @@ package com.zf.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,10 +25,15 @@ public class UseOrderDao {
 	 * 
 	 */
 	public void addOrder(Order order1){
-		String sql = "insert into orderList values(?,?,?,?,?,?,?,)";
-		Object[] obj = {order1.getOrderId(),order1.getOrderTimes(),
-				   order1.getSeatId(),order1.getStaffId(),order1.getTotalPrice(),
-				   order1.getOrderStatus(),order1.getOrderSort()};
+		String sql = "insert into orderList values(?,?,?,?,?,?,?)";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	/*Date dd1=new Date();
+    	String ss1=sdf.format(dd1);*/
+		String orderTimeStr = sdf.format(order1.getOrderTimes());
+		Object[] obj = {order1.getOrderId(),orderTimeStr,
+				   order1.getSeatId(),order1.getStaffId(), order1.getOrderStatus(),
+				   order1.getOrderSort(),order1.getTotalPrice()};
+		
 		da1.executeUpdate(sql, obj);
 	}
 	
@@ -41,6 +47,18 @@ public class UseOrderDao {
 		da1.executeUpdate(sql, obj);
 	}
 	
+	
+
+	/**
+	 * 对订单的修改
+	 * 
+	 */
+	public void updateOrder(String orderId,int totalPrice,int orderStatus){
+		
+		String sql = "update  orderList set totalPrice = ?,orderStatus =? where orderId = ?";
+		Object[] obj = {totalPrice,orderStatus,orderId,};
+		da1.executeUpdate(sql, obj);
+	}
 	/**
 	 * 对订单的查询，全部数据
 	 * 
@@ -49,17 +67,17 @@ public class UseOrderDao {
 		 String sql = "select * from orderList";
 		ResultSet rs= da1.executeQuery(sql, null);
 		List<Order> orderList = new ArrayList<Order>();
+		
 		try {
 			while (rs.next()){
 				Order order1 = new Order();
-				order1.setOrderId(rs.getString(1));
-				System.out.println(rs.getString(1));
+				order1.setOrderId(rs.getString(1));	
 				order1.setOrderTimes((Date)rs.getObject(2));
 				order1.setSeatId(rs.getInt(3));
-				order1.setStaffId(rs.getInt(4));
-				order1.setTotalPrice(rs.getFloat(5));
-				order1.setOrderStatus(rs.getInt(6));
-				order1.setOrderSort(rs.getInt(7));
+				order1.setStaffId(rs.getInt(4));				
+				order1.setOrderStatus(rs.getInt(5));
+				order1.setOrderSort(rs.getInt(6));
+				order1.setTotalPrice(rs.getInt(7));				
 				orderList.add(order1);
 				
 			}
@@ -69,4 +87,74 @@ public class UseOrderDao {
 		}
 		 return orderList;
 	}
+	
+	/**
+	 * 对订单的查询，模糊查询
+	 * 
+	 */
+	public List<Order> selMhOrder(Date startTime,Date endTime,String mhOredrSeatId){
+		String sql = "SELECT * FROM orderList WHERE orderTimes BETWEEN ? AND ? and seatId LIKE '%"+mhOredrSeatId+"%' ";
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	/*Date dd1=new Date();
+    	String ss1=sdf.format(dd1);*/
+		String startTimeString = sdf.format(startTime);
+		String endTimeStr = sdf.format(endTime);
+		Object [] obj={startTimeString,endTimeStr};
+		ResultSet rs= da1.executeQuery(sql, obj);
+		System.out.println("mh"+mhOredrSeatId);
+		List<Order> orderList = new ArrayList<Order>();
+		try {
+			while (rs.next()){
+				Order order1 = new Order();
+				order1.setOrderId(rs.getString(1));	
+				order1.setOrderTimes(rs.getDate(2));
+				order1.setSeatId(rs.getInt(3));
+				order1.setStaffId(rs.getInt(4));				
+				order1.setOrderStatus(rs.getInt(5));
+				order1.setOrderSort(rs.getInt(6));
+				order1.setTotalPrice(rs.getInt(7));				
+				orderList.add(order1);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 return orderList;
+	}
+
+	
+	/**
+	 * 对订单的查询，orderId
+	 * 
+	 */
+	public List<Order> selIdOrder(String orderId){
+		String sql = "SELECT * FROM orderList WHERE orderId = ?";
+		
+		
+		Object [] obj={orderId};
+		ResultSet rs= da1.executeQuery(sql, obj);
+		
+		List<Order> orderList = new ArrayList<Order>();
+		try {
+			while (rs.next()){
+				Order order1 = new Order();
+				order1.setOrderId(rs.getString(1));	
+				order1.setOrderTimes(rs.getDate(2));
+				order1.setSeatId(rs.getInt(3));
+				order1.setStaffId(rs.getInt(4));				
+				order1.setOrderStatus(rs.getInt(5));
+				order1.setOrderSort(rs.getInt(6));
+				order1.setTotalPrice(rs.getInt(7));				
+				orderList.add(order1);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 return orderList;
+	}
+
 }

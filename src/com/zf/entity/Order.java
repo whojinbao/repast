@@ -2,18 +2,18 @@ package com.zf.entity;
 
 import java.util.Date;
 
-/*订单ID	详单ID	下单时间	桌号（客户id）	员工id	               总价                                          订单状态（是否结账）	订单类别                     
-orderId	detailedId	orderTimes	seatId	staffId	 totalPrice       orderStatus	orderSort  
+/*订单ID	详单ID	                    下单时间	桌号（客户id）	员工id	               总价                              	  订单类别（1点餐，2，外卖）                     
+orderId	detailedId	orderTimes	seatId	   staffId	  totalPrice              orderSort 
+                   订单状态（是否结账  0：未，第一次下单，1：未，加菜，2，结账） orderStatus	 
 */
 public class Order {
-   private String orderId;
-  
+   private String orderId; 
    private Date orderTimes;
    private  int seatId;
    private int staffId;
-   private float totalPrice;
    private int orderStatus;
    private int orderSort;
+   private int totalPrice;
 public String getOrderId() {
 	return orderId;
 }
@@ -39,10 +39,10 @@ public int getStaffId() {
 public void setStaffId(int staffId) {
 	this.staffId = staffId;
 }
-public float getTotalPrice() {
+public int getTotalPrice() {
 	return totalPrice;
 }
-public void setTotalPrice(float totalPrice) {
+public void setTotalPrice(int totalPrice) {
 	this.totalPrice = totalPrice;
 }
 public int getOrderStatus() {

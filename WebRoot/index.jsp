@@ -8,6 +8,8 @@
   </head>
   
   <body>
-   
+    <c:forEach items="${MenuTypeList }" var="menuType">
+       ${menuType.typeName}
+    </c:forEach>
   </body>
 </html>

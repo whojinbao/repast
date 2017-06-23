@@ -46,10 +46,11 @@
 			<label class="form-label col-xs-4 col-sm-2">缩略图：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div class="uploader-thum-container">
-					<div id="fileList" class="uploader-list"></div>
-					<div id="filePicker">选择图片</div>
-					<button id="btn-star" class="btn btn-default btn-uploadstar radius ml-10">开始上传</button>
-				</div>
+					选中图片：<input type="file" name="menuFile"><br/>
+					 	
+				<!-- 	<div id="filePicker">选择图片</div>
+					<button id="btn-star" class="btn btn-default btn-uploadstar radius ml-10">开始上传</button> -->
+				</div>${error }
 			</div>
 		</div>
 		<div class="row cl">
@@ -63,11 +64,13 @@
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>菜品分类：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select name="menu.menuTypeId" class="select" onClick="selMenuType()">
-				   <c:forEach items="${menuTypeList }" var="menuType">
+				   <c:forEach items="${MenuTypeList }" var="menuType">
 					    <option value="${menuType.typeId }">${menuType.typeName }</option>					
 				   </c:forEach>
 				</select>
-				</span> </div>
+				</span> 
+				
+			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>制作时间：</label>
@@ -96,15 +99,14 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品摘要：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+				<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...少于50个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/50</p>
 			</div>
 		</div>
 		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-			    <input type="submit" value="提交" class="btn btn-primary radius"> 
-			    
+			    <input type="submit" value="提交" class="btn btn-primary radius"> 			    
 				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>

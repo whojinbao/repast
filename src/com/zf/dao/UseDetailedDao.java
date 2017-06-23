@@ -2,19 +2,20 @@ package com.zf.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.publics.dao.DaoFactory;
-import com.sun.crypto.provider.RSACipher;
 import com.zf.entity.Detailed;
 
 /**
  * 对订单详情表 detailed 的添加，删除，修改，查询（全部）
  * @author Administrator
  *
- *订单ID	                     详单ID        	下单时间	                 菜id	数量	       状态（是否上菜）	开始时间                               上菜时间
-  orderId	detailedId	detailedTime	menuId	num	dishesStatus	stateTime	outTime
+ *订单ID	                     详单ID        	下单时间	                 菜id	数量	       状态（是否上菜）	开始时间                     上菜时间              类型
+  orderId	detailedId	detailedTime	menuId	num	  dishesStatus	stateTime	outTime  detailedtype
 
  */
 public class UseDetailedDao {
@@ -24,11 +25,23 @@ public class UseDetailedDao {
      * 对订单详情表 detailed 的添加
      */
     public void addDetailed(Detailed detailed1){
-    	String sql = "insert into detailed values(?,?,?,?,?,?,?,?)";
+    	String sql = "insert into detailed(orderId,detailedId,detailedTime,menuId,detailednum," +
+    			     " dishesStatus,startTime,outTime) values(?,?,?,?,?,?,?,?)";
+ 	    			
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	/*Date dd1=new Date();
+    	String ss1=sdf.format(dd1);*/
+    	String detailedTimeStr = sdf.format(detailed1.getDetailedTime());
+    	String stateTimeStr = sdf.format(detailed1.getStateTime());
+    	String outTimeStr = sdf.format(detailed1.getOutTime());
     	Object [] obj = {detailed1.getOrderId(),detailed1.getDetailedId(),
-    			detailed1.getDetailedTime(),detailed1.getMenuId(),detailed1.getNum(),
-    			detailed1.getDishesStatus(),detailed1.getStateTime(),detailed1.getOutTime()};
+    			detailedTimeStr,detailed1.getMenuId(),detailed1.getNum(),
+    			detailed1.getDishesStatus(),stateTimeStr,outTimeStr};
+
     	da1.executeUpdate(sql, obj);
+    	
+    	
+    	
     }
     
     
