@@ -32,15 +32,15 @@
 </head>
 <body>
 <div class="page-container">
-	<form action="menu_addMenu.action" method="post" class="form form-horizontal" id="form-article-add">
+	<form action="menu_addMenu.action" method="post" class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
 	
 	
-	<!-- 	<div class="row cl">
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>菜品Id：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="" name="menu.menuId">
 			</div>
-		</div> -->
+		</div>
 		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">缩略图：</label>

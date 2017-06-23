@@ -10,7 +10,7 @@ public class Order {
    private String orderId; 
    private Date orderTimes;
    private  int seatId;
-   private int staffId;
+   private String staffId;
    private int orderStatus;
    private int orderSort;
    private int totalPrice;
@@ -33,10 +33,10 @@ public int getSeatId() {
 public void setSeatId(int seatId) {
 	this.seatId = seatId;
 }
-public int getStaffId() {
+public String getStaffId() {
 	return staffId;
 }
-public void setStaffId(int staffId) {
+public void setStaffId(String staffId) {
 	this.staffId = staffId;
 }
 public int getTotalPrice() {

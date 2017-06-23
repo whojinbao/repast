@@ -13,7 +13,7 @@
   <body>
    
           <table>
-              <tr><td>桌号</td><td>员工id</td><td>顾客id</td></tr>
+              <tr><td>桌号:${seatId }</td><td>员工id:${staffId }</td><td>顾客id</td></tr>
               <tr> <td></td><td></td><td></td></tr>
               <tr> <td>购物车</td><td></td><td><a href="diancan.jsp">继续点餐</a></td><td><a href="shopCart_del.action?ip=clear">清空购物车</a></td></tr>
                 <tr> <td>菜品id</td><td>菜名</td><td>价格</td><td>数量</td><td></td><td></td></tr>

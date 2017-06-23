@@ -26,18 +26,17 @@ public class UseDetailedDao {
      */
     public void addDetailed(Detailed detailed1){
     	String sql = "insert into detailed(orderId,detailedId,detailedTime,menuId,detailednum," +
-    			     " dishesStatus,startTime,outTime) values(?,?,?,?,?,?,?,?)";
+    			     " dishesStatus) values(?,?,?,?,?,?)";
  	    			
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	/*Date dd1=new Date();
     	String ss1=sdf.format(dd1);*/
+		System.out.println("o1");
     	String detailedTimeStr = sdf.format(detailed1.getDetailedTime());
-    	String stateTimeStr = sdf.format(detailed1.getStateTime());
-    	String outTimeStr = sdf.format(detailed1.getOutTime());
     	Object [] obj = {detailed1.getOrderId(),detailed1.getDetailedId(),
     			detailedTimeStr,detailed1.getMenuId(),detailed1.getNum(),
-    			detailed1.getDishesStatus(),stateTimeStr,outTimeStr};
-
+    			detailed1.getDishesStatus()};
+    	System.out.println(obj[0]+";"+obj[1]+";"+obj[2]+";"+obj[3]+";"+obj[4]+";"+obj[5]+";");
     	da1.executeUpdate(sql, obj);
     	
     	

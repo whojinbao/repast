@@ -45,10 +45,11 @@ public class UseDetailedAction {
 	 * 
 	 */
 	public String addDetailed(Detailed detailed){
-		System.out.println(detailed.getMenuId());
+		System.out.println("ss1");
 		useDetailedDao.addDetailed(detailed);
-		/*selDetailed();  //刷新
-*/		return "ok";
+		System.out.println("ss2");
+		System.out.println("ss3");
+		return "ok";
 	}
 
 	/**
@@ -72,10 +73,8 @@ public class UseDetailedAction {
 	 * 如果ip 为空 则为detailed.jsp发的请求
 	 */
 	public String selDetailed(){
-
-		System.out.println("sel"); 	  		  	 
-		Integer orderId = Integer.parseInt(request.getParameter("orderId"));
-		System.out.println(orderId);
+	  	 
+		Integer orderId = Integer.parseInt(request.getParameter("orderId"));	
 		List<Detailed> detailedList = useDetailedDao.selDetailed(orderId);
 		session.setAttribute("detailedList", detailedList);
 

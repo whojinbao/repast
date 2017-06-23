@@ -25,7 +25,8 @@
 			</ul>
 			<form action="k_select3.action" method="post">
 				<button type="submit" class="btn btn-warning">查询</button>
-				: <input type="text" name="jz.MaxPerson" value="输入能座的人数" /> <select
+				: <input type="text" name="jz.MaxPerson" value="" /> 
+				<select
 					name="jz.staticName">
 					<option>可用</option>
 					<option>占用</option>
@@ -67,7 +68,8 @@
 						</div>
 						<div class="modal-body">
 							<form action="k_update.action" method="post">
-								桌子编号:<input type="text" name="jz.seatid"> 桌子状态: <select
+								桌子编号:<input type="text" name="jz.seatid"> 								
+								桌子状态: <select
 									name="jz.staticName">
 									<option>可用</option>
 									<option>占用</option>

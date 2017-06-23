@@ -351,7 +351,7 @@ a {
 	</div>
 	<div class="row">
 
-		<div class="col-xs-12 col-sm-12" id="top"><a href="menu_selTyMenu.action">查询</a></div>
+		<div class="col-xs-12 col-sm-12" id="top"></div>
 		<div class="col-xs-12 col-sm-12" id="nav"></div>
 		<div class="col-xs-9 col-sm-7 buttom">
 		 <div class="buttom_sort row">

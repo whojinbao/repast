@@ -85,11 +85,11 @@ public class UseMenuTypeAction {
 	 * @return
 	 */
 	public String sel(){
-		System.out.println("sel");
 		List<MenuType> menuTypeList = useTypeDao.seltype();
 		session.setAttribute("MenuTypeList", menuTypeList);
 		String currPageStr = request.getParameter("currPage");
 		String pageSizeStr = request.getParameter("pageSize");
+		System.out.println(currPageStr+"\\"+pageSizeStr);
 		Integer currPage = null;
 		Integer pageSize = null;
 		try{
@@ -97,6 +97,7 @@ public class UseMenuTypeAction {
 		}catch(Exception e){
 
 		}     
+		System.out.println(currPage+"//"+pageSize+""+menuTypeList.size());
 		PageUtil util = utilService.sel(currPage, pageSize, menuTypeList);
 		session.setAttribute("MenuTypePageUtil",util);
 

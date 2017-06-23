@@ -74,7 +74,7 @@ public class UseOrderDao {
 				order1.setOrderId(rs.getString(1));	
 				order1.setOrderTimes((Date)rs.getObject(2));
 				order1.setSeatId(rs.getInt(3));
-				order1.setStaffId(rs.getInt(4));				
+				order1.setStaffId(rs.getString(4));				
 				order1.setOrderStatus(rs.getInt(5));
 				order1.setOrderSort(rs.getInt(6));
 				order1.setTotalPrice(rs.getInt(7));				
@@ -102,7 +102,6 @@ public class UseOrderDao {
 		String endTimeStr = sdf.format(endTime);
 		Object [] obj={startTimeString,endTimeStr};
 		ResultSet rs= da1.executeQuery(sql, obj);
-		System.out.println("mh"+mhOredrSeatId);
 		List<Order> orderList = new ArrayList<Order>();
 		try {
 			while (rs.next()){
@@ -110,7 +109,7 @@ public class UseOrderDao {
 				order1.setOrderId(rs.getString(1));	
 				order1.setOrderTimes(rs.getDate(2));
 				order1.setSeatId(rs.getInt(3));
-				order1.setStaffId(rs.getInt(4));				
+				order1.setStaffId(rs.getString(4));				
 				order1.setOrderStatus(rs.getInt(5));
 				order1.setOrderSort(rs.getInt(6));
 				order1.setTotalPrice(rs.getInt(7));				
@@ -143,7 +142,7 @@ public class UseOrderDao {
 				order1.setOrderId(rs.getString(1));	
 				order1.setOrderTimes(rs.getDate(2));
 				order1.setSeatId(rs.getInt(3));
-				order1.setStaffId(rs.getInt(4));				
+				order1.setStaffId(rs.getString(4));				
 				order1.setOrderStatus(rs.getInt(5));
 				order1.setOrderSort(rs.getInt(6));
 				order1.setTotalPrice(rs.getInt(7));				

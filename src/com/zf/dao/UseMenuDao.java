@@ -53,7 +53,6 @@ public class UseMenuDao {
 	public void updateMenu(Menu menu){
 		String sql = "update menu set menuName =?, doTime = ?,maxNum=?, menuType=?," +
 				"menuPrice=?,imgUrl=?,menuDescribe=? where menuId= ?" ;
-		System.out.println(menu.getMaxNum());
 		Object[] obj = {menu.getMenuName(),menu.getDoTime(),menu.getMaxNum(),menu.getMenuTypeId(),menu.getMenuPrice(),
 				menu.getImgUrl(),menu.getMenuDescribe(),menu.getMenuId()};
 		da1.executeUpdate(sql, obj);  
@@ -101,7 +100,6 @@ public class UseMenuDao {
 	 * @param 
 	 */
 	public Menu selIdMenu(int menuId){
-		System.out.println("setIddao");
 		String sql ="select mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice, mu1.imgUrl,mu1.menuDescribe from menu mu1, " +
 				" menuType mt1 where mu1.menuType=mt1.typeId and  mu1.menuId= ? ORDER BY mu1.menuId ASC " ;
 		Object[] obj = {menuId};
@@ -110,7 +108,7 @@ public class UseMenuDao {
 		try {					
 			while(rs.next()){
 
-				System.out.println(rs.getInt(1));
+
 				menu2.setMenuId(rs.getInt(1));
 				menu2.setMenuName(rs.getString(2));
 				menu2.setDoTime(rs.getInt(3));
@@ -119,7 +117,7 @@ public class UseMenuDao {
 				menu2.setMenuPrice(rs.getInt(6));
 				menu2.setImgUrl(rs.getString(7));
 				menu2.setMenuDescribe(rs.getString(8));
-				System.out.println(rs.getInt(6));
+
 				return menu2;
 			}
 
@@ -207,7 +205,7 @@ public class UseMenuDao {
 				menu2.setMenuTypeName(rs.getString(5));
 				menu2.setMenuPrice(rs.getInt(6));
 				menuList.add(menu2);	
-				System.out.println(rs.getObject(1));				
+				
 			}
 
 		} catch (SQLException e) {

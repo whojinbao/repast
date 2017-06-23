@@ -110,7 +110,6 @@ public class UseMenuAction extends ActionSupport{
 	 * @return
 	 */
 	public String updateMenu(){
-		System.out.println("update");
 		useMenu.updateMenu(menu);
 		selMenu();
 		return "ok";
@@ -143,21 +142,16 @@ public class UseMenuAction extends ActionSupport{
 	 * @return
 	 */
 	public String selTyMenu(){
-		System.out.println("ty");
 		/*String typeName = request.getParameter("typeName");*/
-		
+		UseMenuTypeAction uta =new UseMenuTypeAction();
+		uta.sel();
 		List<orderUtil> util = selTyMenuService.getList();
 		session.setAttribute("orderUtilList",util );
-		try {
+		/*try {
 			request.getRequestDispatcher("diancan.jsp").forward(request, response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		} catch (Exception e) {
+		}*/
+		return "diancan";
 	}
 	
 

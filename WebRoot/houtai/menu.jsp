@@ -68,7 +68,7 @@
 					<tr class="text-c va-m">
 						<td><input name="" type="checkbox" value=""></td>
 						<td>${menu.menuId }</td>
-						<td><img width="40" height="40" class="product-thumb" src="../fileUpload/5.jpg"></img>${menu.imgUrl }</td>
+						<td><img width="40" height="40" class="product-thumb" src="../fileUpload/${menu.imgUrl }"></img></td>
 						<td class="text-l">${menu.menuName} </td>
 						<td class="text-l">${menu.menuTypeName }</td>
 					    <td class="text-l" >${menu.doTime }</td>
