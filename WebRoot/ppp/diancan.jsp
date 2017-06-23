@@ -387,9 +387,10 @@ a {
 									<!-- +-中间的输入框	 -->
 									<button class="shopping_add">+</button>
 									<!-- +按钮 -->
+								</div>	
 								</div>
-							</div>
-						</div>
+								</div>
+									
 						<!-- 第一个菜品显示到前台界面结束边限 -->  	               	                   	         
 	            </c:forEach>
 	            </div>

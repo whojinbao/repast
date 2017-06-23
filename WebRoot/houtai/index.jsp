@@ -102,9 +102,9 @@
 			<dt><i class="Hui-iconfont">&#xe622;</i>菜谱配置<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="菜品分类" href="javascript:;">菜品分类</a></li>
-					<li><a data-href="feedback-list.html" data-title="添加菜品" href="javascript:void(0)">添加菜品</a></li>
-					<li><a data-href="feedback-list.html" data-title="添加菜品" href="javascript:void(0)">查询菜品</a></li>
+					<li><a data-href="menuType.jsp" data-title="菜品分类" href="javascript:;">菜品分类</a></li>
+					<li><a data-href="menuAdd.jsp" data-title="添加菜品" href="javascript:void(0)">添加菜品</a></li>
+					<li><a data-href="menu.jsp" data-title="添加菜品" href="javascript:void(0)">查询菜品</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -121,7 +121,7 @@
 			<dt><i class="Hui-iconfont">&#xe62d;</i>订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="admin-role.html" data-title="查询订单" href="javascript:void(0)">查询订单</a></li>
+					<li><a data-href="orderList.jsp" data-title="查询订单" href="javascript:void(0)">查询订单</a></li>
 					<li><a data-href="admin-permission.html" data-title="上餐排序" href="javascript:void(0)">上餐排序</a></li>
 			</ul>
 		</dd>
@@ -130,8 +130,8 @@
 			<dt><i class="Hui-iconfont">&#xe61a;</i>餐桌管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="charts-1.html" data-title="大厅" href="javascript:void(0)">大厅</a></li>
-					<li><a data-href="charts-2.html" data-title="包厢" href="javascript:void(0)">包厢</a></li>
+					<li><a data-href="caoqi/zhuozi.jsp" data-title="大厅" href="javascript:void(0)">大厅</a></li>
+					<li><a data-href="caoqi/baotest.jsp" data-title="包厢" href="javascript:void(0)">包厢</a></li>
 			</ul>
 		</dd>
 	</dl>
