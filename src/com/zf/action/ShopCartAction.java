@@ -286,6 +286,9 @@ public class ShopCartAction {
 				usedetailedaction.addDetailed(detailednew);
 				System.out.println("s11");
 			}
+			String sql1="insert into quanzhong(detailedId) values("+detailedId1+")";
+			DishesDao d1d=new DishesDao();
+			d1d.updateData(sql1,null);
 
 
 

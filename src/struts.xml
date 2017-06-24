@@ -67,7 +67,14 @@
      <action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
 			<result name="arrange" type="redirect">/jsp/arrange.jsp</result>
 			<result name="updateStatus" type="redirect">/jsp/arrange.jsp</result>
-		</action>
+	</action>
+	
+	<!-- 前台登录注册界面 -->
+	<action name="qtlogin_*" class="com.who.struts.qtloginAction" method="{1}">
+			<result name="ok" type="redirect">menu_selTyMenu</result>
+			<result name="no" type="redirect">/qiantai/qiantaizhuce/zhuce1.jsp</result>
+	</action>
+	
 
 
 		<!-- 杨奇峰 -->

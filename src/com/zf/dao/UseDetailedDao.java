@@ -27,7 +27,7 @@ public class UseDetailedDao {
     public void addDetailed(Detailed detailed1){
     	String sql = "insert into detailed(orderId,detailedId,detailedTime,menuId,detailednum," +
     			     " dishesStatus) values(?,?,?,?,?,?)";
- 	    			
+ 	    
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	/*Date dd1=new Date();
     	String ss1=sdf.format(dd1);*/
