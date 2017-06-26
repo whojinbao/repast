@@ -35,13 +35,13 @@
 	<div class="text-c">
 		<form class="Huiform" method="post" action="menuType_add.action" target="_self">
 		
-			<input type="text" placeholder="分类名称" value="" class="input-text" style="width:120px" name="menuType.typeName">
+			<input type="text" placeholder="分类名称" value="" id="menuTypeName" class="input-text" style="width:120px" name="menuType.typeName" >
 			
-			<input type="submit" class="btn btn-success" id="" name="submit" value="添加">
+			<input type="submit" class="btn btn-success" id="" name="submit" value="添加"><div id="span1" style="color:red"></div>
 			<!-- <button type="submit" class="btn btn-success" id="" name="submit" onClick="picture_colume_add(this);"> 添加</button> -->
 		</form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"></span>每页${MenuTypePageUtil.maxPage }  条 <span class="r">共有数据：<strong>${MenuTypePageUtil.count }</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"><span>每页${MenuTypePageUtil.maxPage }  条</span><span>共有${MenuTypePageUtil.allPage } 页</span> <span class="r">共有数据：<strong>${MenuTypePageUtil.count }</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg ">
 			<thead>
@@ -82,22 +82,53 @@
 <script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" >
 $('.table-sort').dataTable({
 	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 	"bStateSave": true,//状态保存
-	"aoColumnDefs": [
+	"aoColumnDefs": [   
 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
 	  {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
 	]
 });
+
+$("#menuTypeName").blur( 
+      function(){
+          $("#span1").html();
+         var menuTypeName = $("#menuTypeName").val();  
+         if(menuTypeName == ""){
+             $("#span1").html("菜类名不能为空");
+         } else{
+            $("#span1").html();
+            $.ajax({  
+			type: 'POST',
+			url: 'menuType_verify.action',
+			data:{typeName:menuTypeName},
+			dataType: 'json',
+			success: function(data){
+		          if(data == false){
+		             $("#span1").html("菜类名已有");
+		              return false;
+		          }
+		          if(data == true){
+		              $("#span1").html("菜类名可用");
+		              return true;
+		          }
+			},
+			error:function(data) {  
+			    
+			},
+           });  
+      }
+   
+      });
+
 
 
 /**
 *菜类删除
 *
 */
-
 
 function product_del(obj,id){
 if(confirm("确认要删除吗？")){

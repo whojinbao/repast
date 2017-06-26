@@ -83,6 +83,7 @@ public class strutsQianImgAction {
 		List<Deskimg> ld=dd.select3(dg);
 		HttpSession se=ServletActionContext.getRequest().getSession();
 		se.setAttribute("ld", ld);
+		
 		return "mk";
 	}	
 }

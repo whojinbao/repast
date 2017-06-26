@@ -15,14 +15,16 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.publics.dao.DaoFactory;
 import com.who.getdata.DishesDao;
+import com.zf.dao.UseDetailedDao;
 import com.zf.dao.UseMenuDao;
 import com.zf.dao.UseOrderDao;
 import com.zf.entity.Detailed;
 import com.zf.entity.Order;
 import com.zf.entity.util.ShopCartUtil;
 
-public class ShopCartAction {
+public class ShopCartAction{
 	/**
 	 * 点餐，创建购物车，加入购物车；
 	 * 
@@ -33,32 +35,35 @@ public class ShopCartAction {
 	private UseDetailedAction usedetailedaction = new UseDetailedAction();
 	private UseOrderAction  useOrderAction = new UseOrderAction();
 
-	public void order(){
+	public String order(){
 		/**
 		 * 获得点餐页面提交的数据
 		 */
 		String menuNameStr = request.getParameter("menuName");
 		String menuPriceStr =request.getParameter("price");
 		String numStr = request.getParameter("num");
-
+		if("0".equals(numStr)){
+			del(menuNameStr);
+			return null;
+		}
 		/*String seatId = request.getParameter("3");
 		String staffId = request.getParameter("1002");
 
 		String orderSort = request.getParameter("0");*/
-		
-		
+
+
 		//float sourceF = Float.parseFloat(sourceStr);
 		int menuPrice =Integer.parseInt(menuPriceStr) ;
 		int num = Integer.parseInt(numStr);
 		//根据菜品名查id
 		UseMenuDao usemenuDao = new UseMenuDao();
-		int menuId = usemenuDao.selName(menuNameStr);
+		int menuId = usemenuDao.selName(menuNameStr).get(0).getMenuId();
 
 		ShopCartUtil shopCart = new ShopCartUtil();
 		shopCart.setMenuId(menuId);
 		shopCart.setMenuName(menuNameStr);
 		shopCart.setMenuPrice(menuPrice);   	
-		shopCart.setNum(num);   	
+		shopCart.setNum(num);  
 		String orderSort = "1";
 		//创建购物车
 		HttpSession  shopCartsession= request.getSession();
@@ -71,14 +76,9 @@ public class ShopCartAction {
 			/**
 			 * 添加桌号，员工，    订单状态（是否结账 ）	  订单类别 （外卖，点餐）
 			 */
-             
-			System.out.println(shopCartsession.getAttribute("seatId"));
-			System.out.println(shopCartsession.getAttribute("staffId"));	
-			
-			
+
+
 			shopCartsession.setAttribute("orderSort", orderSort);
-
-
 
 			List<ShopCartUtil> shopCartList = new ArrayList<ShopCartUtil>();
 			shopCartList.add(shopCart);
@@ -90,9 +90,7 @@ public class ShopCartAction {
 			 * 添加桌号，员工，    订单状态（是否结账 ）	  订单类别 （外卖，点餐）
 			 */
 
-				
 			shopCartsession.setAttribute("orderSort", orderSort);
-
 
 			/**
 			 * 判断新点的菜是否已有
@@ -103,7 +101,6 @@ public class ShopCartAction {
 				String name = list1.get(i).getMenuName();
 				if(menuNameStr.equals(name)){
 					//所点的菜已有
-					num = list1.get(i).getNum()+1;
 					list1.get(i).setNum(num);
 					shopCartsession.setAttribute("shopCartList", list1);
 					flag = 1;
@@ -118,24 +115,27 @@ public class ShopCartAction {
 			}
 		}  	
 
-		try {
-			getTotalPrice();
-			request.getRequestDispatcher("shopCart.jsp").forward(request,response );
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
 
+		getTotalPrice();
+
+		return null;
+	}
 	/**
-	 * 购物车的删除
+	 * 
+	 * @param aaa
 	 */
-	public String del(){
-		
-		String menuIdStr = request.getParameter("menuId");
+	public void del(String aaa){
+		String sql001="select * from menu where menuName='"+aaa+"'";
+		DishesDao dd=new DishesDao();
+		ResultSet rs=dd.getData(sql001, null);
+		String menuIdStr ="";
+		try {
+			rs.next();
+			menuIdStr=rs.getString("menuId");
+			System.out.println(menuIdStr);
+		} catch (Exception e) {
+		}
+
 		String ip = request.getParameter("ip");
 		HttpSession  shopCartsession= request.getSession();	
 		List<ShopCartUtil>  list1= (List<ShopCartUtil>) shopCartsession.getAttribute("shopCartList");
@@ -143,7 +143,7 @@ public class ShopCartAction {
 			if(ip != null){
 				list1.clear();
 				shopCartsession.setAttribute("shopCartList",list1 );
-				request.getRequestDispatcher("shopCart.jsp").forward(request,response );
+
 			}else{
 				int index = -1;
 				int menuId =0;
@@ -152,7 +152,6 @@ public class ShopCartAction {
 				}catch(Exception e){
 
 				}
-				
 				for(int i=0;i<list1.size();i++){
 					int id = list1.get(i).getMenuId();
 					if(menuId == id){
@@ -164,12 +163,59 @@ public class ShopCartAction {
 				}
 				shopCartsession.setAttribute("shopCartList",list1 );
 				getTotalPrice();
-				request.getRequestDispatcher("shopCart.jsp").forward(request,response );
+
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return null;
+
+	}
+
+	/**
+	 *  购物车的清空
+	 */
+	public String clear(){
+		HttpSession  shopCartsession= request.getSession();	
+		List<ShopCartUtil>  list1= (List<ShopCartUtil>) shopCartsession.getAttribute("shopCartList");
+		list1.clear();
+		shopCartsession.setAttribute("shopCartList",list1 );
+		int totalPrice = (Integer) shopCartsession.getAttribute("totalPrice");
+		shopCartsession.setAttribute("totalPrice", 0);
+		return "shopCart";
+	}
+	/**
+	 * 购物车的删除
+	 */
+	public String del(){
+
+		String menuIdStr = request.getParameter("menuId");
+
+		HttpSession  shopCartsession= request.getSession();	
+		List<ShopCartUtil>  list1= (List<ShopCartUtil>) shopCartsession.getAttribute("shopCartList");
+		try{
+			int index = -1;
+			int menuId =0;
+			try{
+				menuId = Integer.parseInt(menuIdStr);
+			}catch(Exception e){
+
+			}
+			for(int i=0;i<list1.size();i++){
+				int id = list1.get(i).getMenuId();
+				if(menuId == id){
+					index = i;
+				}
+			}
+			if(index>-1){
+				list1.remove(index);
+			}
+			shopCartsession.setAttribute("shopCartList",list1 );
+			getTotalPrice();
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "shopCart";
 	}
 
 	/**
@@ -193,28 +239,22 @@ public class ShopCartAction {
 	/**
 	 * 生成订单，有桌号seatId，员工staffId，订单号，详单号，
 	 */
-	public void getOrder(){
+	public String getOrder(){
 
 		System.out.println("get");
 		HttpSession  shopCartsession= request.getSession();	
 		List<ShopCartUtil> shopCartList =(List<ShopCartUtil>) shopCartsession.getAttribute("shopCartList");
-
 		Date newTime = null;
-      
 
-		//判断是新增订单，还是加菜
-		 System.out.println(shopCartsession.getAttribute("seatId"));
- 
-      
-		int seatId =  (Integer) shopCartsession.getAttribute("seatId"); 
-		System.out.println(seatId);
+		//判断是新增订单，还是加菜      
+		int seatId =  (Integer) shopCartsession.getAttribute("seatId"); 	
 		int flag = -1;
 		String orderId3=null;
 		int totalPrice = 0;
 		/**
 		 * 桌号与已点订单的桌号比较。查看是否结账orderStatus;
 		 */
-		
+
 		String sql="select orderId,totalPrice from orderList where orderStatus=0 and seatId="+seatId;
 		DishesDao dd=new DishesDao();
 		ResultSet rs=dd.getData(sql, null);		
@@ -224,13 +264,13 @@ public class ShopCartAction {
 				orderId3=rs.getString(1);
 				totalPrice=rs.getInt(2);
 			}else{	//不存在生成订单
-			     flag=1;
+				flag=1;
 			}
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		newTime = new Date();//当前时间
@@ -263,31 +303,17 @@ public class ShopCartAction {
 
 			//详单
 			for(int i=0;i<shopCartList.size();i++){
-				System.out.println("s1");
 				int menuId = shopCartList.get(i).getMenuId();
-				System.out.println("s2");
-				int num = shopCartList.get(i).getNum();
-				System.out.println("s3");
-				Detailed detailednew = new Detailed();
-				System.out.println("s4");
+				int num = shopCartList.get(i).getNum();			
+				Detailed detailednew = new Detailed();	
 				detailednew.setDetailedId(detailedId1);
-				System.out.println("s5");
 				detailednew.setDetailedTime(newTime);
-				System.out.println("s6");
-				detailednew.setDishesStatus(0);
-				System.out.println("s7");
+				detailednew.setDishesStatus(0);	
 				detailednew.setMenuId(menuId);
-				System.out.println("s8");
-				detailednew.setNum(num);
-				System.out.println("s9");
+				detailednew.setNum(num);		
 				detailednew.setOrderId(orderId1);
-
-				System.out.println("s10");
-				usedetailedaction.addDetailed(detailednew);
-				System.out.println("s11");
+				usedetailedaction.addDetailed(detailednew);				
 			}
-
-
 
 
 		}else if(flag == 0){//未结账，生成订单详情，
@@ -305,7 +331,7 @@ public class ShopCartAction {
 			useOrderAction.updateOrder(orderId3, totalPrice, 0);
 
 			//添加详单
-			System.out.println(shopCartList.size());
+
 			for(int i=0;i<shopCartList.size();i++){
 				int menuId = shopCartList.get(i).getMenuId();
 				int num = shopCartList.get(i).getNum();
@@ -316,23 +342,52 @@ public class ShopCartAction {
 				detailednew.setMenuId(menuId);
 				detailednew.setNum(num);
 				detailednew.setOrderId(orderId3);
-			
+
 
 				usedetailedaction.addDetailed(detailednew);
 			}	
-			
-			
-		/*	try {
-				
-				request.getRequestDispatcher("order.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+
+
+
+
 		}
-		
+
+		/**
+		 * 显示订单
+		 */
+		UseOrderDao orderDao = new UseOrderDao();
+		Order order4 = orderDao.getOrder(seatId);
+		shopCartsession.setAttribute("orderResult", order4);
+		return "order";
+
+
+	}
+
+	/**
+	 * 详单表
+	 * @return
+	 */
+	public String detailedList(){
+		String  orderIdStr = request.getParameter("orderId");		
+		UseDetailedDao useDetailedDao = new UseDetailedDao();
+		List<Detailed> detailedList = useDetailedDao.selDetailed(orderIdStr);
+		HttpSession  shopCartsession= request.getSession();	
+		shopCartsession.setAttribute("detailedListppp", detailedList);
+		return "detailed";
+	}
+
+	/**
+	 * 结账
+	 */
+	public String settle(){
+		HttpSession  shopCartsession= request.getSession();	
+		int seatId =  (Integer) shopCartsession.getAttribute("seatId"); 	
+		String sql = "update orderList set orderStatus =1 where seatId=" +seatId;
+		DaoFactory da1 = new DaoFactory();
+		da1.executeUpdate(sql, null);
+		shopCartsession.invalidate();
+		return  "start";
+
 	}
 }
+

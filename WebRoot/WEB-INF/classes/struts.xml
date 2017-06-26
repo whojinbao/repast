@@ -12,8 +12,7 @@
             <result name="needsLogin">/needsLogin.jsp</result>
             <result name="input">/needsInit.jsp</result>
             <result name="needsInit">/needsInit.jsp</result>
-        </global-results>
-	
+        </global-results>	
 		<action name="p_*" class="com.caoqi.strutsaction.strutsAction" method="{1}">
 			<result name="ok">/houtai/caoqi/zhuozi.jsp</result>
 			<result name="oq">/houtai/caoqi/zhuozi.jsp</result>
@@ -25,31 +24,37 @@
 			<result name="py">/qiantai/waiter/waiter.jsp</result>
 			<result name="pm">/qiantai/waiter/waiter.jsp</result>
 
-			<result name="po" type="redirect">/ppp/diancan.jsp</result>
+			<result name="po" type="redirect">/menu_selTyMenu</result>
 
 		</action>
       
+      
      <!-- 菜品 ，菜品分类的action，xml设置 -->
      <action name="menuType_*" class="com.zf.action.UseMenuTypeAction" method="{1}">
-       <result name="ok" type="redirect">/houtai/menuType.jsp </result>    
+       <result name="ok" >/houtai/menuType.jsp </result>    
      </action>      
       <action name="menu_*" class="com.zf.action.UseMenuAction" method="{1}">
        <result name="ok">/houtai/menu.jsp</result>
        <result name="diancan" type="redirect">/ppp/diancan.jsp</result>
+       <result name="Update" type="redirect">/houtai/menuUpdate.jsp</result>
      </action>    
      <!--  -->
      
      <!-- 订单，的action，Xml设置 -->
      <action name="order_*" class="com.zf.action.UseOrderAction" method="{1}">   
-      <result name="ok" type="redirect">/houtai/orderList.jsp</result>       
+      <result name="ok" >/houtai/orderList.jsp</result>       
      </action>     
 
      <!--  -->
      
      <!-- 购物车，的action，Xml设置 -->
      <action name="shopCart_*" class="com.zf.action.ShopCartAction" method="{1}">
-       <result name="ok" type="redirect">/ppp/order.jsp</result>      
-     </action> 
+       <result name="ok" type="redirect">/ppp/order.jsp</result> 
+       <result name="order"  type="redirect">/ppp/order.jsp</result>   
+       <result name="start"  type="redirect">/qiantai/waiter/waiter.jsp</result>   
+       <result name="shopCart" type="redirect">/ppp/shopCart.jsp</result>
+       <result name="detailed"  >/ppp/detailed.jsp</result>
+     </action>  
      
      <!--  -->
      
@@ -57,6 +62,13 @@
      <action name="detailed_*" class="com.zf.action.UseDetailedAction" method="{1}">
        <result name="ok">/houtai/detailed.jsp</result> 
      </action> 
+     <!--  -->
+     
+     <!-- 订单下单配置 -->
+     <action name="shopOk_*" class="com.zf.action.shopOkAction" method="{1}">
+       <result name="ok">/houtai/detailed.jsp</result> 
+     </action> 
+      <!--  -->
      
       <!-- 上传的配置 -->
      <action name="u_*" class="com.upload.upload" method="{1}">

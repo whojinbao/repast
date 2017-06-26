@@ -56,8 +56,7 @@
 						<th width="100">菜品名称</th>
 						<th width="100">菜品分类</th>
 						<th width="100">制作时间</th>
-						<th width="100">可合菜数量</th>
-						<th>描述</th>
+						<th width="100">可合菜数量</th>				
 						<th width="100">单价</th>
 						<th width="100">发布状态</th>
 						<th width="100">操作</th>
@@ -69,12 +68,10 @@
 						<td><input name="" type="checkbox" value=""></td>
 						<td>${menu.menuId }</td>
 						<td><img width="40" height="40" class="product-thumb" src="../fileUpload/${menu.imgUrl }"></img></td>
-						<td class="text-l">${menu.menuName} </td>
-						<td class="text-l">${menu.menuTypeName }</td>
-					    <td class="text-l" >${menu.doTime }</td>
-						<td class="text-l">${menu.maxNum }</td> 
-						
-						<td class="text-l">${menu.menuDescribe }</td>
+						<td ><span class="text-l" > ${menu.menuName}</span> </td>
+						<td ><span class="text-l">${menu.menuTypeName }</span></td>
+					    <td ><span class="text-l" >${menu.doTime }  </span>/min</td>
+						<td ><span class="text-l">${menu.maxNum }  </span>/份</td> 							
 						<td><span class="price">${menu.menuPrice }</span> 元/份</td>
 						<td class="td-status"><span class="label label-success radius">已发布</span></td>
 						<td class="td-manage">
@@ -156,25 +153,7 @@ alert(id);
 }
  
 /* 搜索结果显示*/
-/**
 
-function mhSelMenu(){
-alert("mh");
-     $.ajax({
-			type: 'POST',
-			url: 'menu_selMhMenu.action',
-			data:{menuName:},
-			dataType: 'json',
-			success: function(data){
-				
-				
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});	
-
-} */
 
 
 </script>

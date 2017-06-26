@@ -8,6 +8,7 @@ import java.util.List;
 
 
 import com.publics.dao.DaoFactory;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.zf.entity.Menu;
 
 /**
@@ -26,9 +27,9 @@ public class UseMenuDao {
 	 * @param
 	 */
 	public void addMenu(Menu menu ){
-		String sql = "insert into menu values(?,?,?,?,?,?,?,?)";    
+		String sql = "insert into menu values(?,?,?,?,?,?,?)";    
 		Object[] obj = {menu.getMenuId(),menu.getMenuName(),menu.getDoTime(),menu.getMaxNum(),
-				menu.getMenuTypeId(),menu.getMenuPrice(),menu.getImgUrl(),menu.getMenuDescribe()};
+				menu.getMenuTypeId(),menu.getMenuPrice(),menu.getImgUrl()};
 		da1.executeUpdate(sql, obj);
 	}
 
@@ -52,9 +53,9 @@ public class UseMenuDao {
 	 */
 	public void updateMenu(Menu menu){
 		String sql = "update menu set menuName =?, doTime = ?,maxNum=?, menuType=?," +
-				"menuPrice=?,imgUrl=?,menuDescribe=? where menuId= ?" ;
+				"menuPrice=?,imgUrl=? where menuId= ?" ;
 		Object[] obj = {menu.getMenuName(),menu.getDoTime(),menu.getMaxNum(),menu.getMenuTypeId(),menu.getMenuPrice(),
-				menu.getImgUrl(),menu.getMenuDescribe(),menu.getMenuId()};
+				menu.getImgUrl(),menu.getMenuId()};
 		da1.executeUpdate(sql, obj);  
 	}
 
@@ -63,10 +64,10 @@ public class UseMenuDao {
 	 * @param 
 	 */
 	public List<Menu> selMenu(){
-		String sql ="select mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice,mu1.imgUrl,mu1.menuDescribe from menu mu1, " +
+		String sql ="select mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice,mu1.imgUrl from menu mu1, " +
 				" menuType mt1 where mu1.menuType=mt1.typeId ORDER BY mu1.menuId ASC";		
 
-	/*	String sql ="select top "+maxPage+" mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice,mu1.imgUrl,mu1.menuDescribe from menu mu1, " +
+		/*	String sql ="select top "+maxPage+" mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice,mu1.imgUrl,mu1.menuDescribe from menu mu1, " +
 				" menuType mt1 where mu1.menuType=mt1.typeId and mu1.menuId not in (select top "+startIndex+"menuId from menu) ORDER BY mu1.menuId ASC";*/
 		ResultSet rs = da1.executeQuery(sql, null);
 		List<Menu> menuList = new ArrayList<Menu>();		
@@ -79,10 +80,9 @@ public class UseMenuDao {
 				menu2.setMaxNum(rs.getInt(4));
 				menu2.setMenuTypeName(rs.getString(5));
 				menu2.setMenuPrice(rs.getInt(6));
-				menu2.setImgUrl(rs.getString(7));
-				menu2.setMenuDescribe(rs.getString(8));
+				menu2.setImgUrl(rs.getString(7));				
 				menuList.add(menu2);	
-				
+
 
 			}
 
@@ -99,16 +99,15 @@ public class UseMenuDao {
 	 * selIdMenu 菜品的查询，，全部数据，按 菜品id
 	 * @param 
 	 */
-	public Menu selIdMenu(int menuId){
-		String sql ="select mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice, mu1.imgUrl,mu1.menuDescribe from menu mu1, " +
+	public List<Menu> selIdMenu(int menuId){
+		String sql ="select mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice, mu1.imgUrl from menu mu1, " +
 				" menuType mt1 where mu1.menuType=mt1.typeId and  mu1.menuId= ? ORDER BY mu1.menuId ASC " ;
 		Object[] obj = {menuId};
-		ResultSet rs = da1.executeQuery(sql, obj);
-		Menu menu2 = new Menu();
+		ResultSet rs = da1.executeQuery(sql, obj);		
+		List<Menu> menuList = new ArrayList<Menu>();
 		try {					
 			while(rs.next()){
-
-
+				Menu menu2 = new Menu();
 				menu2.setMenuId(rs.getInt(1));
 				menu2.setMenuName(rs.getString(2));
 				menu2.setDoTime(rs.getInt(3));
@@ -116,63 +115,70 @@ public class UseMenuDao {
 				menu2.setMenuTypeName(rs.getString(5));
 				menu2.setMenuPrice(rs.getInt(6));
 				menu2.setImgUrl(rs.getString(7));
-				menu2.setMenuDescribe(rs.getString(8));
-
-				return menu2;
+				menuList.add(menu2);			
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+			e.printStackTrace();		
 		}
-		return null;
+		return menuList;
 	}
-    /**
-     * 菜品的查询 以name 查id
-     */
-	public int selName(String name){
-		String sql ="select menuId from menu where menuName = ? " ;
+	/**
+	 * 菜品的查询 以name 
+	 */
+	public List<Menu> selName(String name){
+		String sql ="select * from menu where menuName = ? " ;
 		Object[] obj = {name};
 		ResultSet rs = da1.executeQuery(sql, obj);
-		
+		List<Menu> menuList = new ArrayList<Menu>() ;
+
 		int menuId = 0;
 		try {
-			rs.next();
-			menuId = rs.getInt(1);
+			while(rs.next()){
+				Menu menu2 = new Menu();
+				menu2.setMenuId(rs.getInt(1));
+				menu2.setMenuName(rs.getString(2));
+				menu2.setDoTime(rs.getInt(3));
+				menu2.setMaxNum(rs.getInt(4));
+				menu2.setMenuTypeName(rs.getString(5));
+				menu2.setMenuPrice(rs.getInt(6));
+				menu2.setImgUrl(rs.getString(7));
+				menuList.add(menu2);
+
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return menuId;
+		return menuList;
 	}
-	
-	
+
+
 	/**
 	 * selMenu 菜品的查询，，全部数据，按 菜类
 	 * @param 
 	 */
 	public List<Menu> selTyMenu(String typeName){
-		String sql ="select mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice, mu1.imgUrl,mu1.menuDescribe from menu mu1, " +
+		String sql ="select mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice, mu1.imgUrl from menu mu1, " +
 				" menuType mt1 where mu1.menuType=mt1.typeId and  mt1.typeName = '"+typeName+"' ORDER BY mu1.menuId ASC " ;
-		
-		
+
+
 		ResultSet rs = da1.executeQuery(sql, null);
 		List<Menu> menuList = new ArrayList<Menu>();	
-	
+
 		try {					
 			while(rs.next()){
-				
+
 				Menu menu2 = new Menu();			
 				menu2.setMenuId(rs.getInt(1));
-				
+
 				menu2.setMenuName(rs.getString(2));
 				menu2.setDoTime(rs.getInt(3));
 				menu2.setMaxNum(rs.getInt(4));
 				menu2.setMenuTypeName(rs.getString(5));
 				menu2.setMenuPrice(rs.getInt(6));
-				menu2.setImgUrl(rs.getString(7));
-				menu2.setMenuDescribe(rs.getString(8));
+				menu2.setImgUrl(rs.getString(7));			
 				menuList.add(menu2);	
 
 			}
@@ -190,7 +196,7 @@ public class UseMenuDao {
 	 * @param 
 	 */
 	public List<Menu> selMhMenu(String menuName){
-		String sql = "select mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice, mu1.imgUrl,mu1.menuDescribe from menu mu1, " +
+		String sql = "select mu1.menuId,mu1.menuName,mu1.doTime,mu1.maxNum,mt1.typeName,mu1.menuPrice, mu1.imgUrl from menu mu1, " +
 				" menuType mt1 where mu1.menuType=mt1.typeId and mu1.menuName like '%"+menuName+"%' ORDER BY mu1.menuId ASC ";
 
 		ResultSet rs = da1.executeQuery(sql, null);
@@ -204,8 +210,9 @@ public class UseMenuDao {
 				menu2.setMaxNum(rs.getInt(4));
 				menu2.setMenuTypeName(rs.getString(5));
 				menu2.setMenuPrice(rs.getInt(6));
+				menu2.setImgUrl(rs.getString(7));
 				menuList.add(menu2);	
-				
+
 			}
 
 		} catch (SQLException e) {
@@ -215,7 +222,26 @@ public class UseMenuDao {
 		}
 		return menuList;
 	}
-	
+	/**
+	 * 以name查找price
+	 * 
+	 */
+       public int selPrice(String menuName){
+    	    String sql = "select * from menu where menuName = ?";
+    	    Object[] obj = {menuName};
+    	    ResultSet rs = da1.executeQuery(sql, obj);
+    	    int price =0;
+    	    try {
+				while(rs.next()){
+					Menu menu2 = new Menu();
+				    price = rs.getInt("MenuPrice");
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	    return price;
+       }
 	/**
 	 * 得到菜品总条数
 	 */
@@ -225,7 +251,7 @@ public class UseMenuDao {
 		try {
 			rs.next();
 			int count = rs.getInt(1);
-		    return count;
+			return count;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -41,28 +41,20 @@
 					<th width="100">订单Id</th>
 					<th width="100">详单Id</th>
 					<th width="100">详单下单时间</th>
-					<th width="130">菜品id</th>
-					<th width="100">数量</th>
-					<th width="100">详单状态（是否上菜）</th>
-					<th width="100">开始时间</th>
-					<th width="100">上菜时间</th>
-				
+					<th width="130">菜品</th>
+					<th width="100">数量</th>								
 					<th width="60">操作</th>
 				</tr>
 			</thead>
 			<tbody>
-		      <c:forEach items="${detailedList }" var="detailed">
+		      <c:forEach items="${detailedListhoutai }" var="detailed">
 				 <tr class="text-c">
 					<td><input type="checkbox" value="1" name=""></td>
 					<td>${detailed.orderId }</td>
 					<td>${detailed.detailedId }</a></td>
 					<td>${detailed.detailedTime }</td>
-					<td>${detailed.menuId }</td>
-					<td>${detailed.num }</td>
-					<td>${detailed.dishesStatus }</td>
-					<td>${detailed.stateTime }</td>
-					<td>${detailed.outTime }</td>
-					
+					<td>${detailed.menuName }</td>
+					<td>${detailed.num }</td>		
 					<td class="f-14">
 					    <a title="删除" href="javascript:;" onclick="user_del(this,'${detailed.detailedId }')" class="ml-5" style="text-decoration:none">
 					    <i class="Hui-iconfont">&#xe6e2;</i></a>

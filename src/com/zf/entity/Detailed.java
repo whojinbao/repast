@@ -16,19 +16,26 @@ public class Detailed {
     private String detailedId;
     private Date   detailedTime;
     private int menuId;
-    private int menuName;
+    private String menuName;
     private int num;
 	private int dishesStatus;
     private Date stateTime;
     private Date outTime;
+    private int menuPrice;
 
-	public int getMenuName() {
+	
+	public int getMenuPrice() {
+		return menuPrice;
+	}
+	public void setMenuPrice(int menuPrice) {
+		this.menuPrice = menuPrice;
+	}
+	public String getMenuName() {
 		return menuName;
 	}
-	public void setMenuName(int menuName) {
+	public void setMenuName(String menuName) {
 		this.menuName = menuName;
 	}
-
 	public String getOrderId() {
 		return orderId;
 	}

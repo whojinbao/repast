@@ -31,16 +31,11 @@ public class UseDetailedDao {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	/*Date dd1=new Date();
     	String ss1=sdf.format(dd1);*/
-		System.out.println("o1");
     	String detailedTimeStr = sdf.format(detailed1.getDetailedTime());
     	Object [] obj = {detailed1.getOrderId(),detailed1.getDetailedId(),
     			detailedTimeStr,detailed1.getMenuId(),detailed1.getNum(),
-    			detailed1.getDishesStatus()};
-    	System.out.println(obj[0]+";"+obj[1]+";"+obj[2]+";"+obj[3]+";"+obj[4]+";"+obj[5]+";");
-    	da1.executeUpdate(sql, obj);
-    	
-    	
-    	
+    			detailed1.getDishesStatus()};    
+    	da1.executeUpdate(sql, obj);	
     }
     
     
@@ -57,17 +52,15 @@ public class UseDetailedDao {
     /**
      * 对订单详情表 detailed 的查询，全部数据
      */
-    public List<Detailed> selDetailed(Integer orderId){
-    	
+    public List<Detailed> selDetailed(String orderId){
     	ResultSet rs = null;
-    	if( orderId != null && orderId >=0){
-    		String sql2 = "select * from detailed where orderId = (?) ";
+    	if( orderId != null ){
+    		String sql2 = "select d1.orderId,d1.detailedId,d1.detailedTime,m1.menuName,d1.detailednum,m1.menuPrice from detailed d1,menu m1 " +
+    				      " where d1.menuId=m1.menuId  and d1.orderId = (?)";
     		Object [] obj = {orderId};
     		 rs= da1.executeQuery(sql2, obj);
-    	}else{
-    		System.out.println("null");
-    		String sql1 = "select * from detailed";
-    		
+    	}else{  
+    		String sql1 = "select * from detailed";   		
     		 rs= da1.executeQuery(sql1, null);
     	}
     	
@@ -78,11 +71,9 @@ public class UseDetailedDao {
 				detailed1.setOrderId(rs.getString(1));
 				detailed1.setDetailedId(rs.getString(2));
 				detailed1.setDetailedTime(rs.getDate(3));
-				detailed1.setMenuId(rs.getInt(4));
+				detailed1.setMenuName(rs.getString(4));
 				detailed1.setNum(rs.getInt(5));
-				detailed1.setDishesStatus(rs.getInt(6));
-				detailed1.setStateTime(rs.getDate(7));
-				detailed1.setOutTime(rs.getDate(8));
+				detailed1.setMenuPrice(rs.getInt(6));
 				detailedList.add(detailed1);
 				
 			}
