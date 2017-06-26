@@ -10,24 +10,29 @@ import com.yang.model.Login;
 
 public class LoginDaoImpl implements LoginDao {
 
-	public String list(String name) {
+	public List<String> list(String name) {
 		// TODO Auto-generated method stub
-		String sql="select user_pwd from employee where user_id=?";
+		String sql="select user_pwd,user_name,role_name from employee,role  where  user_power=role_id and user_id=?";
 		Object params[]={name};
-		List<Login>list=new ArrayList<Login>();
 		ResultSet rs=null;
 		rs=DaoFactory.executeQuery(sql, params);
-		String pswd=null;
+		List<String> ll=new ArrayList<String>();
+		
 		try {
 			if(rs.next()){
-				pswd=rs.getString("user_pwd");
+				String pswd=rs.getString("user_pwd");
+				String name1=rs.getString("user_name");
+				String role=rs.getString("role_name");
+				ll.add(pswd);
+				ll.add(name1);
+				ll.add(role);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return pswd;
+		return ll;
 	}
 
 }

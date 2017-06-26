@@ -115,7 +115,7 @@ tr td:first-child{
   
   <body>
    <div class="content">
-            <div id="t1"><span >桌号:</span>${seatId }<span>员工id:</span>${staffId }<span>顾客id:</span></div>		
+            <div id="t1"><span >桌号:</span>${zhuo}<span>员工id:</span>${staffid }<span>顾客id:</span></div>		
 			<div class="header">
 				<h2>购物车</h2>		
 				

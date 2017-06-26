@@ -1,5 +1,6 @@
 package com.zf.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -22,8 +23,16 @@ public class Detailed {
     private Date stateTime;
     private Date outTime;
     private int menuPrice;
-
+	private String datetime;
 	
+	public String getDatetime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String datetime=sdf.format(getDetailedTime());
+		return datetime;
+	}
+	public void setDatetime(String datetime) {
+		this.datetime = datetime;
+	}
 	public int getMenuPrice() {
 		return menuPrice;
 	}

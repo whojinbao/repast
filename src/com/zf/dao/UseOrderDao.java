@@ -73,7 +73,7 @@ public class UseOrderDao {
 				Order order1 = new Order();
 				order1.setOrderId(rs.getString(1));	
 				order1.setOrderTimes((Date)rs.getObject(2));
-				order1.setSeatId(rs.getInt(3));
+				order1.setSeatId(rs.getString(3));
 				order1.setStaffId(rs.getString(4));				
 				order1.setOrderStatus(rs.getInt(5));
 				order1.setOrderSort(rs.getInt(6));
@@ -108,7 +108,7 @@ public class UseOrderDao {
 				Order order1 = new Order();
 				order1.setOrderId(rs.getString(1));	
 				order1.setOrderTimes(rs.getDate(2));
-				order1.setSeatId(rs.getInt(3));
+				order1.setSeatId(rs.getString(3));
 				order1.setStaffId(rs.getString(4));				
 				order1.setOrderStatus(rs.getInt(5));
 				order1.setOrderSort(rs.getInt(6));
@@ -141,7 +141,7 @@ public class UseOrderDao {
 				Order order1 = new Order();
 				order1.setOrderId(rs.getString(1));	
 				order1.setOrderTimes(rs.getDate(2));
-				order1.setSeatId(rs.getInt(3));
+				order1.setSeatId(rs.getString(3));
 				order1.setStaffId(rs.getString(4));				
 				order1.setOrderStatus(rs.getInt(5));
 				order1.setOrderSort(rs.getInt(6));
@@ -159,7 +159,7 @@ public class UseOrderDao {
 	/**
 	 * 
 	 */
-	public Order getOrder(int seatId){
+	public Order getOrder(String seatId){
 		String sql2 = "select * from orderList where orderStatus=0 and seatId ="+seatId;
 		DaoFactory da1 = new DaoFactory();
 		ResultSet rs2 = da1.executeQuery(sql2, null);

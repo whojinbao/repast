@@ -66,7 +66,7 @@ text-align:center;
 		      <c:forEach items="${detailedListppp }" var="detailed">
 				 <tr >
 
-					<td>${detailed.detailedTime }</td>
+					<td>${detailed.datetime }</td>
 					<td>${detailed.menuName }</td>
 					<td>${detailed.num }</td>
 					<td>${detailed.menuPrice }</td>

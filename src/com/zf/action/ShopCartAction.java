@@ -132,7 +132,6 @@ public class ShopCartAction{
 		try {
 			rs.next();
 			menuIdStr=rs.getString("menuId");
-			System.out.println(menuIdStr);
 		} catch (Exception e) {
 		}
 
@@ -241,13 +240,12 @@ public class ShopCartAction{
 	 */
 	public String getOrder(){
 
-		System.out.println("get");
 		HttpSession  shopCartsession= request.getSession();	
 		List<ShopCartUtil> shopCartList =(List<ShopCartUtil>) shopCartsession.getAttribute("shopCartList");
 		Date newTime = null;
 
 		//判断是新增订单，还是加菜      
-		int seatId =  (Integer) shopCartsession.getAttribute("seatId"); 	
+		String seatId =(String) shopCartsession.getAttribute("zhuo"); 	
 		int flag = -1;
 		String orderId3=null;
 		int totalPrice = 0;
@@ -275,7 +273,6 @@ public class ShopCartAction{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		newTime = new Date();//当前时间
 		if(flag == 1){//已结账，生成订单，订单详情
-			System.out.println("dingdan");
 			shopCartsession.setAttribute("orderTimes", newTime);//下订单时间
 
 			String orderId1=sdf.format(newTime);
@@ -291,8 +288,7 @@ public class ShopCartAction{
 			ordernew.setOrderSort(1);
 			ordernew.setOrderStatus(0);
 			ordernew.setSeatId(seatId);
-			String staffId = (String)shopCartsession.getAttribute("staffId");
-
+			String staffId = (String)shopCartsession.getAttribute("staffid");
 			ordernew.setStaffId(staffId);
 			//第一次点餐，生成订单，总价就是，购物车内总价totalPrice；
 
@@ -314,10 +310,12 @@ public class ShopCartAction{
 				detailednew.setOrderId(orderId1);
 				usedetailedaction.addDetailed(detailednew);				
 			}
+			String sql1="insert into quanzhong(detailedId) values("+detailedId1+")";
+			DishesDao d1d=new DishesDao();
+			d1d.updateData(sql1,null);
 
 
 		}else if(flag == 0){//未结账，生成订单详情，
-			System.out.println("xiangdan");
 			shopCartsession.setAttribute("detailedTime", newTime);
 			String  detailedId1 = sdf.format(newTime)+"002";
 			shopCartsession.setAttribute("detailedId1", detailedId1);
