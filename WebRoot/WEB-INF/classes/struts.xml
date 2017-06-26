@@ -74,6 +74,11 @@
 			<result name="ok" type="redirect">menu_selTyMenu</result>
 			<result name="no" type="redirect">/qiantai/qiantaizhuce/zhuce1.jsp</result>
 	</action>
+	<!-- 确认下单高德地图 -->
+	
+	<action name="who_order_*" class="com.who.struts.PlaceOrderAction" method="{1}">
+			<result name="back" type="redirect">/qiantai/qrxdan/xiadan.jsp</result>
+	</action>
 	
 
 

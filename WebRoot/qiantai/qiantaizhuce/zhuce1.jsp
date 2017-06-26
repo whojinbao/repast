@@ -202,7 +202,7 @@ body {
 	<div id="dianmond_boss">
 		<button class="diamond button gray" id="top">
 			<div>
-				<img src="../image/waimaidiancan.png"></img>
+				<img src="../image/waimaidiancan.png"></img>  
 			</div>
 		</button>
 		<a href="javascript:;" class="md-trigger btn btn-primary btn-sm"
@@ -212,8 +212,8 @@ body {
 					<img style="margin-left:0px;" src="../image/zhuce.png"></img>
 				</div>
 			</button> </a>
-		<a href="${who_qiantai }"  disabled="disabled">
-			<button class="diamond button gray" id="left" >
+		<a href="${who_qiantai }"  disabled="disabled"><%--   开始点餐	--%>
+		<button class="diamond button gray" id="left" >
 				<div>
 					<img src="../image/kaishidiancan.png"></img>
 				</div>
@@ -410,15 +410,6 @@ body {
 		}
 		 
 		});	
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 	        
