@@ -45,10 +45,7 @@ public class UseDetailedAction {
 	 * 
 	 */
 	public String addDetailed(Detailed detailed){
-		System.out.println("ss1");
 		useDetailedDao.addDetailed(detailed);
-		System.out.println("ss2");
-		System.out.println("ss3");
 		return "ok";
 	}
 
@@ -74,9 +71,10 @@ public class UseDetailedAction {
 	 */
 	public String selDetailed(){
 	  	 
-		Integer orderId = Integer.parseInt(request.getParameter("orderId"));	
-		List<Detailed> detailedList = useDetailedDao.selDetailed(orderId);
-		session.setAttribute("detailedList", detailedList);
+		String orderIdStr = request.getParameter("orderId");	
+
+		List<Detailed> detailedList = useDetailedDao.selDetailed(orderIdStr);
+		session.setAttribute("detailedListhoutai", detailedList);
 
 		return "ok";
 	}

@@ -5,7 +5,6 @@ public class ShopCartUtil {
 	private int menuId;
 	private String menuName;
 	private int menuPrice;
-	
 	private int num;
 	
 	public String getMenuName() {

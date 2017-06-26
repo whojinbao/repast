@@ -101,7 +101,6 @@ public class UseOrderAction {
 	 * 
 	 */
 	public String  selOrder(){
-		System.out.println("sel");
 		List<Order> orderList = useOrderDao.selOrder();
 		session.setAttribute("orderList", orderList);
 		return "ok";
@@ -126,7 +125,6 @@ public class UseOrderAction {
 		}catch(Exception e){
 
 		}
-		System.out.println(startTimeStr+"   "+endTimeStr);
 		// 将字符串转化为日期类型
 		SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();

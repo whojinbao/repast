@@ -9,7 +9,7 @@ orderId	detailedId	orderTimes	seatId	   staffId	  totalPrice              orderS
 public class Order {
    private String orderId; 
    private Date orderTimes;
-   private  int seatId;
+   private  String seatId;
    private String staffId;
    private int orderStatus;
    private int orderSort;
@@ -27,10 +27,10 @@ public Date getOrderTimes() {
 public void setOrderTimes(Date orderTimes) {
 	this.orderTimes = orderTimes;
 }
-public int getSeatId() {
+public String getSeatId() {
 	return seatId;
 }
-public void setSeatId(int seatId) {
+public void setSeatId(String seatId) {
 	this.seatId = seatId;
 }
 public String getStaffId() {

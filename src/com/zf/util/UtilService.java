@@ -27,7 +27,7 @@ public class UtilService {
 		if(currPage<1) currPage=1 ;
 		if(currPage >= util.getAllPage()) currPage=util.getAllPage();
 		//确定currPage后再改util赋值  再去数据库查询
-		System.out.println("当前页"+currPage);
+	/*	System.out.println("当前页"+currPage);*/
 		util.setCurrPage(currPage); 
 
 		//得到从第几条开始
@@ -44,7 +44,6 @@ public class UtilService {
 			list1.add(list.get(i));
 
 		} 
-		System.out.println(startIndex+"  "+size);
 	
 
 		util.setList(list1);

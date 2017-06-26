@@ -49,8 +49,6 @@ public class UseMenuTypeDao {
 	 */
 	public List<MenuType> seltype(){
 		String sql = "select * from menuType ORDER BY typeId ASC";
-		/*String sql = "select top "+maxPage+" typeId,typeName from menuType where typeId not in(select top "+startPage+" typeId" +
-				" from menuType ) ORDER BY typeId ASC ";*/
 		ResultSet rs = da1.executeQuery(sql, null);
 		List<MenuType> menuTypeList = new ArrayList<MenuType>();
 		try {				
@@ -67,6 +65,25 @@ public class UseMenuTypeDao {
 		}
 		return menuTypeList;
 	}
+	/**
+	 * 
+	 */
+	 public List<MenuType> selName(String typeName1){
+		    String sql = "select * from menuType where typeName='"+typeName1+"'";
+			DaoFactory da1 = new DaoFactory();
+			ResultSet rs= da1.executeQuery(sql, null);
+	        List<MenuType> menuList = new ArrayList<MenuType>();
+			try{
+			   rs.next();
+			   MenuType menuType = new MenuType();
+			   menuType.setTypeId(rs.getInt(1));
+			   menuType.setTypeName(rs.getString(2));
+			   menuList.add(menuType);
+			}catch(Exception e){
+				
+			}
+			return menuList;
+	 }
 
 	/***
 	 * count() 查询总条数
