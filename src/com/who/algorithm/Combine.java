@@ -8,7 +8,6 @@ import com.who.getdata.DishesDao;
 
 public class Combine {
 	DishesDao dd=new DishesDao();
-	List<Dishes> liDishes=dd.getDishes();
 	List<String> liNum=dd.getDetailed();
 	/*
 	 * 数据库中读取到的值进行分桌
@@ -16,7 +15,7 @@ public class Combine {
 	 * 所有桌的数据放进List<List<Dishes>>中，其长度为下过订单并且有未炒菜的的桌台的总和
 	 * 计算权重乘积并放入Dishes类中的product属性中；
 	 */
-	private List<List<Dishes>> divide(){
+	private List<List<Dishes>> divide(List<Dishes> liDishes){
 		List<List<Dishes>> lli=new ArrayList<List<Dishes>>();
 		for (int i = 0; i < liNum.size(); i++) {			//分桌
 			List<Dishes> ld=new ArrayList<Dishes>();
@@ -49,9 +48,9 @@ public class Combine {
 	 * 每一桌按炒菜时间进行大小排序，数值小的在前面
 	 * 按照权重进行排序，数值小的在前面
 	 */
-	private List<List<Dishes>> maopaopaixu(){
+	private List<List<Dishes>> maopaopaixu(List<Dishes> liDishes){
 		List<List<Dishes>> aa= new ArrayList<List<Dishes>>();
-		List<List<Dishes>> ll=divide();
+		List<List<Dishes>> ll=divide(liDishes);
 		for (int n = 0; n < ll.size(); n++) {			//每桌按炒菜时间进行排序
 			List<Dishes> llist=ll.get(n);
 			for (int i = 1; i < llist.size(); i++) {
@@ -112,8 +111,8 @@ public class Combine {
 	/*
 	 * 相同菜品进行合菜
 	 */
-	public List<List<Dishes>> sort(){
-		List<List<Dishes>> ll =maopaopaixu();
+	public List<List<Dishes>> sort(List<Dishes> reDishes){
+		List<List<Dishes>> ll =maopaopaixu(reDishes);
 		
 		for (int i = 0; i < ll.size(); i++) {
 			for (int j = 0; j < ll.get(i).size(); j++) {

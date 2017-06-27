@@ -15,12 +15,12 @@ import org.apache.struts2.ServletActionContext;
 import com.who.algorithm.GetOven;
 import com.who.algorithm.Sort1;
 import com.who.algorithm.Sort2;
+import com.who.algorithm.sortOthers;
 import com.who.getdata.Dishes;
 import com.who.getdata.DishesDao;
 import com.who.getdata.Ovening;
 import com.who.getdata.Total;
 import com.who.hearth.HearthDao;
-import com.who.util.OthesDishes;
 import com.who.util.SeatIDTime;
 import com.who.util.TotalUtil;
 
@@ -107,6 +107,7 @@ public class ArrangeAction {
 	 * 界面总数据获取
 	 */
 	public String show(){
+		sortOthers cc=new sortOthers();
 		HearthDao hh=new HearthDao();
 		int hearth=hh.getHearth();
 		List<Total> ll=dd.getTotals();
@@ -147,8 +148,8 @@ public class ArrangeAction {
 			session.setAttribute("sortColor2", "1");
 		}
 		List<TotalUtil> ttlist=getMinTime(llist,dishesList,dishesingList);
-		List<OthesDishes> cool=dd.getLiang();
-		List<OthesDishes> othes=dd.getOthes();
+		List<Dishes> cool=cc.getLiang();
+		List<Dishes> othes=cc.getOthes();
 		session.setAttribute("cool", cool);
 		session.setAttribute("othes", othes);
 		session.setAttribute("total", ttlist);
@@ -159,12 +160,6 @@ public class ArrangeAction {
 		session.setAttribute("hearthxiugai", "hearthxiugai_hidden");
 		session.setAttribute("updateDsihes_error", "updateDsihes_error_hidden");
 		return "arrange";
-	}
-	
-	
-	public static void main(String[] args) {
-		ArrangeAction aa=new ArrangeAction();
-		aa.show();
 	}
 	
 	/*
@@ -281,11 +276,24 @@ public class ArrangeAction {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time=sdf.format(date);
 		String menuId=request.getParameter("menuId");
-		String detailedId=request.getParameter("detailedId");
-		String detailednum=request.getParameter("detailednum");
-		String sql="update detailed set dishesStatus='2',outTime='"+time+"',ovenSum="+detailednum+" where menuId='"+menuId+"' and detailedId="+detailedId;
-	
-		dd.updateData(sql, null);
+		String [] detailedId=request.getParameterValues("detailedId");
+		String [] detailednum=request.getParameterValues("detailednum");
+		String sql2="select ovening from detailed where menuId="+menuId+" and detailedId=?";
+		for (int i = 0; i < detailedId.length; i++) {
+			String sql="update detailed set dishesStatus='2',outTime='"+time+"',ovenSum=? where menuId='"+menuId+"' and detailedId=?";
+			String de=detailedId[i];
+			Object params[]={de};
+			ResultSet rs1=dd.getData(sql2,params);
+			int d=0;
+			try {
+				if(rs1.next()){
+					d=rs1.getInt("ovening");
+				}
+			} catch (Exception e){}
+			d=d+Integer.parseInt(detailednum[i]);
+			Object params1[]={d,de};
+			dd.updateData(sql, params1);
+		}
 		show();
 		return "updateStatus";
 	}

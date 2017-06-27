@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.who.getdata.Dishes;
+import com.who.getdata.DishesDao;
 
 public class Sort3 {
+	DishesDao dd=new DishesDao();
+	List<Dishes> reDishes=dd.getDishes();
 	/*
 	 * 按照每桌第一道菜进行排序
 	 * 把List<List<Dishes>>按照每桌第一道添加List<Dishes>
@@ -13,7 +16,7 @@ public class Sort3 {
 	 */
 	private List<Dishes> heList(){
 		Combine pp=new Combine();
-		List<List<Dishes>> ll=pp.sort();
+		List<List<Dishes>> ll=pp.sort(reDishes);
 		List<Dishes> ld=new ArrayList<Dishes>();
 		int flag=0;
 		for (int i = 0; i < ll.size(); i++) {

@@ -1,5 +1,6 @@
 package com.who.getdata;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Dishesing {
 	private int EWT;
 	private int percentage;
 	private List<Integer> detailednum=new ArrayList<Integer>();
+	
 	public int getPercentage() {
 		percentage=99;
 		if(EWT>0){
