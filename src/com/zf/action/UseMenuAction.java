@@ -60,9 +60,6 @@ public class UseMenuAction extends ActionSupport{
 		String path = request.getRealPath("/");
 		//刷新菜类
 		usemenuTypeAction.sel();
-		System.out.println(menuFile);
-		System.out.println(menuFileFileName);
-		System.out.println(path);
 		try {
 			/**
 			 * 1.保存产品

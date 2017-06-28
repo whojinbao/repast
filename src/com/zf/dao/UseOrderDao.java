@@ -26,7 +26,7 @@ public class UseOrderDao {
 	 * 
 	 */
 	public void addOrder(Order order1){
-		String sql = "insert into orderList values(?,?,?,?,?,?,?)";
+		String sql = "insert into orderList(orderId,orderTimes,seatId,staffId,orderStatus,orderSort,totalPrice) values(?,?,?,?,?,?,?)";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		/*Date dd1=new Date();
     	String ss1=sdf.format(dd1);*/
@@ -65,7 +65,7 @@ public class UseOrderDao {
 	 * 
 	 */
 	public List<Order> selOrder(){
-		String sql = "select * from orderList";
+		String sql = "select orderId,orderTimes,seatId,staffId,orderStatus,orderSort,totalPrice from orderList";
 		ResultSet rs= da1.executeQuery(sql, null);
 		List<Order> orderList = new ArrayList<Order>();
 
@@ -101,26 +101,17 @@ public class UseOrderDao {
 	 */
 	public List<Order> selMhOrder(String startTime,String endTime,String mhOredrSeatId){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	/*	try {
-			Date startTime1 = sdf.parse(startTime);
-			Date endTime1 = sdf.parse(endTime);
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
 		endTime +=" 23:59:59";
-		String sql = "SELECT * FROM orderList WHERE seatId = ? and orderTimes BETWEEN '"+startTime+"' AND '"+endTime+"' ";
+		String sql = "SELECT orderId,orderTimes,seatId,staffId,orderStatus,orderSort,totalPrice FROM orderList WHERE seatId = ? and orderTimes BETWEEN '"+startTime+"' AND '"+endTime+"' ";
 
 	
-		Object [] obj={Integer.parseInt(mhOredrSeatId)};
+		Object [] obj={mhOredrSeatId};
 		ResultSet rs= da1.executeQuery(sql, obj);
 		List<Order> orderList = new ArrayList<Order>();
 		try {
 			while (rs.next()){
 				Order order1 = new Order();
-				System.out.println(rs.getString(1));
 				order1.setOrderId(rs.getString(1));	
-				
 		
 				/*Date dd1=new Date();
 		    	String ss1=sdf.format(dd1);*/
@@ -141,7 +132,6 @@ public class UseOrderDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println(orderList.size());
 		return orderList;
 	}
 
@@ -151,7 +141,7 @@ public class UseOrderDao {
 	 * 
 	 */
 	public List<Order> selIdOrder(String orderId){
-		String sql = "SELECT * FROM orderList WHERE orderId = ?";
+		String sql = "SELECT orderId,orderTimes,seatId,staffId,orderStatus,orderSort,totalPrice FROM orderList WHERE orderId = ?";
 
 
 		Object [] obj={orderId};
@@ -185,10 +175,10 @@ public class UseOrderDao {
 	}
 
 	/**
-	 * 
+	 * ÒÔ×ÀºÅ²é¶©µ¥
 	 */
 	public Order getOrder(String seatId){
-		String sql2 = "select * from orderList where orderStatus=0 and seatId ="+seatId;
+		String sql2 = "select orderId,orderTimes,seatId,staffId,orderStatus,orderSort,totalPrice from orderList where orderStatus = 0 and seatId ='"+seatId+"'";
 		DaoFactory da1 = new DaoFactory();
 		ResultSet rs2 = da1.executeQuery(sql2, null);
         Order order = new Order();
@@ -202,7 +192,7 @@ public class UseOrderDao {
 			Date date=sdf.parse(ttimes);
 			order.setOrderTimes(date);
 			
-			order.setSeatId(seatId);
+			order.setSeatId(rs2.getString(3));
 			order.setStaffId(rs2.getString(4));
 			order.setOrderStatus(rs2.getInt(5));
 			order.setOrderSort(rs2.getInt(6));
