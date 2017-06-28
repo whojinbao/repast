@@ -41,7 +41,8 @@
      
      <!-- 订单，的action，Xml设置 -->
      <action name="order_*" class="com.zf.action.UseOrderAction" method="{1}">   
-      <result name="ok" >/houtai/orderList.jsp</result>       
+      <result name="ok" >/houtai/orderList.jsp</result>    
+      <result name="financialList">/houtai/financial.jsp</result>   
      </action>     
 
      <!--  -->

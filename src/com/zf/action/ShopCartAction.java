@@ -311,7 +311,7 @@ public class ShopCartAction{
 	public String settle(){
 		HttpSession  shopCartsession= request.getSession();	
 		
-		int seatId =  Integer.parseInt((String) shopCartsession.getAttribute("zhuo")) ; 	
+		String seatId = (String) shopCartsession.getAttribute("zhuo") ; 	
 		String sql = "update orderList set orderStatus =1 where seatId=" +seatId;
 		DaoFactory da1 = new DaoFactory();
 		da1.executeUpdate(sql, null);

@@ -115,8 +115,8 @@
 			<dd>
 				<ul>
 					<li><a data-href="order_selOrder.action" data-title="查询订单" href="javascript:void(0)">查询订单</a></li>
-					<li><a data-href="admin-permission.html" data-title="上餐排序" href="javascript:void(0)">上餐排序</a></li>
-			</ul>
+					<%--<li><a data-href="order_getStatistic.action" data-title="上餐排序" href="javascript:void(0)">营业数据分析</a></li>
+			--%></ul>
 		</dd>
 	</dl>
 		<dl id="menu-tongji">
