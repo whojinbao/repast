@@ -11,6 +11,12 @@
 <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
 <script type="text/javascript" src="../css/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="../css/bootstrap.min.js"></script>
+<style type="text/css">
+	body{
+		background:url(../image/10.jpg.jpg) no-repeat;
+		background-size:100% 100%;
+	}
+</style>
 </head>
 <body>
 	<c:forEach items="${ld}" var="d">

@@ -7,7 +7,7 @@ import com.publics.dao.DaoFactory;
 
 public class Impl implements dao {
 	/*
-	 * 从桌子表，桌子状态表，桌子图片表，桌子房间表，中的模糊查询
+	 * 从桌子表，桌子状态表，桌子图片表，桌子房间表，中的查询
 	 * 
 	 */
 	//所有桌子的查询
@@ -71,12 +71,40 @@ public class Impl implements dao {
 		return ld;
 	}
 	/*
-	 * 根据桌子表的id改变桌子状态表的name
+	 * 根据桌子表的id改变桌子状态表的name,前台
+	 * 
 	 */
 	public int update(Deskimg ss) {
 		String sql="update zhuo set seatStatusId =(select seatStatusId from zhuostatus where seatStatusName=?) where seatid=?";
 		Object[]ob=new Object[]{ss.getStaticName(),ss.getSeatid()};
 		return DaoFactory.executeUpdate(sql, ob);
 	}
+	/*
+	 * 根据桌子表的id和桌子状态表的name查询；
+	 */
+	public List<Deskimg> select3(Deskimg ss) {
+		String sql="select zh.seatid,zh.maxPerson,zh.staffId,de.src,zz.seatStatusName from zhuo zh,destImg de,room r1,zhuostatus zz where zh.imgId=de.id and zh.rid=r1.id and zh.seatStatusId=zz.seatStatusId and zh.maxPerson=? and zz.seatStatusName=?";
+		Object[]ob=new Object[]{ss.getMaxPerson(),ss.getStaticName()};
+		ResultSet rs=DaoFactory.executeQuery(sql, ob);
+		List<Deskimg> ld=new ArrayList<Deskimg>();
+		try {
+			while(rs.next()){
+				Deskimg dd=new Deskimg();
+				dd.setSeatid(rs.getInt(1));
+				dd.setMaxPerson(rs.getInt(2));
+				dd.setStaffId(rs.getInt(3));
+				dd.setSrc(rs.getString(4));
+				dd.setStaticName(rs.getString(5));
+				ld.add(dd);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return ld;
+	}
+	/*
+	 * 根据桌子表的id改变桌子状态表的name,前台
+	 * 换台
+	 */
 	
 }

@@ -13,7 +13,7 @@ public class Allot {
 	private List<List<Dishes>> list=new ArrayList<List<Dishes>>();
 	/*
 	 * 按照先入先出进行分灶，灶的数量为num
-	 */
+	*/ 
 	private List<List<Dishes>> realize(List<Dishes> heList){
 		/*
 		 * 获取锅内正在炒的菜品剩余出锅时间
@@ -39,6 +39,7 @@ public class Allot {
 			List<Dishes> listshiyan=new ArrayList<Dishes>();
 			lt.add(listshiyan);
 		}
+		
 		for (int i = 0; i < ld.size(); i++) {
 				for (int k = 1; k < intList.size(); k++) {
 					for (int l = 0; l < intList.size()-k; l++) {
@@ -56,25 +57,17 @@ public class Allot {
 				intList.get(0).set(1, intList.get(0).get(1)+ld.get(i).getDoTime());
 			
 			}
-		/*while(ld.size()>0){
-			for (int i = 0; i < num; i++) {
-				if (ld.size()>0) {
-					lt.get(i).add(ld.get(0));
-					ld.remove(0);
-				}else{
-					break;
-				}
-			}
-		}*/
 		return lt;
 		
 	}
 	/*
 	 * 获取菜品的等待时间
-//	 * 通过调Cooking的start方法获取
+	 * 通过调Cooking的start方法获取
 	 */
 	
 	public List<Dishes> outPuttimes(List<Dishes> li){
+
+		
 		OvenTime ovenTime=new OvenTime();
 		List<Dishesing> oList=ovenTime.getOveningTime();
 		
@@ -83,6 +76,7 @@ public class Allot {
 			rl.add(li.get(i));
 		}
 		List<List<Dishes>> ll=realize(li);
+		
 		for (int i = 0; i < num; i++) {
 			int startNum=0;
 			if(oList.size()>=i+1){

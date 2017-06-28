@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+	
+		
+		
 	<package name="default" extends="struts-default">
 		<!-- 全局配置 -->
-       
-       
        <global-results>
             <result name="error">/error.jsp</result>
             <result name="crash">/crash.jsp</result>
             <result name="needsLogin">/needsLogin.jsp</result>
             <result name="input">/needsInit.jsp</result>
             <result name="needsInit">/needsInit.jsp</result>
-        </global-results>
-	
+        </global-results>	
 		<action name="p_*" class="com.caoqi.strutsaction.strutsAction" method="{1}">
 			<result name="ok">/houtai/caoqi/zhuozi.jsp</result>
 			<result name="oq">/houtai/caoqi/zhuozi.jsp</result>
@@ -23,45 +23,124 @@
 			<result name="pk">/qiantai/waiter/waiter.jsp</result>
 			<result name="py">/qiantai/waiter/waiter.jsp</result>
 			<result name="pm">/qiantai/waiter/waiter.jsp</result>
-			<result name="po">/qiantai/waiter/waiter.jsp</result>
+			<result name="po" type="redirect">/menu_selTyMenu</result>
+
 		</action>
+      
       
      <!-- 菜品 ，菜品分类的action，xml设置 -->
      <action name="menuType_*" class="com.zf.action.UseMenuTypeAction" method="{1}">
-       <result name="ok">/houtai/menuType.jsp </result>
-       <result name="menuAdd">/houtai/menuAdd.jsp</result>
-     
-     </action>
-       
+       <result name="ok" >/houtai/menuType.jsp </result>    
+     </action>      
       <action name="menu_*" class="com.zf.action.UseMenuAction" method="{1}">
        <result name="ok">/houtai/menu.jsp</result>
+       <result name="diancan" type="redirect">/ppp/diancan.jsp</result>
+       <result name="Update" type="redirect">/houtai/menuUpdate.jsp</result>
      </action>    
      <!--  -->
      
      <!-- 订单，的action，Xml设置 -->
-     <action name="order_*" class="com.zf.action.UseOrderAction" method="{1}">
-       <result name="ok">/houtai/orderList.jsp</result>
-       
-     </action> 
+     <action name="order_*" class="com.zf.action.UseOrderAction" method="{1}">   
+      <result name="ok" >/houtai/orderList.jsp</result>       
+     </action>     
+
+     <!--  -->
+     
+     <!-- 购物车，的action，Xml设置 -->
+     <action name="shopCart_*" class="com.zf.action.ShopCartAction" method="{1}">
+       <result name="ok" type="redirect">/ppp/order.jsp</result> 
+       <result name="order"  type="redirect">/ppp/order.jsp</result>   
+       <result name="start"  type="redirect">/qiantai/qiantaizhuce/zhuce1.jsp</result>   
+       <result name="shopCart" type="redirect">/ppp/shopCart.jsp</result>
+       <result name="detailed"  >/ppp/detailed.jsp</result>
+     </action>  
      
      <!--  -->
+     <!-- 服务员页面的配置 -->
+     <action name="p_*" class="com.caoqi.strutsaction.strutsAction" method="{1}">
+			<result name="ok">/houtai/caoqi/zhuozi.jsp</result>
+			<result name="oq">/houtai/caoqi/zhuozi.jsp</result>
+			<result name="ow">/houtai/caoqi/zhuozi.jsp</result>
+			<result name="ot">/houtai/caoqi/zhuozi.jsp</result>
+		</action>
+		<action name="i_*" class="com.caoqi.strutsaction.waiterAction" method="{1}">
+			<result name="img">../test/waiter.jsp</result>
+			<result name="status">../test/waiter.jsp</result>
+			<result name="hh">../test/waiter.jsp</result>
+			<result name="dating">../test/waiter.jsp</result>
+			<result name="baoxiang">../test/waiter.jsp</result>
+		</action>
+		<action name="ko_*" class="com.caoqi.strutsaction.OrderAction" method="{1}">
+			<result name="order">../test/order.jsp</result>
+			<result name="order1">../test/order.jsp</result>
+		</action>
      
      <!-- 订单详情的action，Xml设置 -->
      <action name="detailed_*" class="com.zf.action.UseDetailedAction" method="{1}">
-       <result name="ok">/houtai/detailed.jsp</result>
-       <result name="error">/error.jsp</result>
+       <result name="ok">/houtai/detailed.jsp</result> 
      </action> 
+     <!--  -->
      
-     <!-- 跳转到派餐界面 -->
+     <!-- 订单下单配置 -->
+     <action name="shopOk_*" class="com.zf.action.shopOkAction" method="{1}">
+       <result name="ok">/houtai/detailed.jsp</result> 
+     </action> 
+      <!--  -->
 
+      <!-- 上传的配置 -->
+     <action name="u_*" class="com.upload.upload" method="{1}">
+     	<result name="error">/upload/upload.jsp</result>
+     </action>
      
+     <!-- 跳转到派餐界面 --> 
+     <action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
+			<result name="arrange" type="redirect">/jsp/arrange.jsp</result>
+			<result name="updateStatus" type="redirect">/jsp/arrange.jsp</result>
+	</action>
+	
+	<!-- 前台登录注册界面 -->
+	<action name="qtlogin_*" class="com.who.struts.qtloginAction" method="{1}">
+			<result name="ok" type="redirect">menu_selTyMenu</result>
+			<result name="no" type="redirect">/qiantai/qiantaizhuce/zhuce1.jsp</result>
+	</action>
+	<!-- 确认下单高德地图 -->
+	
+	<action name="who_order_*" class="com.who.struts.PlaceOrderAction" method="{1}">
+			<result name="back" type="redirect">/qiantai/qrxdan/xiadan.jsp</result>
+	</action>
 	
 
-     <action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
-			<result name="arrange">/jsp/arrange.jsp</result>
+
+		<!-- 杨奇峰 -->
+		<action name="user_*" class="com.yang.action.staffAction" method="{1}">
+			<result name="ok">/houtai/yang_jsp/staff.jsp</result>
+			<result name="oq">/houtai/yang_jsp/staff.jsp</result>
+			<result name="ow">/houtai/yang_jsp/staff.jsp</result>
+			<result name="ot">/houtai/yang_jsp/staff.jsp</result>
 		</action>
+		<action name="auth_*" class="com.yang.action.authAction" method="{1}">
+			<result name="sa">/houtai/yang_jsp/auth.jsp</result>
+			<result name="sx">/houtai/yang_jsp/auth.jsp</result>
+			<result name="sd">/houtai/yang_jsp/auth.jsp</result>
+			<result name="sw">/houtai/yang_jsp/auth.jsp</result>
+		</action>
+		<action name="role_*" class="com.yang.action.roleAction" method="{1}">
+			<result name="rq">/houtai/yang_jsp/role.jsp</result>
+			<result name="rw">/houtai/yang_jsp/role.jsp</result>
+			<result name="re">/houtai/yang_jsp/role.jsp</result>
+			<result name="rr">/houtai/yang_jsp/role.jsp</result>
+		</action>
+		<action name="login_*" class="com.yang.action.LoginAction" method="{1}">
+			<result name="ow">/houtai/index.jsp</result>	
+		</action>
+		<action name="QT_*" class="com.yang.dao.QTAction" method="{1}">
+			<result name="ow1">/houtai/index.jsp</result>	
+		</action>
+
+
+
+
 
     </package>  
     </struts> 
- 
 

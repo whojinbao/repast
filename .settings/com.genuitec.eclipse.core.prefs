@@ -1,5 +1,5 @@
-#Wed Jun 14 09:01:25 CST 2017
+#Sat Jun 24 10:41:06 CST 2017
 eclipse.preferences.version=1
-validator.Checked=WebRoot
+validator.Checked=src/struts.xml,WebRoot
 validator.Revalidate=true
 validator.Unchecked=

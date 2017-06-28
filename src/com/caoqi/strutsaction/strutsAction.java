@@ -22,7 +22,7 @@ public class strutsAction {
 	dao dd=new Impl();
 	zhuo zz=new zhuo();
 	/*
-	 * 大厅桌子的增加
+	 * 桌子的增加
 	 */
 	public String add(){
 		zz.setSeatid(pp.getSeatid());
@@ -38,7 +38,7 @@ public class strutsAction {
 		return "ok";
 	}
 	/*
-	 * 大厅桌子的删除
+	 * 桌子的删除
 	 */
 	public String delete(){
 		HttpServletRequest resp= ServletActionContext.getRequest();
@@ -51,7 +51,7 @@ public class strutsAction {
 		return "oq";
 	}
 	/*
-	 * 大厅桌子的更新
+	 * 桌子的更新
 	 */
 	public String update(){
 		zz.setSeatStatus(pp.getSeatStatus());
@@ -63,9 +63,9 @@ public class strutsAction {
 		return "ow";
 	}
 	/*
-	 * 大厅桌子的查询
+	 * 桌子的查询
 	 */
-	public String select(){
+	public String select1(){
 		List<zhuo> lz=dd.select1();
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		session.setAttribute("lz", lz);	

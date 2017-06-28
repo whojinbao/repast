@@ -36,5 +36,4 @@ public class Deskimg {
 	public void setSrc(String src) {
 		this.src = src;
 	}
-	
 }

@@ -38,7 +38,7 @@ public class DaoFactory {
 			return ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e.getMessage());
+			System.out.println("ss"+e.getMessage());
 		}finally{
 			conPool.close();
 			closeAll(con, ps, null);
@@ -57,7 +57,7 @@ public class DaoFactory {
 			rs=ps.executeQuery();
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e.getMessage());
+			System.out.println("qq"+e.getMessage());
 		}finally{
 			conPool.close();
 		}return rs;

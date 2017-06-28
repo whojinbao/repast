@@ -36,6 +36,7 @@ public class OvenTime {
 				
 					ds.setSeatId(ds1.getSeatId().get(0));
 					ds.setDetailednum(ds1.getDetailednum().get(0));
+					ds.setDetailedId(ds1.getDetailedId().get(0));
 					dList.remove(j);
 					j--;
 				}
@@ -46,8 +47,8 @@ public class OvenTime {
 	/*
 	 * 正在炒菜的数据获取
 	 * Action调用此方法获取数据
-	 * 
 	 */
+	 
 	
 	public List<Dishesing> getOveningTime(){
 		List<Dishesing> dishesList=sortDishesing();
@@ -55,9 +56,9 @@ public class OvenTime {
 			Dishesing dishesing=dishesList.get(i);
 			Date d2=dishesing.getStartTime();
 			Date d1=new Date();
-			int onTime=(int)(d1.getTime()-d2.getTime())/(60*1000);
+			int onTime=(int)(d1.getTime()-d2.getTime());
 			int doTime=dishesing.getDoTime();
-			int EWT=doTime-onTime;
+			int EWT=((doTime+1)*60000)-onTime;
 			if(EWT<0){EWT=0;}
 			dishesing.setEWT(EWT);
 		}
