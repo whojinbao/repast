@@ -14,7 +14,8 @@ body{
 	width: 1000px;
 	height: 100%;
 	background: #fff;
-	box-shadow: 1px 1px 15px #ddd
+	box-shadow: 1px 1px 15px #ddd;
+	border:1 red solid;
 }
 .header{
 	position: relative;
@@ -41,6 +42,21 @@ body{
 td{
 text-align:center;
 }
+
+.btn{
+	width: 120px;
+    height: 35px;
+    line-height: 35px;
+    background: #fb3b3b;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    position:absolute;
+    botton:-100px;
+    text-decoration:none;
+    color: #fff;
+}
 </style>
   </head>
   
@@ -49,8 +65,9 @@ text-align:center;
           <div class="header">
               <h2>订单详情</h2>
           </div>
-          <div class="mt-20">
-		    <table class="class="mall-content"">
+         
+          <div class="mt-20" >
+		    <table class="mall-content"">
 			   <thead>
 				<tr >
 					
@@ -77,6 +94,8 @@ text-align:center;
 			</tbody>
 		</table>
      
+     </div>
+       <a href="order.jsp" class="btn">返回订单</a>
      </div>
   </body>
 </html>

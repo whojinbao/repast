@@ -74,7 +74,7 @@ public class UseOrderAction {
 	 * 
 	 * 
 	 */
-	public String updateOrder(String orderId,int totalPrice,int orderStatus){
+	public String updateOrder(String orderId,float totalPrice,int orderStatus){
 		useOrderDao.updateOrder(orderId,totalPrice,orderStatus);
 		selOrder();
 		return "ok";
@@ -118,39 +118,15 @@ public class UseOrderAction {
 		String startTimeStr = null;
 		String endTimeStr = null;
 		String mhOredrSeatId = null;
-		try{
-			startTimeStr = request.getParameter("startTime");
-			endTimeStr = request.getParameter("endTime");
-			mhOredrSeatId = request.getParameter("mhOredrSeatId");
-		}catch(Exception e){
+		startTimeStr = request.getParameter("startTime");
+		endTimeStr = request.getParameter("endTime");
+		mhOredrSeatId = request.getParameter("mhOredrSeatId");
+        System.out.println(startTimeStr+";"+endTimeStr+";"+mhOredrSeatId);
+		List<Order> orderList = useOrderDao.selMhOrder(startTimeStr, endTimeStr, mhOredrSeatId);
 
-		}
-		// 将字符串转化为日期类型
-		SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		Date startTime = null;
-		Date endTime = null;
-		try {
-			startTime = sdf3.parse(startTimeStr);
-			endTime = sdf3.parse(endTimeStr);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		System.out.println(startTime+  ""+ endTime);
-		List<Order> orderList = useOrderDao.selMhOrder(startTime, endTime, mhOredrSeatId);
 		session.setAttribute("orderList", orderList);
 		return "ok";
 	}
-	/**
-	 * 以 id查订单
-	 *
-	 */
-	/*public String  selIdOrder(){
-         String  
-		
-		
-	}
-*/
+
 
 }

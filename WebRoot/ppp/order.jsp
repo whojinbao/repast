@@ -80,7 +80,7 @@ height:30px;
 			  <tbody		     
 				  <tr class="">
 					<td width="200">${orderResult.orderId }</td>				
-					<td width="150">${orderResult.orderTimes }</td>
+					<td width="150">${orderResult.orTimes }</td>
 					<td width="130">${orderResult.seatId }</td>
 					<td width="150">${orderResult.staffId }</td>
 					<td width="100">${orderResult.orderStatus }</td>

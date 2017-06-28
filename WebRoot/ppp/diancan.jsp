@@ -69,7 +69,7 @@ a {
 	margin-top: 90px;
 	margin-left: 300px;
 	position: relative;
-	z-index: 9px;
+	z-index: 9;
 }
 
 #master_memu_left {
@@ -110,8 +110,8 @@ a {
 }
 
 .dishes_img img {
-	width: 100%;
-	height: 100%;
+	width: 98%;
+	height: 98%;
 }
 
 .dishes_name {
@@ -339,7 +339,7 @@ a {
 							<dt>						
 								<%-- <a href="JavaScript:void(0)" onclick="document.getElementById('${orderUtil.menuTypeName }').scrollIntoView();">
 								${menuType.typeName }</a> --%>
-								<a>${menuType.typeName }</a>
+								<a href="#${menuType.typeName }">${menuType.typeName }</a>
 							</dt>
 						</dl>
 					</c:forEach>
@@ -362,22 +362,24 @@ a {
 			    <div class="buttom_sort row">
 				       
 	            <div class="dishes_sort" >
-	              
-	                <a id="${orderUtil.menuTypeName }">${orderUtil.menuTypeName }</a>
+	                 
+	                <a name="${orderUtil.menuTypeName }">${orderUtil.menuTypeName }</a>
 	            </div>
 	       <c:forEach items="${orderUtil.menuList }" var="menu">	      	          	              
 	              <!-- 第一个菜品显示到前台界面开始边界 -->					
 						<div class="dishes_boss">
 							<div class="dishes_img">
-								<img src="../image/timg.jpg"></img>
+								<img src="../fileUpload/${menu.imgUrl }"></img>
 							</div>
-							<!-- 放图片 -->
+							<!-- 放图片 -->						
+							<div class="dishes_id" style="display:none">${menu.menuId }</div>
+						    <!--  -->
 							<div class="dishes_name">${menu.menuName }</div>
 							<!-- 放名字 -->
 							<div class="dishes_prices"><span class="dangejiage">${menu.menuPrice }</span><span>元</span></div>
 							<!-- 放价格 -->
 							<div class="dishes_operation" >
-								<div class="gouwuche1" onclick="getNum('${menu.menuName }','${menu.menuPrice }','1')"  href="javascript:;"><input type="button" class="add_shopp" value="放入购物车"></div>
+								<div class="gouwuche1" onclick="getNum('${menu.menuId }','${menu.menuName }','${menu.menuPrice }','1')"  href="javascript:;"><input type="button" class="add_shopp" value="放入购物车"></div>
 								<!-- 蓝色放入购物车 -->
 								<div class="add_shopp_div">
 									<button class="shopping_minus">-</button>
@@ -416,10 +418,6 @@ a {
 		</div>
 	</div>
 
-	<!-- 购物车结束 -->
-	<div class="buttom_sort row">
-		<div class="base col-xs-12 co4l-sm-3"></div>
-	</div> 
 	<script type="text/javascript">		
 	window.onload=function() {
 		$(".shopping_input").each(function(){
@@ -449,11 +447,11 @@ a {
 	 }
 	 
 	 /*得到点餐的数据*/
-	 function getNum(name,price,num){	         
+	 function getNum(id,name,price,num){	         
 	    $.ajax({
 			type: 'POST',
 			url: 'shopCart_order.action',		
-			data:{menuName:name,price:price,num:num},
+			data:{menuId:id,menuName:name,price:price,num:num},
 			dataType: 'json',
 			success: function(data){
 			   
@@ -489,8 +487,9 @@ a {
 			$(this).parent().parent().find(".gouwuche1").css("display","block");
 		 }
 		 var name=$(this).parent().parent().parent().find(".dishes_name").html();
+		 var id=$(this).parent().parent().parent().find(".dishes_id").html();
 		 var prices=$(this).parent().parent().parent().find(".dishes_prices").find(".dangejiage").html();
-		 getNum(name,prices,num);
+		 getNum(id,name,prices,num);
 		 Total();
 	 })
 	 
@@ -509,8 +508,9 @@ a {
 		 num++;
 		 ipt.val(num);
 		 var name=$(this).parent().parent().parent().find(".dishes_name").html();
+		 var id=$(this).parent().parent().parent().find(".dishes_id").html();
 		 var prices=$(this).parent().parent().parent().find(".dishes_prices").find(".dangejiage").html();
-		 getNum(name,prices,num);
+		 getNum(id,name,prices,num);
 		 Total();
 		
 	})
@@ -522,9 +522,10 @@ a {
 			$(this).parent().css("display","none");
 			$(this).parent().parent().find(".gouwuche1").css("display","block");
 		}
+		var id=$(this).parent().parent().parent().find(".dishes_id").html();
 		var name=$(this).parent().parent().parent().find(".dishes_name").html();
 		var prices=$(this).parent().parent().parent().find(".dishes_prices").find(".dangejiage").html();
-		getNum(name,prices,num);
+		getNum(id,name,prices,num);
 		Total();
 	})
 		//getNum('${menu.menuName }','${menu.menuPrice }','1')	    

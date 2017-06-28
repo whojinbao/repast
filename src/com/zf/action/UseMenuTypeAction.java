@@ -73,7 +73,6 @@ public class UseMenuTypeAction {
 	 */
 	public String verify(){
 		String  typeName1 = request.getParameter("typeName");
-		System.out.println(typeName1);
 		List<MenuType> menuTypeList = useTypeDao.selName(typeName1);
         
 		try {

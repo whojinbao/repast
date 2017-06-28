@@ -165,6 +165,7 @@ public class DishesDao{
 	 */
 	public ResultSet getData(String sql,Object[]params){
 		return dd.executeQuery(sql, params);
+		
 	}
 	/*
 	 * 插入正在炒菜的数据

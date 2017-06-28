@@ -51,7 +51,7 @@
      <action name="shopCart_*" class="com.zf.action.ShopCartAction" method="{1}">
        <result name="ok" type="redirect">/ppp/order.jsp</result> 
        <result name="order"  type="redirect">/ppp/order.jsp</result>   
-       <result name="start"  type="redirect">/qiantai/waiter/waiter.jsp</result>   
+       <result name="start"  type="redirect">/qiantai/qiantaizhuce/zhuce1.jsp</result>   
        <result name="shopCart" type="redirect">/ppp/shopCart.jsp</result>
        <result name="detailed"  >/ppp/detailed.jsp</result>
      </action>  

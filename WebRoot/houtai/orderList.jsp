@@ -3,6 +3,16 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+
+<style type="text/css">
+   #DataTables_Table_0_filter{
+   display:none;
+   }
+   #btn btn-danger radius{
+    display:none;
+   }
+</style>
+
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -34,7 +44,7 @@
 		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜记录</button>
 	</div>
 	</form>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <!--<span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> --> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
@@ -42,8 +52,8 @@
 					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="100">订单Id</th>				
 					<th width="100">下单时间</th>
-					<th width="130">桌号（或客户id）</th>
-					<th width="100">员工Id</th>
+					<th width="130">桌号</th>
+					<th width="100">桌号</th>
 					<th width="100">订单状态（是否结账）</th>
 					<th width="100">订单类别（外卖，线下）</th>
 					<th width="100">总价</th>
@@ -53,12 +63,13 @@
 			</thead>
 			<tbody>
 		      <c:forEach items="${orderList }" var="order">
+		      
 				 <tr class="text-c">
 					<td><input type="checkbox" value="1" name=""></td>
 					<td>${order.orderId }</td>				
-					<td>${order.orderTimes }</td>
+					<td>${order.orTimes  }</td>
 					<td>${order.seatId }</td>
-					<td>${order.staffId }</td>
+					<td>${order.seatId }</td>
 					<td>${order.orderStatus }</td>
 					<td>${order.orderSort }</td>
 					<td>${order.totalPrice }</td>

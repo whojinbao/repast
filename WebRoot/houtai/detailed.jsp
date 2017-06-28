@@ -12,6 +12,15 @@
 <script type="text/javascript" src="lib/html5shiv.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
 <![endif]-->
+
+<style type="text/css">
+   #DataTables_Table_0_filter{
+   display:none;
+   }
+   #btn btn-danger radius{
+    display:none;
+   }
+</style>
 <link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
@@ -23,16 +32,16 @@
 <![endif]-->
 <title>查询订单详情表</title>
 </head>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 订单管理 <span class="c-gray en">&gt;</span> 查询订单详情表<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="detailed_selDetailed.action?orderId=-1" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 订单管理 <span class="c-gray en">&gt;</span> 查询订单详情表<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="detailed_selAllDetailed.action" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="text-c"> 日期范围：
+	<%--<div class="text-c"> 日期范围：
 		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
 		-
 		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
 		<input type="text" class="input-text" style="width:250px" placeholder="" id="" name="">
 		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜记录</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+	--%><div class="cl pd-5 bg-1 bk-gray mt-20">   </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
@@ -52,7 +61,7 @@
 					<td><input type="checkbox" value="1" name=""></td>
 					<td>${detailed.orderId }</td>
 					<td>${detailed.detailedId }</a></td>
-					<td>${detailed.detailedTime }</td>
+					<td>${detailed.datetime }</td>
 					<td>${detailed.menuName }</td>
 					<td>${detailed.num }</td>		
 					<td class="f-14">

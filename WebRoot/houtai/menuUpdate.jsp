@@ -39,7 +39,7 @@
 				<input type="text" class="input-text" value="${menu.menuId }" placeholder="" id="" name="menu.menuId">
 			</div>
 		</div>
-		<div class="row cl">
+		<%--<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-2">图片：</label>
 				<div class="formControls col-xs-8 col-sm-9">
 					<div class="uploader-thum-container">
@@ -47,7 +47,7 @@
 					</div>
                     
 				</div>
-			</div>
+			</div>--%>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>菜品名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">

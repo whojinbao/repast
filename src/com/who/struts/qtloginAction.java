@@ -92,7 +92,7 @@ public class qtloginAction {
 	}
 	public String selectzhuozi(){
 		String sql="select * from zhuo where seatStatusId =3";
-		ResultSet rs=dd.getData(sql, null);
+		ResultSet rs=dd.getData(sql, null);		
 		List<String> ll=new ArrayList<String>();
 		try {
 			while (rs.next()) {

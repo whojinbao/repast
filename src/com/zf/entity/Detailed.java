@@ -22,7 +22,7 @@ public class Detailed {
 	private int dishesStatus;
     private Date stateTime;
     private Date outTime;
-    private int menuPrice;
+    private float menuPrice;
 	private String datetime;
 	
 	public String getDatetime() {
@@ -33,10 +33,10 @@ public class Detailed {
 	public void setDatetime(String datetime) {
 		this.datetime = datetime;
 	}
-	public int getMenuPrice() {
+	public float getMenuPrice() {
 		return menuPrice;
 	}
-	public void setMenuPrice(int menuPrice) {
+	public void setMenuPrice(float menuPrice) {
 		this.menuPrice = menuPrice;
 	}
 	public String getMenuName() {

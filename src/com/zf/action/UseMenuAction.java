@@ -38,21 +38,16 @@ public class UseMenuAction extends ActionSupport{
 	private UseMenuDao useMenu = new UseMenuDao();
 	private UtilService utilService = new UtilService();
 	private SelTyMenuService selTyMenuService = new SelTyMenuService();
-
 	private UseMenuTypeAction usemenuTypeAction = new UseMenuTypeAction();
+
 	//接受菜品添加的图片
 	private File[] menuFile;
 	private String[] menuFileFileName;
-
-
 
 	HttpServletRequest request = ServletActionContext.getRequest();
 	HttpServletResponse response =ServletActionContext.getResponse();
 	HttpSession session = request.getSession();
 	private Menu menu = new Menu();
-
-
-
 
 	/**
 	 * addMenu() 往菜品中添加新菜品
@@ -61,6 +56,7 @@ public class UseMenuAction extends ActionSupport{
 	 */
 
 	public String addMenu(){
+
 		String path = request.getRealPath("/");
 		//刷新菜类
 		usemenuTypeAction.sel();
@@ -77,8 +73,6 @@ public class UseMenuAction extends ActionSupport{
 			String names[] = new UploadFile().upload(menuFile, menuFileFileName, path);
 			//循环names保存到数据库。
 			for(int i=0;i<names.length;i++){
-				System.out.println(names[i]);
-
 				menu.setImgUrl(names[i]);
 			}
 			useMenu.addMenu(menu);
@@ -102,7 +96,7 @@ public class UseMenuAction extends ActionSupport{
 		String  menuIdStr = request.getParameter("menuId");       
 		int menuId = Integer.parseInt(menuIdStr);
 		List<Menu> menuList=useMenu.selIdMenu(menuId);
-            
+
 		try {
 			if(menuList.size() > 0){
 				response.getWriter().print(false);
@@ -127,13 +121,11 @@ public class UseMenuAction extends ActionSupport{
 	public String verifyName(){
 		String  menuName = request.getParameter("menuName");
 		List<Menu> menuList = useMenu.selName(menuName);
-		
+
 		try {
 			if(menuList.size()>0){
-				System.out.println("false");
 				response.getWriter().print(false);
 			}else{
-				System.out.println("true");
 				response.getWriter().print(true);
 			}
 		} catch (IOException e) {
@@ -166,38 +158,21 @@ public class UseMenuAction extends ActionSupport{
 	 * @return
 	 */
 	public String updateMenu(){
-		String path = request.getRealPath("/");
+
 		//刷新菜类
-		usemenuTypeAction.sel();
-		System.out.println(menuFile);
-		System.out.println(menuFileFileName);
-		System.out.println(path);
-		try {
-			/**
-			 * 1.保存产品
-			 * 2.保存产品图片到物理路径
-			 * 3.保存产品图片到数据库
-			 */
-			//saveProduct();
-			String names[] = new UploadFile().upload(menuFile, menuFileFileName, path);
-			//循环names保存到数据库。
-			for(int i=0;i<names.length;i++){
-				System.out.println(names[i]);
-
-				menu.setImgUrl(names[i]);
-			}
-			useMenu.addMenu(menu);
-
+		usemenuTypeAction.sel();	
+		try {		
+			useMenu.updateMenu(menu);		
 			selMenu();
-		} catch (Exception e) {
-			request.setAttribute("error", e.getMessage());
-			request.setAttribute("menu", menu);
-			return "error";
+
+		} catch (Exception e) {		
+
 		}				
-		useMenu.updateMenu(menu);
-		selMenu();
 		return "ok";
+
 	}	
+
+
 	/**
 	 * selMenu() 查询数据库中菜品(所有) 
 	 *
@@ -238,7 +213,7 @@ public class UseMenuAction extends ActionSupport{
 		}
 		return "diancan";
 	}
-	
+
 	public List<orderUtil> getDishesNum(List<ShopCartUtil> ss,List<orderUtil> util){
 		for (int i = 0; i < ss.size(); i++) {
 			int id1=ss.get(i).getMenuId();
@@ -256,7 +231,7 @@ public class UseMenuAction extends ActionSupport{
 		}
 		return util;
 	}
-	
+
 	/**
 	 * selIdMenu() 查询数据库中菜品,按菜品id
 	 * 在修改菜品中使用

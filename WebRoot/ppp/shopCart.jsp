@@ -13,7 +13,8 @@ body{
 	margin-top:50px;
 	margin-left:400px;
 	width: 600px;
-	height: 100%;
+	height: auto;
+	min-height:700px;
 	background: #fff;
 	position:relative;
 }
@@ -96,7 +97,7 @@ tr td:first-child{
 }
 .ent-btn{
 	position:absolute;
-	bottom:50px;
+	bottom:10px;
 	right:50px;
 }
 .btn{
@@ -115,7 +116,7 @@ tr td:first-child{
   
   <body>
    <div class="content">
-            <div id="t1"><span >桌号:</span>${zhuo}<span>员工id:</span>${staffid }<span>顾客id:</span></div>		
+            <div id="t1"><span >桌号:</span><span id="zhuoId">${zhuo}</span><span>员工id:</span><span id="staffid">${staffid }</span><span>顾客id:</span><span></span></div>		
 			<div class="header">
 				<h2>购物车</h2>		
 				
@@ -126,7 +127,7 @@ tr td:first-child{
 			      <th>id</th>
 			      <th>菜名</th>
 			      <th>数量</th>
-			      <th>小计(元)</th>
+			      <th>单价(元)</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -161,13 +162,31 @@ tr td:first-child{
 					<a href="shopCart_clear.action" style="text-decoration:none;color: #fff"><span>清空购物车</span></a>
 				</div>
 				<div class="btn" style="float:left;margin-left:120">				   
-					<a href="shopCart_getOrder.action" style="text-decoration:none;color: #fff"><span>确认下单</span></a>
+					<a href="#"style="text-decoration:none;color: #fff" id="getOrder"><span>确认下单</span></a>
 				</div>
 			    </div>
 		</div> 
 		
 </div>		
   <script type="text/javascript">
+
+ 
+
+  $("#getOrder").click(function(){  
+	
+	  if($("#zhuoId").html() == "" || $("#summoney").html() <=0){		
+		 
+		  if(confirm("请选择桌号，并点餐！")) {
+			  return false;
+			}else{
+				 return false;
+			}
+	  }else{
+		  window.location.href="shopCart_getOrder.action";
+	  }
+	 
+  })
+  
       $(document).ready(function(){
     	  
     	  function Total(){
@@ -231,6 +250,6 @@ tr td:first-child{
 			
 			
 		})
-  </script>
+</script>
   </body>
 </html>

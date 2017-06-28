@@ -2,6 +2,7 @@ package com.zf.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,7 +54,7 @@ public class UseOrderDao {
 	 * 对订单的修改
 	 * 
 	 */
-	public void updateOrder(String orderId,int totalPrice,int orderStatus){
+	public void updateOrder(String orderId,float totalPrice,int orderStatus){
 
 		String sql = "update  orderList set totalPrice = ?,orderStatus =? where orderId = ?";
 		Object[] obj = {totalPrice,orderStatus,orderId,};
@@ -72,16 +73,22 @@ public class UseOrderDao {
 			while (rs.next()){
 				Order order1 = new Order();
 				order1.setOrderId(rs.getString(1));	
-				order1.setOrderTimes((Date)rs.getObject(2));
+				
+				String ttimes=rs.getString("orderTimes");
+			
+				ttimes = ttimes.substring(0,ttimes.length()-2);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date date=sdf.parse(ttimes);
+				order1.setOrderTimes(date);
 				order1.setSeatId(rs.getString(3));
 				order1.setStaffId(rs.getString(4));				
 				order1.setOrderStatus(rs.getInt(5));
 				order1.setOrderSort(rs.getInt(6));
-				order1.setTotalPrice(rs.getInt(7));				
+				order1.setTotalPrice(rs.getFloat(7));				
 				orderList.add(order1);
 
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -92,34 +99,49 @@ public class UseOrderDao {
 	 * 对订单的查询，模糊查询
 	 * 
 	 */
-	public List<Order> selMhOrder(Date startTime,Date endTime,String mhOredrSeatId){
-		String sql = "SELECT * FROM orderList WHERE orderTimes BETWEEN ? AND ? and seatId LIKE '%"+mhOredrSeatId+"%' ";
-
+	public List<Order> selMhOrder(String startTime,String endTime,String mhOredrSeatId){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		/*Date dd1=new Date();
-    	String ss1=sdf.format(dd1);*/
-		String startTimeString = sdf.format(startTime);
-		String endTimeStr = sdf.format(endTime);
-		Object [] obj={startTimeString,endTimeStr};
+	/*	try {
+			Date startTime1 = sdf.parse(startTime);
+			Date endTime1 = sdf.parse(endTime);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+		endTime +=" 23:59:59";
+		String sql = "SELECT * FROM orderList WHERE seatId = ? and orderTimes BETWEEN '"+startTime+"' AND '"+endTime+"' ";
+
+	
+		Object [] obj={Integer.parseInt(mhOredrSeatId)};
 		ResultSet rs= da1.executeQuery(sql, obj);
 		List<Order> orderList = new ArrayList<Order>();
 		try {
 			while (rs.next()){
 				Order order1 = new Order();
+				System.out.println(rs.getString(1));
 				order1.setOrderId(rs.getString(1));	
-				order1.setOrderTimes(rs.getDate(2));
+				
+		
+				/*Date dd1=new Date();
+		    	String ss1=sdf.format(dd1);*/
+				String ttimes=rs.getString("orderTimes");
+				ttimes=ttimes.substring(0,ttimes.length()-2);			
+				Date date=sdf.parse(ttimes);
+				order1.setOrderTimes(date);
+				
 				order1.setSeatId(rs.getString(3));
 				order1.setStaffId(rs.getString(4));				
 				order1.setOrderStatus(rs.getInt(5));
 				order1.setOrderSort(rs.getInt(6));
-				order1.setTotalPrice(rs.getInt(7));				
+				order1.setTotalPrice(rs.getFloat(7));				
 				orderList.add(order1);
-
+          
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		 System.out.println(orderList.size());
 		return orderList;
 	}
 
@@ -140,16 +162,22 @@ public class UseOrderDao {
 			while (rs.next()){
 				Order order1 = new Order();
 				order1.setOrderId(rs.getString(1));	
-				order1.setOrderTimes(rs.getDate(2));
+				
+				String ttimes=rs.getString("orderTimes");
+				ttimes=ttimes.substring(0,ttimes.length()-2);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date date=sdf.parse(ttimes);
+				order1.setOrderTimes(date);
+
 				order1.setSeatId(rs.getString(3));
 				order1.setStaffId(rs.getString(4));				
 				order1.setOrderStatus(rs.getInt(5));
 				order1.setOrderSort(rs.getInt(6));
-				order1.setTotalPrice(rs.getInt(7));				
+				order1.setTotalPrice(rs.getFloat(7));					
 				orderList.add(order1);
 
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -167,12 +195,18 @@ public class UseOrderDao {
         try {
         	rs2.next();      
 			order.setOrderId(rs2.getString(1));
-			order.setOrderTimes(rs2.getDate(2));
+			
+			String ttimes=rs2.getString("orderTimes");
+			ttimes=ttimes.substring(0,ttimes.length()-2);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date date=sdf.parse(ttimes);
+			order.setOrderTimes(date);
+			
 			order.setSeatId(seatId);
 			order.setStaffId(rs2.getString(4));
 			order.setOrderStatus(rs2.getInt(5));
 			order.setOrderSort(rs2.getInt(6));
-			order.setTotalPrice(rs2.getInt(7));
+			order.setTotalPrice(rs2.getFloat(7));	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

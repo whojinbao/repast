@@ -78,5 +78,15 @@ public class UseDetailedAction {
 
 		return "ok";
 	}
+	/**
+	 * È«²¿
+	 * @return
+	 */
+	public String selAllDetailed(){
+		List<Detailed> detailedList = useDetailedDao.selDetailed();
+		session.setAttribute("detailedListhoutai", detailedList);
+
+		return "ok";
+	}
 
 }

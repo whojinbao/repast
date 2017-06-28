@@ -53,9 +53,9 @@ public class UseMenuDao {
 	 */
 	public void updateMenu(Menu menu){
 		String sql = "update menu set menuName =?, doTime = ?,maxNum=?, menuType=?," +
-				"menuPrice=?,imgUrl=? where menuId= ?" ;
+				"menuPrice=? where menuId= ?" ;
 		Object[] obj = {menu.getMenuName(),menu.getDoTime(),menu.getMaxNum(),menu.getMenuTypeId(),menu.getMenuPrice(),
-				menu.getImgUrl(),menu.getMenuId()};
+				      menu.getMenuId()};
 		da1.executeUpdate(sql, obj);  
 	}
 
