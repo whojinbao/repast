@@ -1,6 +1,8 @@
 package com.who.getdata;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 /*
  * 已点菜品实体类（桌号、菜品ID、菜品名称、可炒最大量、数量、用时、权重、详情单ID）
@@ -17,6 +19,18 @@ public class Dishes {
 	private List<String> detailedId =new ArrayList<String>();
 	private int product;
 	private int waiting;
+	private String waitTime;
+	
+	public String getWaitTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:00");
+		Date date=new Date();
+		long ll=date.getTime()+getWaiting()*60000;
+		waitTime=sdf.format(ll);
+		return waitTime;
+	}
+	public void setWaitTime(String waitTime) {
+		this.waitTime = waitTime;
+	}
 	public int getWaiting() {
 		return waiting;
 	}

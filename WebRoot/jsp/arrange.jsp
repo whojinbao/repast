@@ -109,7 +109,7 @@ ul,li {
 
 #sortname_table td {
 	font-size: 12px;
-	text-align: left;
+	text-align: center;
 	padding-left: 5px;
 }
 #sortname_table tr {
@@ -124,7 +124,7 @@ ul,li {
 
 .table_caozuo_shangcai {
 	border: none;
-	width: 18%;
+	width: 60px;
 	height: 100%;
 	background-color: #51D862;
 	position: absolute;
@@ -133,7 +133,7 @@ ul,li {
 }
 .table_caozuo_pengren {
 	border: none;
-	width: 18%;
+	width: 60px;
 	height: 100%;
 	background-color:#FFFF00;
 	position: absolute;
@@ -199,6 +199,19 @@ table tr:nth-of-type(2n+2) td {
 #sortColor2{
 	background-color: none;
 }
+td{
+	border:2px solid white;
+	text-align: center;
+}
+.you2{
+	width:300px;
+}
+.zhuo{
+	width:300px;
+}
+.chao{
+	width:630px;
+}
 </style>
 
 <script type="text/javascript" src="../js_who/jquery-2.1.3.min.js"></script>
@@ -219,7 +232,7 @@ table tr:nth-of-type(2n+2) td {
 				<button class="btn btn-default" disabled="value">排3</button>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-3 buttom">
+		<div class="col-xs-12 col-sm-2 buttom zhuo">
 			<div class="sortname">
 				<span>&nbsp;&nbsp;&nbsp;桌子</span>
 				<div class="sortname_left">
@@ -237,8 +250,8 @@ table tr:nth-of-type(2n+2) td {
 							<td width=10%>桌号</td>
 							<td width=10%>总数量</td>
 							<td width=10%>已上</td>
-							<td width=22%>上道上餐时间</td>
-							<td width=22%>下道上菜时间</td>
+							<td width=22%>上一道出菜时间</td>
+							<td width=22%>下道出菜时间(预计)</td>
 						</tr>
 
 					</table>
@@ -266,7 +279,7 @@ table tr:nth-of-type(2n+2) td {
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-5 buttom">
+		<div class="col-xs-12 col-sm-4 buttom chao">
 			<div class="sortname">炒菜</div>
 			<div class="sortname_left">
 					<div class="col-lg-8">
@@ -294,8 +307,8 @@ table tr:nth-of-type(2n+2) td {
 					<tr >
 						<td width=10%>菜品名称</td>
 						<td width=10%>数量（份）</td>
-						<td width=10%>等待时间</td>
-						<td width=30%>操作</td>
+						<td width=10%>出菜时间（预计）</td>
+						<td width=8%>操作</td>
 						<td width=10%>所属桌台号</td>
 					</tr>
 				</table>
@@ -306,25 +319,19 @@ table tr:nth-of-type(2n+2) td {
 						<td width=10%></td>
 						<td width=10%></td>
 						<td width=10%></td>
-						<td width=30%></td>
+						<td width=8%></td>
 						<td width=10%></td>
 					</tr>
 					<c:forEach items="${dishesing}" var="dishes">
 						<tr>
 							<td>${dishes.menuName }</td>
-							<td><c:forEach items="${dishes.detailednum }"
-									var="detailednum">
-			    				${detailednum}
+							<td><c:forEach items="${dishes.detailednum }"var="detailednum">
+			    				${detailednum}份&nbsp;
 			    				</c:forEach>
 							</td>
-							<td>${dishes.doTime }</td>
+							<td>${dishes.waitTime }</td>
 							<td>
 								<div class="table_caozuo">
-									<div class="lanren">
-										<div class="bar1" id="bar1">${dishes.EWT }</div>
-										<div class="bar2" id="bar2">${dishes.percentage}</div>
-										<div class="bar" id="bar"></div>
-									</div>
 									<button class="table_caozuo_shangcai">
 									<a href="arr_updateStatus.action?menuId=${dishes.menuId}<c:forEach items="${dishes.detailednum }"var="detailednum">&detailednum=${detailednum}</c:forEach><c:forEach items="${dishes.detailedId}" var="arr">&detailedId=${arr }</c:forEach>">上菜</a>
 									</button>
@@ -342,10 +349,10 @@ table tr:nth-of-type(2n+2) td {
 							<td>${dis.menuName }</td>
 							<td>
 								 <c:forEach items="${dis.quantity }" var="num">
-			    					${num}
+			    					${num}份&nbsp;
 			    				</c:forEach>
 							</td>
-							<td>${dis.waiting }</td>
+							<td>${dis.waitTime }</td>
 							<td>
 								<div class="table_caozuo">
 									<button class="table_caozuo_pengren">
@@ -364,15 +371,15 @@ table tr:nth-of-type(2n+2) td {
 			</div>
 
 		</div>
-		<div class="col-xs-12 col-sm-2 buttom">
-			<div class="sortname">非炒菜</div>
+		<div class="col-xs-12 col-sm-3 buttom you2">
+			<div class="sortname">凉菜</div>
 			<div>
 				<table id="sortname_table">
 					<tr>
 						<td  width=10%>桌号</td>
 						<td  width=10%>菜品名</td>
 						<td width=10%>数量</td>
-						<td width=10%>操作</td>
+						<td width=8%>操作</td>
 					</tr>
 				</table>
 			</div>
@@ -382,22 +389,23 @@ table tr:nth-of-type(2n+2) td {
 						<td width=10%></td>
 						<td width=10%></td>
 						<td width=10%></td>
-						<td width=10%></td>
+						<td width=8%></td>
 					</tr>
 					 <c:forEach items="${cool}"var="cl">
 						<tr>
 							<td>${cl.seatId }</td>
 							<td>${cl.menuName }</td>
-							<td>${cl.detailednum }</td>
-							<td><a href="arr_setOthes.action?menuId=${cl.menuId }&detailednum=${cl.detailednum }&detailedId=${cl.detailedId}">
-								<button  class="othes_cool">上菜</button>
-							</a></td>
+							<td>${cl.quantity }</td>
+							<td><button  class="othes_cool">
+								<a href="arr_setOthes.action?menuId=${cl.menuId}<c:forEach items="${cl.quantity }"var="detailednum">&detailednum=${detailednum}</c:forEach><c:forEach items="${cl.detailedId}" var="arr">&detailedId=${arr }</c:forEach>">
+								出菜</a>
+							</button></td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-2 buttom">
+		<div class="col-xs-12 col-sm-3 buttom you2">
 			<div class="sortname">其他</div>
 			<div>
 				<table id="sortname_table">
@@ -405,7 +413,7 @@ table tr:nth-of-type(2n+2) td {
 						<td width=10%>桌号</td>
 						<td width=10%>菜品名</td>
 						<td width=10%>数量</td>
-						<td width=10%>操作</td>
+						<td width=8%>操作</td>
 					</tr>
 				</table>
 			</div>
@@ -415,16 +423,17 @@ table tr:nth-of-type(2n+2) td {
 						<td width=10%></td>
 						<td width=10%></td>
 						<td width=10%></td>
-						<td width=10%></td>
+						<td width=8%></td>
 					</tr>
 					<c:forEach items="${othes}"var="cl">
 						<tr>
 							<td>${cl.seatId }</td>
 							<td>${cl.menuName }</td>
-							<td>${cl.detailednum }</td>
-							<td><a href="arr_setOthes.action?menuId=${cl.menuId }&detailedId=${cl.detailedId}&detailednum=${cl.detailednum }">
-								<button  class="othes_cool">上菜</button>
-							</a></td>
+							<td>${cl.quantity }</td>
+							<td><button  class="othes_cool">
+								<a href="arr_setOthes.action?menuId=${cl.menuId}<c:forEach items="${cl.quantity }"var="detailednum">&detailednum=${detailednum}</c:forEach><c:forEach items="${cl.detailedId}" var="arr">&detailedId=${arr }</c:forEach>">
+								出菜</a>
+							</button></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -432,65 +441,5 @@ table tr:nth-of-type(2n+2) td {
 		</div>
 	</div>
 
-
-
-	<script>
-	$("#changeHearth").click(function (){
-		$("#changeHearth_boss").hide();
-		$("#updatehearth").css("display", "block");
-	});
-		function show(){
-			var arr=getClass("bar");
-			var arr1=getClass("bar1");
-			var arr2=getClass("bar2");
-			
-				function $(d) {
-					return document.getElementById(d);
-				}
-				function smation() {
-					arr[0].style.width = parseInt(arr[0].style.width) + 1 + "%";
-					arr[0].innerHTML = arr[0].style.width;
-					if (arr[0].style.width == "100%") {
-						window.clearInterval(bar);
-					}
-				}
-				var bar = setInterval(function(){
-					smation();
-				}, setI()); 
-				function setI() {
-					return arr1[0].innerHTML * 60 * 10;
-				}
-				function getWidth(arr) {
-					var k = arr.innerHTML * 1;
-					return k;
-				}
-				function setWidth() {
-					var k = getWidth(arr2[0]);
-					$("bar").style.width = k + "%";
-					$("bar").innerHTML = $("bar").style.width;
-					bar;
-				}
-				setWidth();
-			
-			function getClass(classname, obj) {
-					var obj = obj || document;
-					var arr = [];
-					if (document.getElementsByClassName) {
-						return document.getElementsByClassName(classname);
-					} else {
-						var alls = document.getElementsByTagName("*"); 
-						for ( var i = 0; i < alls.length; i++) {
-							if (checkclass(alls[i].className, classname)) {
-								arr.push(alls[i]);
-							}
-						}
-						return arr;
-					}
-				}
-		}
-		window.onload = function() {
-			show();
-		};
-	</script>
 </body>
 </html>

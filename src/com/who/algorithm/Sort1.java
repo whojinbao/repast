@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.who.getdata.Dishes;
+import com.who.getdata.DishesDao;
 
 public class Sort1 {
+	DishesDao dd=new DishesDao();
+	List<Dishes> reDishes=dd.getDishes();
 	/*
 	 * 按照点餐顺序进行排序
 	 * 把List<List<Dishes>>按照先后顺序合并为List<Dishes>
 	 * 
 	 */
+	
 	private List<Dishes> heList(){
 		Combine pp=new Combine();
-		List<List<Dishes>> ll=pp.sort();
+		List<List<Dishes>> ll=pp.sort(reDishes);
 		List<Dishes> ld=new ArrayList<Dishes>();
 		for (int i = 0; i < ll.size(); i++) {
 			for (int j = 0; j < ll.get(i).size(); j++) {
