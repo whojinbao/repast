@@ -13,12 +13,7 @@
             <result name="input">/needsInit.jsp</result>
             <result name="needsInit">/needsInit.jsp</result>
         </global-results>	
-		<action name="p_*" class="com.caoqi.strutsaction.strutsAction" method="{1}">
-			<result name="ok">/houtai/caoqi/zhuozi.jsp</result>
-			<result name="oq">/houtai/caoqi/zhuozi.jsp</result>
-			<result name="ow">/houtai/caoqi/zhuozi.jsp</result>
-			<result name="ot">/houtai/caoqi/zhuozi.jsp</result>
-		</action>
+		
 		<action name="k_*" class="com.caoqi.strutsaction.strutsQianImgAction" method="{1}">			
 			<result name="pk">/qiantai/waiter/waiter.jsp</result>
 			<result name="py">/qiantai/waiter/waiter.jsp</result>
