@@ -9,7 +9,9 @@ import com.publics.dao.DaoFactory;
 import com.yang.model.Login;
 
 public class LoginDaoImpl implements LoginDao {
-
+/*
+ *根据员工id查询员工密码;
+ */
 	public String list(String name) {
 		// TODO Auto-generated method stub
 		String sql="select user_pwd from employee where user_id=?";
@@ -18,6 +20,8 @@ public class LoginDaoImpl implements LoginDao {
 		ResultSet rs=null;
 		rs=DaoFactory.executeQuery(sql, params);
 		String pswd=null;
+		String pd=null;
+		List<String>ls=new ArrayList<String>();
 		try {
 			if(rs.next()){
 				pswd=rs.getString("user_pwd");
@@ -26,8 +30,6 @@ public class LoginDaoImpl implements LoginDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return pswd;
 	}
-
 }

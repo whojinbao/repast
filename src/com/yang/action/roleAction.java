@@ -31,8 +31,6 @@ public class roleAction {
 	public String save(){
 		rr.setRole_id(ru.getRole_id());
 		rr.setRole_name(ru.getRole_name());
-		rr.setRole_info(ru.getRole_info());
-		rd.addRole(rr);
 		List<Role> list=rd.select();
 		HttpSession session=ServletActionContext.getRequest().getSession();
 		session.setAttribute("list", list);
@@ -57,10 +55,9 @@ public class roleAction {
 	 * @return
 	 */
 	public String update(){
+		System.out.println("≤È—Ø");
 		rr.setRole_name(ru.getRole_name());
-		rr.setRole_info(ru.getRole_info());
 		rr.setRole_id(ru.getRole_id());
-		rd.updateRole(rr);
 		List<Role> list=rd.select();
 		HttpSession session=ServletActionContext.getRequest().getSession();
 		session.setAttribute("list", list);

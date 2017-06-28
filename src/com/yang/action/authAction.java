@@ -27,7 +27,7 @@ public class authAction {
 	public String save(){
 		at.setAuth_id(aut.getAuth_id());
 		at.setAuth_name(aut.getAuth_name());
-		at.setAuth_info(aut.getAuth_info());
+		at.setAuth_path(aut.getAuth_path());
 		ad.addAuth(at);
 		List<Auth> lv=ad.select();
 		HttpSession session=ServletActionContext.getRequest().getSession();
@@ -57,7 +57,7 @@ public class authAction {
 	 */
 	public String update(){
 		at.setAuth_name(aut.getAuth_name());
-		at.setAuth_info(aut.getAuth_info());
+		at.setAuth_path(aut.getAuth_path());
 		at.setAuth_id(aut.getAuth_id());
 		ad.updateAuth(at);
 		List<Auth> lv=ad.select();

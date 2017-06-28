@@ -34,26 +34,32 @@
 			</div>
 		</div>
 		
-		<div class="row cl">
+		<%--<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="pp.user_pwd">
 			</div>
 		</div>
 		
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="sex" name="pp.user_sex">
-			</div>
+		--%><div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">性别：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+				<select class="select" name="pp.user_sex" size="1">
+					<option>男</option>
+					<option>女</option>
+				</select>
+				</span> 
+				
+				</div>
 		</div>
-		<div class="row cl">
+
+		<%--<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="phone" name="pp.user_phone">
 			</div>
 		</div>
-		<div class="row cl">
+		--%><div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>年龄：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="age" name="pp.user_age">
@@ -63,22 +69,30 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>地址：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  name="pp.user_add" id="add">
+				<input type="text" class="input-text"  name="pp.user_addr" id="add">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">权限：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
 				<select class="select" name="pp.user_power" size="1">
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
+					<option value=1>系统管理员</option>
+					<option value=2>大堂经理</option>
+					<option value=3>厨师长</option>
+					<option value=4>服务员</option>
+					
 				</select>
-				</span> </div>
+				
+				</span> 
+				
+				</div>
 		</div>
-		
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="pp.user_pwd">
+			</div>
+		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">

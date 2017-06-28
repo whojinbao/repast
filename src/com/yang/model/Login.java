@@ -3,7 +3,14 @@ package com.yang.model;
 public class Login {
 	private int user_id;
 	private String user_pwd;
-	
+	private String role_authId;
+
+	public String getRole_authId() {
+		return role_authId;
+	}
+	public void setRole_authId(String role_authId) {
+		this.role_authId = role_authId;
+	}
 	public int getUser_id() {
 		return user_id;
 	}

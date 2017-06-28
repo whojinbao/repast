@@ -41,7 +41,6 @@ public class ShopCartAction {
 
 		/*String seatId = request.getParameter("3");
 		String staffId = request.getParameter("1002");
-
 		String orderSort = request.getParameter("0");*/
 		String seatId = "3";
 		String staffId="1002";
@@ -58,10 +57,8 @@ public class ShopCartAction {
 		shopCart.setMenuName(menuNameStr);
 		shopCart.setMenuPrice(menuPrice);   	
 		shopCart.setNum(num);   	
-
 		//创建购物车
 		HttpSession  shopCartsession= request.getSession();
-
 		/**
 		 * 获取list链表， 看是否创建购物车
 		 */
@@ -74,9 +71,6 @@ public class ShopCartAction {
 			shopCartsession.setAttribute("seatId",seatId );
 			shopCartsession.setAttribute("staffId", staffId);			
 			shopCartsession.setAttribute("orderSort", orderSort);
-
-
-
 			List<ShopCartUtil> shopCartList = new ArrayList<ShopCartUtil>();
 			shopCartList.add(shopCart);
 

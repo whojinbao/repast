@@ -15,7 +15,7 @@ public class AuthDaoImpl implements AuthDao {
 	public int addAuth(Auth aa) {
 		// TODO Auto-generated method stub
 		String sql="insert into auth values(?,?,?)";
-		Object[] obj=new Object[]{aa.getAuth_id(),aa.getAuth_name(),aa.getAuth_info()};
+		Object[] obj=new Object[]{aa.getAuth_id(),aa.getAuth_name(),aa.getAuth_path()};
 		return DaoFactory.executeUpdate(sql, obj);
 	}
 	/**
@@ -32,8 +32,8 @@ public class AuthDaoImpl implements AuthDao {
 	 */
 	public int updateAuth(Auth aa) {
 		// TODO Auto-generated method stub
-		String sql="update auth set auth_name=?,auth_info=? where auth_id=?";
-		Object[]obj=new Object[]{aa.getAuth_name(),aa.getAuth_info(),aa.getAuth_id()};
+		String sql="update auth set auth_name=?,auth_path=? where auth_id=?";
+		Object[]obj=new Object[]{aa.getAuth_name(),aa.getAuth_path(),aa.getAuth_id()};
 		return DaoFactory.executeUpdate(sql, obj);
 	}
 	/**
@@ -48,9 +48,9 @@ public class AuthDaoImpl implements AuthDao {
 		try {
 			while(rs.next()){
 				Auth au=new Auth();
-				au.setAuth_id(rs.getInt(1));
-				au.setAuth_name(rs.getString(2));
-				au.setAuth_info(rs.getString(3));
+				au.setAuth_id(rs.getInt("auth_id"));
+				au.setAuth_name(rs.getString("auth_name"));
+				au.setAuth_path(rs.getString("auth_path"));
 				list.add(au);
 			}
 		} catch (Exception e) {

@@ -14,4 +14,5 @@ public interface dao {
 	public int delYUser(YUser yy);
 	public int updateYUser(YUser yy);
 	public List <YUser> select();
+	public List <YUser> select1(YUser yy);
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.jspsmart.upload.Request;
 import com.yang.dao.dao;
 import com.yang.dao.daoImpl;
 import com.yang.model.YUser;
@@ -33,12 +34,11 @@ public class staffAction {
 	public String save(){
 		yy.setUser_id(pp.getUser_id());
 		yy.setUser_name(pp.getUser_name());
-		yy.setUser_pwd(pp.getUser_pwd());
 		yy.setUser_sex(pp.getUser_sex());
-		yy.setUser_phone(pp.getUser_phone());
 		yy.setUser_age(pp.getUser_age());
-		yy.setUser_add(pp.getUser_add());
+		yy.setUser_addr(pp.getUser_addr());
 		yy.setUser_power(pp.getUser_power());
+		yy.setUser_pwd(pp.getUser_pwd());
 		dd.addYuser(yy);
 		List<YUser> lq=dd.select();
 		HttpSession session=ServletActionContext.getRequest().getSession();
@@ -66,23 +66,12 @@ public class staffAction {
 	 * @return
 	 */
 	public String update(){
-		/*yy.setRealName(pp.getRealName());
-		yy.setSex(pp.getSex());
-		yy.setPhone(pp.getPhone());
-		yy.setAddr(pp.getAddr());
-		yy.setUserName(pp.getUserName());*/
-		yy.setUser_name(pp.getUser_name());
-		yy.setUser_pwd(pp.getUser_pwd());
-		yy.setUser_sex(pp.getUser_sex());
-		yy.setUser_phone(pp.getUser_phone());
 		yy.setUser_age(pp.getUser_age());
-		yy.setUser_add(pp.getUser_add());
-		yy.setUser_power(pp.getUser_power());
+		yy.setUser_addr(pp.getUser_addr());
+		yy.setUser_pwd(pp.getUser_pwd());
 		yy.setUser_id(pp.getUser_id());
 		dd.updateYUser(yy);
-		List<YUser> lq=dd.select();
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		session.setAttribute("lq", lq);
+		select();
 		return "ow";
 	}
 	/**
@@ -94,5 +83,16 @@ public class staffAction {
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		session.setAttribute("lq", lq);
 		return "ot";
+	}
+	/**
+	 * 模糊查询按照名字进行
+	 * @return
+	 */
+	public String select1(){
+		yy.setUser_name(pp.getUser_name());
+		List<YUser> lq=dd.select1(yy);
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		session.setAttribute("lq", lq);
+		return "mohu";
 	}
 }

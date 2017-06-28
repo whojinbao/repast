@@ -1,58 +1,52 @@
 package com.yang.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
 import com.yang.dao.LoginDao;
 import com.yang.dao.LoginDaoImpl;
+import com.yang.dao.Role_authImpl;
 import com.yang.model.Login;
-import com.yang.util.LoginUtil;
 
 public class LoginAction {
-	private LoginUtil lu;
-	public LoginUtil getLu() {
-		return lu;
+	Login la;
+	public Login getLa() {
+		return la;
 	}
-
-	public void setLu(LoginUtil lu) {
-		this.lu = lu;
+	public void setLa(Login la) {
+		this.la = la;
 	}
-
-	LoginDao ld=new LoginDaoImpl();
-	Login ll=new Login();
-
+	Role_authImpl ri=new Role_authImpl();
+	LoginDao rt=new LoginDaoImpl();
 	public String select(){
 		HttpServletRequest req=ServletActionContext.getRequest();
 		HttpServletResponse resp=ServletActionContext.getResponse();
-		String id=req.getParameter("lu.user_id");
-		String pswd=ld.list(id);
-		String pwd=req.getParameter("lu.user_pwd");
+		String id=req.getParameter("la.user_id");
+		String pswd=rt.list(id);
+		String pwd=req.getParameter("la.user_pwd");
+		String role=null;
 		if(pswd!=null&&pwd.equals(pswd)){
-			
-			try {
-				req.getRequestDispatcher("/houtai/index.jsp").forward(req, resp);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			role=ri.select(id);
+			int role1=Integer.parseInt(role);
+			if(role1==1){
+				return "p1";
+			}else if(role1==2){
+				return "p2";
+			}
+			else if(role1==3){
+				return "p3";
+			}
+			else if(role1==4){
+				return "p4";
+			}
+			else{
+				return "success";
 			}
 		}else{
-			try {
-				resp.sendRedirect("/repast/houtai/login_ht.jsp");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			return "error";
 		}
-		return "ow";
 	}
 }

@@ -40,15 +40,11 @@ public class UseMenuAction extends ActionSupport{
 	//接受菜品添加的图片
 	private File[] menuFile;
 	private String[] menuFileFileName;
-	
-
-
 	HttpServletRequest request = ServletActionContext.getRequest();
 	HttpServletResponse response =ServletActionContext.getResponse();
 	HttpSession session = request.getSession();
 	private Menu menu = new Menu();
 
-	
 
 
 	/**
@@ -189,7 +185,6 @@ public class UseMenuAction extends ActionSupport{
 	 */
 	public String selMhMenu(){
 		System.out.println("mh");
-
 		String menuName= request.getParameter("menuName");
 		System.out.println(menuName);
 		List<Menu> menuList =useMenu.selMhMenu(menuName);

@@ -3,7 +3,7 @@ package com.yang.util;
 public class roleUtil {
 	private int role_id;
 	private String role_name;
-	private String role_info;
+	private String addr;
 	public int getRole_id() {
 		return role_id;
 	}
@@ -16,10 +16,11 @@ public class roleUtil {
 	public void setRole_name(String role_name) {
 		this.role_name = role_name;
 	}
-	public String getRole_info() {
-		return role_info;
+	public String getAddr() {
+		return addr;
 	}
-	public void setRole_info(String role_info) {
-		this.role_info = role_info;
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
+	
 }

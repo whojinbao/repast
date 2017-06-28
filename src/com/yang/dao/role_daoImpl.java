@@ -14,8 +14,8 @@ public class role_daoImpl implements role_dao {
 	 */
 	public int addRole(Role rr) {
 		// TODO Auto-generated method stub
-		String sql="insert into role values(?,?,?)";
-		Object[] obj=new Object[]{rr.getRole_id(),rr.getRole_name(),rr.getRole_info()};
+		String sql="insert into role values(?,?)";
+		Object[] obj=new Object[]{rr.getRole_id(),rr.getRole_name()};
 		return DaoFactory.executeUpdate(sql, obj);
 	}
 	/**
@@ -32,8 +32,8 @@ public class role_daoImpl implements role_dao {
 	 */
 	public int updateRole(Role rr) {
 		// TODO Auto-generated method stub
-		String sql="update role set role_name=?,role_info=? where role_id=?";
-		Object[]obj=new Object[]{rr.getRole_name(),rr.getRole_info(),rr.getRole_id()};
+		String sql="update role set role_name=? where role_id=?";
+		Object[]obj=new Object[]{rr.getRole_name(),rr.getRole_id()};
 		return DaoFactory.executeUpdate(sql, obj);
 	}
 	/**
@@ -50,7 +50,7 @@ public class role_daoImpl implements role_dao {
 				Role rr=new Role();
 				rr.setRole_id(rs.getInt(1));
 				rr.setRole_name(rs.getString(2));
-				rr.setRole_info(rs.getString(3));
+				
 				ll.add(rr);
 			}
 		} catch (Exception e) {
