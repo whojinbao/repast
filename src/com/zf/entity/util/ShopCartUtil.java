@@ -4,8 +4,7 @@ public class ShopCartUtil {
 	
 	private int menuId;
 	private String menuName;
-	private int menuPrice;
-	
+	private float menuPrice;
 	private int num;
 	
 	public String getMenuName() {
@@ -14,10 +13,10 @@ public class ShopCartUtil {
 	public void setMenuName(String menuName) {
 		this.menuName = menuName;
 	}
-	public int getMenuPrice() {
+	public float getMenuPrice() {
 		return menuPrice;
 	}
-	public void setMenuPrice(int menuPrice) {
+	public void setMenuPrice(Float menuPrice) {
 		this.menuPrice = menuPrice;
 	}
 	public int getNum() {

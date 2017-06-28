@@ -69,7 +69,7 @@ a {
 	margin-top: 90px;
 	margin-left: 300px;
 	position: relative;
-	z-index: 9px;
+	z-index: 9;
 }
 
 #master_memu_left {
@@ -110,8 +110,8 @@ a {
 }
 
 .dishes_img img {
-	width: 100%;
-	height: 100%;
+	width: 98%;
+	height: 98%;
 }
 
 .dishes_name {
@@ -318,7 +318,6 @@ a {
 	background-color: #51D862;
 	line-height: 100%;
 	border: none;
-	display:inline-block;
 }
 </style>
 </head>
@@ -340,7 +339,7 @@ a {
 							<dt>						
 								<%-- <a href="JavaScript:void(0)" onclick="document.getElementById('${orderUtil.menuTypeName }').scrollIntoView();">
 								${menuType.typeName }</a> --%>
-								<a>${menuType.typeName }</a>
+								<a href="#${menuType.typeName }">${menuType.typeName }</a>
 							</dt>
 						</dl>
 					</c:forEach>
@@ -351,7 +350,7 @@ a {
 	</div>
 	<div class="row">
 
-		<div class="col-xs-12 col-sm-12" id="top"><a href="menu_selTyMenu.action">查询</a></div>
+		<div class="col-xs-12 col-sm-12" id="top"></div>
 		<div class="col-xs-12 col-sm-12" id="nav"></div>
 		<div class="col-xs-9 col-sm-7 buttom">
 		 <div class="buttom_sort row">
@@ -363,33 +362,35 @@ a {
 			    <div class="buttom_sort row">
 				       
 	            <div class="dishes_sort" >
-	              
-	                <a id="${orderUtil.menuTypeName }">${orderUtil.menuTypeName }</a>
+	                 
+	                <a name="${orderUtil.menuTypeName }">${orderUtil.menuTypeName }</a>
 	            </div>
 	       <c:forEach items="${orderUtil.menuList }" var="menu">	      	          	              
 	              <!-- 第一个菜品显示到前台界面开始边界 -->					
 						<div class="dishes_boss">
 							<div class="dishes_img">
-								<img src="../image/timg.jpg"></img>
+								<img src="../fileUpload/${menu.imgUrl }"></img>
 							</div>
-							<!-- 放图片 -->
+							<!-- 放图片 -->						
+							<div class="dishes_id" style="display:none">${menu.menuId }</div>
+						    <!--  -->
 							<div class="dishes_name">${menu.menuName }</div>
 							<!-- 放名字 -->
-							<div class="dishes_prices">${menu.menuPrice }元</div>
+							<div class="dishes_prices"><span class="dangejiage">${menu.menuPrice }</span><span>元</span></div>
 							<!-- 放价格 -->
-							<div class="dishes_operation">
-								<button class="add_shopp" onclick="getNum('${menu.menuName }','${menu.menuPrice }','1')" href="javascript:;">放入购物车</button>
+							<div class="dishes_operation" >
+								<div class="gouwuche1" onclick="getNum('${menu.menuId }','${menu.menuName }','${menu.menuPrice }','1')"  href="javascript:;"><input type="button" class="add_shopp" value="放入购物车"></div>
 								<!-- 蓝色放入购物车 -->
 								<div class="add_shopp_div">
 									<button class="shopping_minus">-</button>
 									<!-- -按钮 -->
-									<input class="shopping_input" type="text" value="1">
+									<input class="shopping_input" type="text" value="${menu.num }" name="menuNum">
 									<!-- +-中间的输入框	 -->
 									<button class="shopping_add">+</button>
 									<!-- +按钮 -->
 								</div>	
-								</div>
-								</div>
+							</div>
+						</div>
 									
 						<!-- 第一个菜品显示到前台界面结束边限 -->  	               	                   	         
 	            </c:forEach>
@@ -408,29 +409,27 @@ a {
 				<img src="../image/touming01.png"></img>
 			</div>
 			<div id="shopping_cart_allprice">
-				<span class="allprice">￥0</span> <span class="peisongfei">配送费￥10</span>
+				<span class="allprice"></span><span>元</span> 
 			</div>
-			<div id="allnum">1110</div>
+			<div id="allnum"> </div>
 		</button>
 		<div id="shopping_cart_right">
-			<div id="shopping_cart_none">购物车是空的</div>
 			<a  href="shopCart.jsp"><button id="shopping_cart_notnone">点餐车</button></a>
 		</div>
 	</div>
-    <%--  <div >
-          <c:forEach items="${orderListche }" var="orderche">
-               <div>
-                ${orderche.get("menuName") } &nbsp;&nbsp;&nbsp;${orderche.get("price") }&nbsp;&nbsp;&nbsp;${orderche.get("num") }
-               </div>
-          </c:forEach>
-          <div>总价：</div>
-     </div> --%>
-	<!-- 购物车结束 -->
-	<div class="buttom_sort row">
-		<div class="base col-xs-12 co4l-sm-3"></div>
-	</div> 
+
 	<script type="text/javascript">		
 	window.onload=function() {
+		$(".shopping_input").each(function(){
+	        var value = $(this).val()*1; 
+	        if(value>0){
+	        	$(this).parent().css("display","block");
+				$(this).parent().parent().find(".gouwuche1").css("display","none");
+	        }else{
+	        	$(this).parent().css("display","none");
+				$(this).parent().parent().find(".gouwuche1").css("display","block");
+	        }
+	 	 });
 			$.ajax({
 			type: 'POST',
 			url: 'menuType_sel.action',
@@ -442,43 +441,95 @@ a {
 			error:function(data) {
 				console.log(data.msg);
 			},
-		});		
+		});
+		 
+			
 	 }
 	 
 	 /*得到点餐的数据*/
-	 function getNum(name,price,num){	
-	    alert("加入购物车成功");
+	 function getNum(id,name,price,num){	         
 	    $.ajax({
 			type: 'POST',
 			url: 'shopCart_order.action',		
-			data:{menuName:name,price:price,num:num},
+			data:{menuId:id,menuName:name,price:price,num:num},
 			dataType: 'json',
 			success: function(data){
-			    alert("加入购物车成功");
+			   
 			},
 			error:function(data) {
 				console.log(data.msg);
 			},
 		});	
-} 
-	
-	
-	
-	/*  window.onload=function() {
-	 alert("xx");
-			$.ajax({
-			type: 'POST',
-			url: 'menu_selTyMenu.action',		
-			dataType: 'json',
-			success: function(data){
-			    
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
-	 } */
-    
+						
+}
+	 
+	 
+	 /*计算价钱*/
+	 function Total(){
+	        var num=0; 
+	        var money=0;
+	        var txt = $(".shopping_input"); 
+	        for (var i = 0; i < txt.length; i++) {
+	            num += txt.eq(i).val()*1; 
+	            money += (txt.eq(i).val()*1) * (txt.eq(i).parent().parent().parent().find(".dishes_prices").find(".dangejiage").html()*1);
+	        }
+	        $("#allnum").html(num);
+	        $(".allprice").html(money);
+	    }
+	    Total();
+	 $(".shopping_minus").click(function (){
+		 var ipt=$(this).next();
+		 var num=ipt.val();
+		 if(num>0){num--};
+		 ipt.val(num);
+		 if(num==0){
+			$(this).parent().css("display","none");
+			$(this).parent().parent().find(".gouwuche1").css("display","block");
+		 }
+		 var name=$(this).parent().parent().parent().find(".dishes_name").html();
+		 var id=$(this).parent().parent().parent().find(".dishes_id").html();
+		 var prices=$(this).parent().parent().parent().find(".dishes_prices").find(".dangejiage").html();
+		 getNum(id,name,prices,num);
+		 Total();
+	 })
+	 
+	 $(".gouwuche1").click(function (){
+		$(this).css("display","none");
+		$(this).parent().find(".add_shopp_div").css("display","block");
+		var num=$(this).parent().find(".add_shopp_div").find(".shopping_input").val();
+		num++;
+		$(this).parent().find(".add_shopp_div").find(".shopping_input").val(num);
+		Total();
+		
+	})
+	$(".shopping_add").click(function(){
+		 var ipt=$(this).parent().find(".shopping_input");
+		 var num=ipt.val();
+		 num++;
+		 ipt.val(num);
+		 var name=$(this).parent().parent().parent().find(".dishes_name").html();
+		 var id=$(this).parent().parent().parent().find(".dishes_id").html();
+		 var prices=$(this).parent().parent().parent().find(".dishes_prices").find(".dangejiage").html();
+		 getNum(id,name,prices,num);
+		 Total();
+		
+	})
+	$(".shopping_input").blur(function(){
+		var num=$(this).val()*1;
+		if(num<=0){
+			num=0;
+			$(this).val(num);
+			$(this).parent().css("display","none");
+			$(this).parent().parent().find(".gouwuche1").css("display","block");
+		}
+		var id=$(this).parent().parent().parent().find(".dishes_id").html();
+		var name=$(this).parent().parent().parent().find(".dishes_name").html();
+		var prices=$(this).parent().parent().parent().find(".dishes_prices").find(".dangejiage").html();
+		getNum(id,name,prices,num);
+		Total();
+	})
+		//getNum('${menu.menuName }','${menu.menuPrice }','1')	    
 	</script>
+	
 </body>
 </html>

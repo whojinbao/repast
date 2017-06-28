@@ -1,6 +1,7 @@
 package com.zf.action;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.publics.dao.DaoFactory;
 import com.zf.dao.UseMenuTypeDao;
 import com.zf.entity.MenuType;
 import com.zf.util.PageUtil;
@@ -67,6 +69,27 @@ public class UseMenuTypeAction {
 	}
 
 	/**
+	 * 验证是否已有
+	 */
+	public String verify(){
+		String  typeName1 = request.getParameter("typeName");
+		List<MenuType> menuTypeList = useTypeDao.selName(typeName1);
+        
+		try {
+			if(menuTypeList.size() >0){
+				response.getWriter().print(false);
+			}else{
+				response.getWriter().print(true);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	/**
 	 * del() 往菜品分类中删除分类
 	 * typeId 接受的分类id
 	 * @return
@@ -85,74 +108,21 @@ public class UseMenuTypeAction {
 	 * @return
 	 */
 	public String sel(){
-		System.out.println("sel");
 		List<MenuType> menuTypeList = useTypeDao.seltype();
 		session.setAttribute("MenuTypeList", menuTypeList);
+
 		String currPageStr = request.getParameter("currPage");
 		String pageSizeStr = request.getParameter("pageSize");
+
 		Integer currPage = null;
 		Integer pageSize = null;
 		try{
 			currPage = Integer.parseInt(currPageStr);
 		}catch(Exception e){
 
-		}     
+		}     		
 		PageUtil util = utilService.sel(currPage, pageSize, menuTypeList);
 		session.setAttribute("MenuTypePageUtil",util);
-
-
-        String ip = null;
-        
-        try{
-        	ip= request.getParameter("ip");
- 			if(ip == null){
- 				return "ok";
- 			}
- 		}	
- 		catch(Exception e){
-
- 		}
-		 System.out.println("ip"+ip);
-		if(ip == "UpdateMenu"){	
-			try {
-				request.getRequestDispatcher("menuUpdate.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-		} 
-		if(ip.equals("addMenu")){
-			try {
-				request.getRequestDispatcher("menuAdd.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			return null;
-
-		}
-		
-		if(ip.equals("diancan")){
-			try {
-				request.getRequestDispatcher("diancan.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			return "diancan";
-		}
 
 		return "ok";
 	}

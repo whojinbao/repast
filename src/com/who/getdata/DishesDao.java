@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.publics.dao.DaoFactory;
-import com.who.util.OthesDishes;
 	
 public class DishesDao{
 	DaoFactory dd=new DaoFactory();
@@ -30,7 +29,7 @@ public class DishesDao{
 	 * 按照下单时间排序把所有的已点未炒的菜品提取到List中
 	 */
 	public List<Dishes> getDishes(){
-		String sql="select d.ovenSum,d.ovening,o.seatId,d.menuId,m.menuName,(d.detailednum-d.ovenSum) sumnum,m.maxNum,m.doTime,d.detailedId,q.await,q.urge,q.support from detailed d,menu m, orderList o,quanzhong q where d.orderId=o.orderId  and d.menuId=m.menuId and d.detailedId=q.detailedId and o.orderStatus=0 and d.detailednum>d.ovenSum order by d.detailedTime";
+		String sql="select d.ovenSum,d.ovening,o.seatId,d.menuId,m.menuName,(d.detailednum-d.ovenSum) sumnum,m.maxNum,m.doTime,d.detailedId,q.await,q.urge,q.support from detailed d,menu m, orderList o,quanzhong q where d.orderId=o.orderId and menuType=1 and d.menuId=m.menuId and d.detailedId=q.detailedId and o.orderStatus=0 and d.detailednum>d.ovenSum order by d.detailedTime";
 		ResultSet rs=dd.executeQuery(sql, null);
 		List<Dishes> list=new ArrayList<Dishes>();
 		try {
@@ -92,7 +91,7 @@ public class DishesDao{
 		return list;
 	}
 	public List<Dishesing> getDishesing(){
-		String sql="select o.seatId,d.menuId,m.menuName,d.ovening,m.maxNum,m.doTime,d.detailedId,d.startTime ,d.ovenSum,d.ovening from detailed d,menu m, orderList o where d.orderId=o.orderId and d.menuId=m.menuId and  d.dishesStatus=1 and o.orderStatus=0 and ovening not in(0) order by d.detailedTime";
+		String sql="select o.seatId,d.menuId,m.menuName,d.ovening,m.maxNum,m.doTime,d.detailedId,d.startTime ,d.ovenSum,d.ovening from detailed d,menu m, orderList o where d.orderId=o.orderId  and menuType=1 and d.menuId=m.menuId and  d.dishesStatus=1 and o.orderStatus=0 and ovening not in(0) order by d.detailedTime";
 		ResultSet rs=dd.executeQuery(sql, null);
 		List<Dishesing> list=new ArrayList<Dishesing>();
 		try {
@@ -165,6 +164,7 @@ public class DishesDao{
 	 */
 	public ResultSet getData(String sql,Object[]params){
 		return dd.executeQuery(sql, params);
+		
 	}
 	/*
 	 * 插入正在炒菜的数据
@@ -203,42 +203,61 @@ public class DishesDao{
 	 * 获取凉菜类数据
 	 */
 	
-	public List<OthesDishes> getLiang(){
-		String sql="select o.seatId,d.menuId,m.menuName,d.detailednum,d.detailedId from detailed d,menu m, orderList o,quanzhong q where d.orderId=o.orderId and m.menuType=2 and d.menuId=m.menuId and d.detailedId=q.detailedId and o.orderStatus=0 and d.detailednum>d.ovenSum order by d.detailedTime";
-		List<OthesDishes> list=new ArrayList<OthesDishes>();
+	public List<Dishes> getLiang(){
+		String sql="select d.ovenSum,d.ovening,o.seatId,d.menuId,m.menuName,(d.detailednum-d.ovenSum) sumnum,m.maxNum,m.doTime,d.detailedId,q.await,q.urge,q.support from detailed d,menu m, orderList o,quanzhong q where d.orderId=o.orderId and menuType=2 and d.menuId=m.menuId and d.detailedId=q.detailedId and o.orderStatus=0 and d.detailednum>d.ovenSum order by d.detailedTime";
 		ResultSet rs=dd.executeQuery(sql, null);
+		List<Dishes> list=new ArrayList<Dishes>();
 		try {
 			while(rs.next()){
-				OthesDishes oo=new OthesDishes();
-				oo.setDetailedId(rs.getString("detailedId"));
-				oo.setDetailednum(rs.getString("detailednum"));
-				oo.setMenuId(rs.getString("menuId"));
-				oo.setMenuName(rs.getString("menuName"));
-				oo.setSeatId(rs.getString("seatId"));
-				list.add(oo);
+				Dishes dishes=new Dishes();
+				dishes.setDetailedId(rs.getString("detailedId"));
+				dishes.setMaxNum(rs.getInt("maxNum"));
+				dishes.setMenuId(rs.getInt("menuId"));
+				dishes.setMenuName(rs.getString("menuName"));
+				List<String> seatList=new ArrayList<String>();
+				seatList.add(rs.getString("seatId"));
+				dishes.setSeatId(seatList);
+				dishes.setQuantity(rs.getString("sumnum"));
+				List<Integer> li=new ArrayList<Integer>();
+				li.add(rs.getInt("await"));
+				li.add(rs.getInt("urge"));
+				li.add(rs.getInt("support"));
+				dishes.setSeat(li);
+				list.add(dishes);
 			}
-		} catch (SQLException e) {}
+		} catch (Exception e) {
+		};
 		return list;
 	}
 	
 	/*
 	 * 获取其他菜品
 	 */
-	public List<OthesDishes> getOthes(){
-		String sql="select o.seatId,d.menuId,m.menuName,d.detailednum,d.detailedId from detailed d,menu m, orderList o,quanzhong q where d.orderId=o.orderId and m.menuType not in(1,2,5) and d.menuId=m.menuId and d.detailedId=q.detailedId and o.orderStatus=0 and d.detailednum>d.ovenSum order by d.detailedTime";
-		List<OthesDishes> list=new ArrayList<OthesDishes>();
+	public List<Dishes> getOthes(){
+		String sql="select d.ovenSum,d.ovening,o.seatId,d.menuId,m.menuName,(d.detailednum-d.ovenSum) sumnum,m.maxNum,m.doTime,d.detailedId,q.await,q.urge,q.support from detailed d,menu m, orderList o,quanzhong q where d.orderId=o.orderId and menuType not in(1,2) and d.menuId=m.menuId and d.detailedId=q.detailedId and o.orderStatus=0 and d.detailednum>d.ovenSum order by d.detailedTime";
 		ResultSet rs=dd.executeQuery(sql, null);
+		List<Dishes> list=new ArrayList<Dishes>();
 		try {
 			while(rs.next()){
-				OthesDishes oo=new OthesDishes();
-				oo.setDetailedId(rs.getString("detailedId"));
-				oo.setDetailednum(rs.getString("detailednum"));
-				oo.setMenuId(rs.getString("menuId"));
-				oo.setMenuName(rs.getString("menuName"));
-				oo.setSeatId(rs.getString("seatId"));
-				list.add(oo);
+				Dishes dishes=new Dishes();
+				dishes.setDetailedId(rs.getString("detailedId"));
+				dishes.setDoTime(rs.getInt("doTime"));
+				dishes.setMaxNum(rs.getInt("maxNum"));
+				dishes.setMenuId(rs.getInt("menuId"));
+				dishes.setMenuName(rs.getString("menuName"));
+				List<String> seatList=new ArrayList<String>();
+				seatList.add(rs.getString("seatId"));
+				dishes.setSeatId(seatList);
+				dishes.setQuantity(rs.getString("sumnum"));
+				List<Integer> li=new ArrayList<Integer>();
+				li.add(rs.getInt("await"));
+				li.add(rs.getInt("urge"));
+				li.add(rs.getInt("support"));
+				dishes.setSeat(li);
+				list.add(dishes);
 			}
-		} catch (SQLException e) {}
+		} catch (Exception e) {
+		};
 		return list;
 	}
 	/*

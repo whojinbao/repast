@@ -1,4 +1,5 @@
 package com.who.getdata;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Ovening {
@@ -12,6 +13,17 @@ public class Ovening {
 	private int EWT;
 	private int percentage;
 	private String[] detailednum;
+	private String waitTime;
+	public String getWaitTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:00");
+		Date date=new Date();
+		long ll=date.getTime()+getEWT()*60000;
+		waitTime=sdf.format(ll);
+		return waitTime;
+	}
+	public void setWaitTime(String waitTime) {
+		this.waitTime = waitTime;
+	}
 	public int getPercentage() {
 		percentage=99;
 		if(EWT>0){
@@ -23,7 +35,7 @@ public class Ovening {
 		return EWT/60000;
 	}
 	public void setEWT(int eWT) {
-		EWT = eWT;
+		EWT = eWT+8000;
 	}
 	public String getMenuName() {
 		return menuName;

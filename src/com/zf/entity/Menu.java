@@ -17,8 +17,13 @@ public class Menu {
 	private String menuTypeName;
     private int menuPrice;
     private String imgUrl;
-    private String menuDescribe;
-    
+    private int num=0;
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public int getMenuPrice() {
 		return menuPrice;
 	}
@@ -68,12 +73,6 @@ public class Menu {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	public String getMenuDescribe() {
-		return menuDescribe;
-	}
-	public void setMenuDescribe(String menuDescribe) {
-		this.menuDescribe = menuDescribe;
-	}
-
+	
 	
 }

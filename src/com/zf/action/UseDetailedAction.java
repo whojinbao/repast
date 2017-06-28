@@ -45,10 +45,8 @@ public class UseDetailedAction {
 	 * 
 	 */
 	public String addDetailed(Detailed detailed){
-		System.out.println(detailed.getMenuId());
 		useDetailedDao.addDetailed(detailed);
-		/*selDetailed();  //刷新
-*/		return "ok";
+		return "ok";
 	}
 
 	/**
@@ -72,12 +70,21 @@ public class UseDetailedAction {
 	 * 如果ip 为空 则为detailed.jsp发的请求
 	 */
 	public String selDetailed(){
+	  	 
+		String orderIdStr = request.getParameter("orderId");	
 
-		System.out.println("sel"); 	  		  	 
-		Integer orderId = Integer.parseInt(request.getParameter("orderId"));
-		System.out.println(orderId);
-		List<Detailed> detailedList = useDetailedDao.selDetailed(orderId);
-		session.setAttribute("detailedList", detailedList);
+		List<Detailed> detailedList = useDetailedDao.selDetailed(orderIdStr);
+		session.setAttribute("detailedListhoutai", detailedList);
+
+		return "ok";
+	}
+	/**
+	 * 全部
+	 * @return
+	 */
+	public String selAllDetailed(){
+		List<Detailed> detailedList = useDetailedDao.selDetailed();
+		session.setAttribute("detailedListhoutai", detailedList);
 
 		return "ok";
 	}

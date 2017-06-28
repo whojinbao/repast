@@ -24,7 +24,7 @@ public class SelTyMenuService {
 		
 		//遍历menuTypeList ，根据typeName得到 menuList	
 		List<Menu> menuList =(new UseMenuDao()).selTyMenu(typeName);	
-		System.out.println("ss"+menuList.size());
+
 		//将typeName，menuList  放入一个数组对象类；将list放入 ordrUtilList	
 		if(menuList.size()<=0){
 			menuList =null;

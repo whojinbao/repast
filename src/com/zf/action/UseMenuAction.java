@@ -17,6 +17,7 @@ import com.zf.dao.UseMenuDao;
 import com.zf.dao.UseMenuTypeDao;
 import com.zf.entity.Menu;
 import com.zf.entity.MenuType;
+import com.zf.entity.util.ShopCartUtil;
 import com.zf.entity.util.orderUtil;
 import com.zf.service.SelTyMenuService;
 import com.zf.util.PageUtil;
@@ -37,15 +38,16 @@ public class UseMenuAction extends ActionSupport{
 	private UseMenuDao useMenu = new UseMenuDao();
 	private UtilService utilService = new UtilService();
 	private SelTyMenuService selTyMenuService = new SelTyMenuService();
+	private UseMenuTypeAction usemenuTypeAction = new UseMenuTypeAction();
+
 	//接受菜品添加的图片
 	private File[] menuFile;
 	private String[] menuFileFileName;
+
 	HttpServletRequest request = ServletActionContext.getRequest();
 	HttpServletResponse response =ServletActionContext.getResponse();
 	HttpSession session = request.getSession();
 	private Menu menu = new Menu();
-
-
 
 	/**
 	 * addMenu() 往菜品中添加新菜品
@@ -54,10 +56,10 @@ public class UseMenuAction extends ActionSupport{
 	 */
 
 	public String addMenu(){
+
 		String path = request.getRealPath("/");
-		System.out.println(menuFile);
-		System.out.println(menuFileFileName);
-		System.out.println(path);
+		//刷新菜类
+		usemenuTypeAction.sel();
 		try {
 			/**
 			 * 1.保存产品
@@ -65,14 +67,9 @@ public class UseMenuAction extends ActionSupport{
 			 * 3.保存产品图片到数据库
 			 */
 			//saveProduct();
-			
-		   
-            
 			String names[] = new UploadFile().upload(menuFile, menuFileFileName, path);
 			//循环names保存到数据库。
 			for(int i=0;i<names.length;i++){
-				System.out.println(names[i]);
-				
 				menu.setImgUrl(names[i]);
 			}
 			useMenu.addMenu(menu);
@@ -87,8 +84,60 @@ public class UseMenuAction extends ActionSupport{
 	}
 
 	/**
-	 * del() 往菜品分类中删除分类
-	 * typeId 接受的分类id
+	 *  菜品验证id
+	 * 
+	 * @return
+	 */
+	public String verifyId(){
+
+		String  menuIdStr = request.getParameter("menuId");       
+		int menuId = Integer.parseInt(menuIdStr);
+		List<Menu> menuList=useMenu.selIdMenu(menuId);
+
+		try {
+			if(menuList.size() > 0){
+				response.getWriter().print(false);
+			}else{
+				response.getWriter().print(true);
+			}
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	/**
+	 *  菜品验证NAME
+	 * 
+	 * @return
+	 */
+	public String verifyName(){
+		String  menuName = request.getParameter("menuName");
+		List<Menu> menuList = useMenu.selName(menuName);
+
+		try {
+			if(menuList.size()>0){
+				response.getWriter().print(false);
+			}else{
+				response.getWriter().print(true);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();			
+		}
+		return null;
+
+	}
+
+
+
+	/**
+	 * del() 菜品删除
+	 * 
 	 * @return
 	 */
 	public String del(){
@@ -106,18 +155,28 @@ public class UseMenuAction extends ActionSupport{
 	 * @return
 	 */
 	public String updateMenu(){
-		System.out.println("update");
-		useMenu.updateMenu(menu);
-		selMenu();
+
+		//刷新菜类
+		usemenuTypeAction.sel();	
+		try {		
+			useMenu.updateMenu(menu);		
+			selMenu();
+
+		} catch (Exception e) {		
+
+		}				
 		return "ok";
+
 	}	
+
+
 	/**
 	 * selMenu() 查询数据库中菜品(所有) 
 	 *
 	 * @return
 	 */
 	public String selMenu(){
-	    
+
 		List<Menu> menuList = useMenu.selMenu();	
 		String currPageStr = request.getParameter("currPage");
 		String pageSizeStr = request.getParameter("pageSize");
@@ -139,23 +198,36 @@ public class UseMenuAction extends ActionSupport{
 	 * @return
 	 */
 	public String selTyMenu(){
-		System.out.println("ty");
-		/*String typeName = request.getParameter("typeName");*/
-		
+		UseMenuTypeAction uta =new UseMenuTypeAction();
+		uta.sel();
 		List<orderUtil> util = selTyMenuService.getList();
-		session.setAttribute("orderUtilList",util );
-		try {
-			request.getRequestDispatcher("diancan.jsp").forward(request, response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		List<ShopCartUtil> ss = (List<ShopCartUtil>)session.getAttribute("shopCartList");
+		if(ss!=null){
+			List<orderUtil> util1 =getDishesNum(ss,util);
+			session.setAttribute("orderUtilList",util1 );
+		}else{
+			session.setAttribute("orderUtilList",util );
 		}
-		return null;
+		return "diancan";
 	}
-	
+
+	public List<orderUtil> getDishesNum(List<ShopCartUtil> ss,List<orderUtil> util){
+		for (int i = 0; i < ss.size(); i++) {
+			int id1=ss.get(i).getMenuId();
+			for (int j = 0; j < util.size(); j++) {
+				List<Menu> list=util.get(j).getMenuList();
+				if(list!=null){
+					for (int k = 0; k < list.size(); k++) {
+						int id2=list.get(k).getMenuId();
+						if(id1==id2){
+							list.get(k).setNum(ss.get(i).getNum());
+						}
+					}
+				}
+			}
+		}
+		return util;
+	}
 
 	/**
 	 * selIdMenu() 查询数据库中菜品,按菜品id
@@ -163,30 +235,23 @@ public class UseMenuAction extends ActionSupport{
 	 * @return
 	 */
 	public String selIdMenu(){
+
 		Integer menuId = Integer.parseInt(request.getParameter("menuId"));
-		Menu menu =useMenu.selIdMenu(menuId);	
-		session.setAttribute("menu", menu);
-		try {
-			request.getRequestDispatcher("menuUpdate.jsp").forward(request, response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		usemenuTypeAction.sel();
+		List<Menu> menuList =useMenu.selIdMenu(menuId);	
+		Menu menu = menuList.get(0);
+		session.setAttribute("menu", menu);		
+		return "Update";
 	}
-  
+
 	/**
 	 * selMhMenu() 模糊查询，按菜品名称
 	 *
 	 * @return
 	 */
 	public String selMhMenu(){
-		System.out.println("mh");
+
 		String menuName= request.getParameter("menuName");
-		System.out.println(menuName);
 		List<Menu> menuList =useMenu.selMhMenu(menuName);
 		String currPageStr = request.getParameter("currPage");
 		String pageSizeStr = request.getParameter("pageSize");
@@ -203,6 +268,8 @@ public class UseMenuAction extends ActionSupport{
 		session.setAttribute("menuList", menuList);
 		return "ok";
 	}
+
+
 	public Menu getMenu() {
 		return menu;
 	}

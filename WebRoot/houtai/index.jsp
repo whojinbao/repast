@@ -15,19 +15,27 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<<<<<<< HEAD
 
 <title>后台页面</title>
+=======
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>鹳雀楼</title>
+>>>>>>> 63dc62fbef85e39183effb0a7c5b67beb55f162e
 <meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
 <header class="navbar-wrapper">
 	<div class="navbar navbar-fixed-top">
-		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">H-ui.admin</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a> 
-			<span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.0</span> 
+		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">鹳雀楼</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a> 
+			<span class="logo navbar-slogan f-l mr-10 hidden-xs">后台管理系统</span> 
 			<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
 			<nav class="nav navbar-nav">
-				<ul class="cl">
+				<!-- <ul class="cl">
 					<li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
 							<li><a href="javascript:;" onclick="article_add('添加资讯','article-add.html')"><i class="Hui-iconfont">&#xe616;</i> 资讯</a></li>
@@ -36,18 +44,18 @@
 							<li><a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
 					</ul>
 				</li>
-			</ul>
+			</ul> -->
 		</nav>
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
-				<li>超级管理员</li>
+				<li>${role_name }</li>
 				<li class="dropDown dropDown_hover">
-					<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+					<a href="#" class="dropDown_A">${username } <i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="login_ht.jsp">退出</a></li>
 				</ul>
 			</li>
-				<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
+				
 				<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="javascript:;" data-val="default" title="默认（黑色）">默认（黑色）</a></li>
@@ -90,9 +98,8 @@
 			<dt><i class="Hui-iconfont">&#xe622;</i>菜谱配置<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="menuType.jsp" data-title="菜品分类" href="javascript:;">菜品分类</a></li>
-					<li><a data-href="menuAdd.jsp" data-title="添加菜品" href="javascript:void(0)">添加菜品</a></li>
-					<li><a data-href="menu.jsp" data-title="添加菜品" href="javascript:void(0)">查询菜品</a></li>
+					<li><a data-href="menuType_sel.action" data-title="菜品分类" href="javascript:;">菜品分类</a></li>					
+					<li><a data-href="menu_selMenu.action" data-title="查询菜品" href="javascript:void(0)">查询菜品</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -109,9 +116,9 @@
 			<dt><i class="Hui-iconfont">&#xe62d;</i>订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="orderList.jsp" data-title="查询订单" href="javascript:void(0)">查询订单</a></li>
-					<li><a data-href="admin-permission.html" data-title="上餐排序" href="javascript:void(0)">上餐排序</a></li>
-			</ul>
+					<li><a data-href="order_selOrder.action" data-title="查询订单" href="javascript:void(0)">查询订单</a></li>
+					<%--<li><a data-href="order_getStatistic.action" data-title="上餐排序" href="javascript:void(0)">营业数据分析</a></li>
+			--%></ul>
 		</dd>
 	</dl>
 		<dl id="menu-admin">

@@ -1,24 +1,30 @@
 package com.who;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import com.who.getdata.DishesDao;
-import com.who.getdata.Ovening;
-import com.who.util.OthesDishes;
+import com.who.algorithm.Sort3;
+import com.who.getdata.Dishes;
 
 public class Test {
 	
 	public static void main(String[] args){
-		DishesDao dd=new DishesDao();
-		List<OthesDishes> dishes=dd.getOthes();
-		for (int i = 0; i < dishes.size(); i++) {
-			OthesDishes o=dishes.get(i);
-			System.out.println(o.getDetailedId()+";"+o.getDetailednum()+";"+o.getMenuId()+";"+o.getMenuName()+";"+o.getSeatId());
+		/*Sort3 ss=new Sort3();
+		List<Dishes> ll=ss.outPuttimes();
+		for (int i = 0; i < ll.size(); i++) {
+			System.out.println(ll.get(i).getMenuName());
+		}*/
+		List<String >ll=new ArrayList<String>();
+		ll.add("0");
+		ll.add("1");
+		ll.add("2");String aa=ll.get(0);
+		ll.set(0, ll.get(2));
+		
+		ll.set(2,aa);
+		for (int i = 0; i < ll.size(); i++) {
+			System.out.println(ll.get(i));
 		}
+		
 	}
 
 }

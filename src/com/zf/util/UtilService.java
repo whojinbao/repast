@@ -43,7 +43,6 @@ public class UtilService {
 			list1.add(list.get(i));
 
 		} 
-		System.out.println(startIndex+"  "+size);
 	
 
 		util.setList(list1);

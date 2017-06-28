@@ -1,25 +1,18 @@
 package com.zf.action;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.print.attribute.HashAttributeSet;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.zf.dao.FinancialListDao;
 import com.zf.dao.UseOrderDao;
 import com.zf.entity.Order;
-import com.zf.entity.util.ShopCartUtil;
+import com.zf.entity.util.menuUtil;
+import com.zf.entity.util.orderUtil2;
 
 
 /**
@@ -34,7 +27,7 @@ public class UseOrderAction {
 	private static final String DateTime = null;
 	private UseOrderDao useOrderDao = new UseOrderDao();
 	private Order order1 = new Order();
-
+    private FinancialListDao fd1 = new FinancialListDao();
 	HttpServletRequest request = ServletActionContext.getRequest();
 	HttpServletResponse response = ServletActionContext.getResponse();
 	HttpSession session = request.getSession();
@@ -74,7 +67,7 @@ public class UseOrderAction {
 	 * 
 	 * 
 	 */
-	public String updateOrder(String orderId,int totalPrice,int orderStatus){
+	public String updateOrder(String orderId,float totalPrice,int orderStatus){
 		useOrderDao.updateOrder(orderId,totalPrice,orderStatus);
 		selOrder();
 		return "ok";
@@ -101,7 +94,6 @@ public class UseOrderAction {
 	 * 
 	 */
 	public String  selOrder(){
-		System.out.println("sel");
 		List<Order> orderList = useOrderDao.selOrder();
 		session.setAttribute("orderList", orderList);
 		return "ok";
@@ -119,40 +111,29 @@ public class UseOrderAction {
 		String startTimeStr = null;
 		String endTimeStr = null;
 		String mhOredrSeatId = null;
-		try{
-			startTimeStr = request.getParameter("startTime");
-			endTimeStr = request.getParameter("endTime");
-			mhOredrSeatId = request.getParameter("mhOredrSeatId");
-		}catch(Exception e){
+		startTimeStr = request.getParameter("startTime");
+		endTimeStr = request.getParameter("endTime");
+		mhOredrSeatId = request.getParameter("mhOredrSeatId");      
+		List<Order> orderList = useOrderDao.selMhOrder(startTimeStr, endTimeStr, mhOredrSeatId);
 
-		}
-		System.out.println(startTimeStr+"   "+endTimeStr);
-		// 将字符串转化为日期类型
-		SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		Date startTime = null;
-		Date endTime = null;
-		try {
-			startTime = sdf3.parse(startTimeStr);
-			endTime = sdf3.parse(endTimeStr);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		System.out.println(startTime+  ""+ endTime);
-		List<Order> orderList = useOrderDao.selMhOrder(startTime, endTime, mhOredrSeatId);
 		session.setAttribute("orderList", orderList);
 		return "ok";
 	}
+	
 	/**
-	 * 以 id查订单
-	 *
+	 * 数据统计
 	 */
-	/*public String  selIdOrder(){
-         String  
-		
-		
-	}
-*/
+     public String getStatistic(){
+    	 String startTimeStr = request.getParameter("startTime");
+ 		 String  endTimeStr = request.getParameter("endTime");
+    	 //得到 最优菜品，最差菜品
+    	 List<menuUtil> menuUtillist1 = fd1.getGoodMenu(startTimeStr, endTimeStr);
+    	 session.setAttribute("goodmenuList", menuUtillist1);
+    	 List<menuUtil> menuUtillist2 = fd1.getBadMenu(startTimeStr, endTimeStr);
+    	 session.setAttribute("badmenuList", menuUtillist2);
+    	 orderUtil2 orderUtil2 = fd1.getOrderPrice(startTimeStr, endTimeStr);
+    	 session.setAttribute("orderUtil2", orderUtil2);
+    	 return "financialList";
+     }
 
 }

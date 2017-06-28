@@ -19,79 +19,111 @@ import com.zf.entity.Detailed;
 
  */
 public class UseDetailedDao {
-    private DaoFactory da1 =new DaoFactory();
-    
-    /**
-     * 对订单详情表 detailed 的添加
-     */
-    public void addDetailed(Detailed detailed1){
-    	String sql = "insert into detailed(orderId,detailedId,detailedTime,menuId,detailednum," +
-    			     " dishesStatus,startTime,outTime) values(?,?,?,?,?,?,?,?)";
- 	    			
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	/*Date dd1=new Date();
-    	String ss1=sdf.format(dd1);*/
-    	String detailedTimeStr = sdf.format(detailed1.getDetailedTime());
-    	String stateTimeStr = sdf.format(detailed1.getStateTime());
-    	String outTimeStr = sdf.format(detailed1.getOutTime());
-    	Object [] obj = {detailed1.getOrderId(),detailed1.getDetailedId(),
-    			detailedTimeStr,detailed1.getMenuId(),detailed1.getNum(),
-    			detailed1.getDishesStatus(),stateTimeStr,outTimeStr};
+	private DaoFactory da1 =new DaoFactory();
 
-    	da1.executeUpdate(sql, obj);
-    	
-    	
-    	
-    }
+	/**
+	 * 对订单详情表 detailed 的添加
+	 */
+	public void addDetailed(Detailed detailed1){
+		String sql = "insert into detailed(orderId,detailedId,detailedTime,menuId,detailednum," +
+				" dishesStatus) values(?,?,?,?,?,?)";
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*Date dd1=new Date();
+    	String ss1=sdf.format(dd1);*/
+		String detailedTimeStr = sdf.format(detailed1.getDetailedTime());
+		Object [] obj = {detailed1.getOrderId(),detailed1.getDetailedId(),
+				detailedTimeStr,detailed1.getMenuId(),detailed1.getNum(),
+				detailed1.getDishesStatus()};    
+		da1.executeUpdate(sql, obj);	
+	}
+
+
+	/**
+	 * 对订单详情表 detailed 的删除
+	 */
+	public void delDetailed(int detailedId){
+		String sql = "delete from detailed where detailedId in(?)";
+		Object[] obj = {detailedId};
+		da1.executeUpdate(sql, obj);
+	}
     
-    
-    /**
-     * 对订单详情表 detailed 的删除
-     */
-    public void delDetailed(int detailedId){
-    	String sql = "delete from detailed where detailedId in(?)";
-    	Object[] obj = {detailedId};
-    	da1.executeUpdate(sql, obj);
-    }
-    
-    
-    /**
-     * 对订单详情表 detailed 的查询，全部数据
-     */
-    public List<Detailed> selDetailed(Integer orderId){
-    	
-    	ResultSet rs = null;
-    	if( orderId != null && orderId >=0){
-    		String sql2 = "select * from detailed where orderId = (?) ";
-    		Object [] obj = {orderId};
-    		 rs= da1.executeQuery(sql2, obj);
-    	}else{
-    		System.out.println("null");
-    		String sql1 = "select * from detailed";
-    		
-    		 rs= da1.executeQuery(sql1, null);
-    	}
-    	
-    	List<Detailed> detailedList = new ArrayList<Detailed>();
-    	try {
+	
+
+	/**
+	 * 对订单详情表 detailed 的查询
+	 */
+	public List<Detailed> selDetailed(){
+		String sql1 ="select d1.orderId,d1.detailedId,d1.detailedTime,m1.menuName,d1.detailednum,m1.menuPrice from detailed d1,menu m1 " +
+				     " where d1.menuId=m1.menuId ";	
+		ResultSet  rs= da1.executeQuery(sql1, null);
+		List<Detailed> detailedList = new ArrayList<Detailed>();
+		try {
 			while(rs.next()){
 				Detailed detailed1 = new Detailed();
 				detailed1.setOrderId(rs.getString(1));
 				detailed1.setDetailedId(rs.getString(2));
-				detailed1.setDetailedTime(rs.getDate(3));
-				detailed1.setMenuId(rs.getInt(4));
+
+				String ttimes= rs.getString("detailedTime");
+				ttimes=ttimes.substring(0,ttimes.length()-2);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date date=sdf.parse(ttimes);
+
+
+				detailed1.setDetailedTime(date);
+				detailed1.setMenuName(rs.getString(4));
 				detailed1.setNum(rs.getInt(5));
-				detailed1.setDishesStatus(rs.getInt(6));
-				detailed1.setStateTime(rs.getDate(7));
-				detailed1.setOutTime(rs.getDate(8));
+				detailed1.setMenuPrice(rs.getFloat(6));
 				detailedList.add(detailed1);
-				
+
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	return detailedList;
-    	
-    }
+		return detailedList;
+
+	}
+
+	/**
+	 * 对订单详情表 detailed 的查询id
+	 */
+	public List<Detailed> selDetailed(String orderId){
+			
+		String sql2 = "select d1.orderId,d1.detailedId,d1.detailedTime,m1.menuName,d1.detailednum,m1.menuPrice from detailed d1,menu m1 " +
+				" where d1.menuId=m1.menuId  and d1.orderId = (?)";
+		Object [] obj = {orderId};
+		ResultSet  rs= da1.executeQuery(sql2, obj);
+
+		/*		String sql1 = "select * from detailed";   		
+    		 rs= da1.executeQuery(sql1, null);
+		 */
+
+		List<Detailed> detailedList = new ArrayList<Detailed>();
+		try {
+			while(rs.next()){
+				Detailed detailed1 = new Detailed();
+				detailed1.setOrderId(rs.getString(1));
+				detailed1.setDetailedId(rs.getString(2));
+
+				String ttimes= rs.getString("detailedTime");
+				ttimes=ttimes.substring(0,ttimes.length()-2);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date date=sdf.parse(ttimes);
+
+
+				detailed1.setDetailedTime(date);
+				detailed1.setMenuName(rs.getString(4));
+				detailed1.setNum(rs.getInt(5));
+				detailed1.setMenuPrice(rs.getFloat(6));
+				detailedList.add(detailed1);
+
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return detailedList;
+
+	}
 }

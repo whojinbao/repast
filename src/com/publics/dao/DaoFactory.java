@@ -57,7 +57,7 @@ public class DaoFactory {
 			rs=ps.executeQuery();
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e.getMessage());
+			System.out.println("qq"+e.getMessage());
 		}finally{
 			conPool.close();
 		}return rs;
