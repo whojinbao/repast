@@ -54,7 +54,8 @@ public class UseDetailedDao {
 	 * 对订单详情表 detailed 的查询
 	 */
 	public List<Detailed> selDetailed(){
-		String sql1 = "select * from detailed";   		
+		String sql1 ="select d1.orderId,d1.detailedId,d1.detailedTime,m1.menuName,d1.detailednum,m1.menuPrice from detailed d1,menu m1 " +
+				     " where d1.menuId=m1.menuId ";	
 		ResultSet  rs= da1.executeQuery(sql1, null);
 		List<Detailed> detailedList = new ArrayList<Detailed>();
 		try {

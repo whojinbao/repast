@@ -7,7 +7,7 @@ package com.yang.model;
 public class Auth {
 	private int auth_id;
 	private String auth_name;
-	private String auth_info;
+	private String auth_path;
 	
 	public int getAuth_id() {
 		return auth_id;
@@ -21,12 +21,13 @@ public class Auth {
 	public void setAuth_name(String auth_name) {
 		this.auth_name = auth_name;
 	}
-	public String getAuth_info() {
-		return auth_info;
+	public String getAuth_path() {
+		return auth_path;
 	}
-	public void setAuth_info(String auth_info) {
-		this.auth_info = auth_info;
+	public void setAuth_path(String auth_path) {
+		this.auth_path = auth_path;
 	}
+	
 	
 	
 	

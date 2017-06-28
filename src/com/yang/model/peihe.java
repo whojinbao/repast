@@ -7,12 +7,20 @@ package com.yang.model;
 public class peihe {
 	private int user_id;
 	private String user_name;
-	private String user_pwd;
 	private String user_sex;
 	private String user_phone;
 	private int user_age;
-	private String user_add;
+	private String user_addr;
 	private int user_power;
+	private String user_pwd;
+	private String powername;
+	
+	public String getPowername() {
+		return powername;
+	}
+	public void setPowername(String powername) {
+		this.powername = powername;
+	}
 	public int getUser_id() {
 		return user_id;
 	}
@@ -25,12 +33,7 @@ public class peihe {
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
-	public String getUser_pwd() {
-		return user_pwd;
-	}
-	public void setUser_pwd(String user_pwd) {
-		this.user_pwd = user_pwd;
-	}
+	
 	public String getUser_sex() {
 		return user_sex;
 	}
@@ -49,17 +52,23 @@ public class peihe {
 	public void setUser_age(int user_age) {
 		this.user_age = user_age;
 	}
-	public String getUser_add() {
-		return user_add;
+	public String getUser_addr() {
+		return user_addr;
 	}
-	public void setUser_add(String user_add) {
-		this.user_add = user_add;
+	public void setUser_addr(String user_addr) {
+		this.user_addr = user_addr;
 	}
 	public int getUser_power() {
 		return user_power;
 	}
 	public void setUser_power(int user_power) {
 		this.user_power = user_power;
+	}
+	public String getUser_pwd() {
+		return user_pwd;
+	}
+	public void setUser_pwd(String user_pwd) {
+		this.user_pwd = user_pwd;
 	}
 	
 	

@@ -70,21 +70,18 @@ table {
 			- <input type="text"
 				onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})"
 				id="datemax" class="input-text Wdate" style="width:120px;">
+			<form action="user_select1.action"method="post">	
 			<input type="text" class="input-text" style="width:250px"
-				placeholder="输入管理员名称" id="" name="">
-			<button type="submit" class="btn btn-success" id="" name="">
+				placeholder="输入管理员名称" name="pp.user_name">
+			<button type="submit" class="btn btn-success">
 				<i class="Hui-iconfont">&#xe665;</i> 搜用户
 			</button>
+			</form>
 		</div>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
-			<span class="l"> <a href="javascript:;" onclick="datadel()"
-				class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
-					批量删除</a> <a href="admin-add.jsp"
-				onclick="admin_add('添加管理员','admin-add.html','800','500')"
-				class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>
-					添加管理员</a> <a href="user_select.action"><button type="button"
-						class="btn btn-primary">查询</button> </a> </span> <span class="r">共有数据：<strong>54</strong>
-				条</span>
+			<span class="l"><a href="admin-add.jsp" onclick="admin_add('添加员工','admin-add.html','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加员工</a>
+			<a href="user_select.action"><button type="button" class="btn btn-primary">查询</button> </a>
+			</span> 
 		</div>
 		<table class="table table-border table-bordered table-bg">
 			<thead>
@@ -92,41 +89,28 @@ table {
 					<th scope="col" colspan="10">员工列表</th>
 				</tr>
 				<tr class="text-c">
-					<!-- <th width="25"><input type="checkbox" name="" value=""></th> -->
+					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="40">账号</th>
 					<th width="80">用户名</th>
-					<th width="90">密码</th>
 					<th width="100">性别</th>
-					<th>手机</th>
 					<th width="130">年龄</th>
 					<th width="100">地址</th>
 					<th width="100">权限</th>
+					<th width="100">密码</th>
 					<th width="80">操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				<!-- <tr class="text-c">
-						<td><input type="checkbox" value="2" name=""></td>
-						<td>2</td>
-						<td>zhangsan</td>
-						<td>13000000000</td>
-						<td>admin@mail.com</td>
-						<td>栏目编辑</td>
-						<td>2014-6-11 11:11:42</td>
-						<td class="td-status"><span class="label radius">已停用</span></td>
-						<td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="admin-add.jsp" onclick="admin_edit('管理员编辑','admin-add.jsp','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="user_del.action" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-						<td>超级管理员</td>
-					</tr>  -->
 				<c:forEach items="${lq}" var="pp">
 					<tr>
+					<td width="25"><input type="checkbox" name="" value=""></td>
 						<td>${pp.user_id}</td>
 						<td>${pp.user_name}</td>
-						<td>${pp.user_pwd}</td>
 						<td>${pp.user_sex}</td>
-						<td>${pp.user_phone}</td>
 						<td>${pp.user_age}</td>
-						<td>${pp.user_add}</td>
-						<td>${pp.user_power}</td>
+						<td>${pp.user_addr}</td>
+						<td>${pp.name}</td>
+						<td>${pp.user_pwd}</td>
 						<td><a href="user_delete.action?a=${pp.user_id}">
 								<button type="button" class="btn btn-primary">删除</button> </a> <!-- Button trigger modal -->
 							<button type="button" class="btn btn-primary btn-lg"
@@ -144,14 +128,10 @@ table {
 										</div>
 										<div class="modal-body">
 											<form action="user_update.action" method="post">
-												条件:<input type="text" name="pp.user_id" /><br> 
-												姓名:<input type="text" name="pp.user_name" /><br>
-												密码:<input type="text" name="pp.user_pwd" /><br>
-												性别:<input type="text" name="pp.user_sex" /><br>
-												手机:<input type="text" name="pp.user_phone" /><br>
-												年龄:<input type="text" name="pp.user_age" /><br>
-												地址:<input type="text" name="pp.user_add" /><br>
-												权限:<input type="text" name="pp.user_power" /><br>
+												条件:<input type="text" name="pp.user_id" /><br> <br>
+												年龄:<input type="text" name="pp.user_age" /><br><br>
+												地址:<input type="text" name="pp.user_addr" /><br><br>
+												密码:<input type="text" name="pp.user_pwd" /><br><br>
 												<input type="submit" value="提交" />	
 											</form>
 										</div>

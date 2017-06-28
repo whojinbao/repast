@@ -46,17 +46,8 @@ table {
 
 	<div class="Hui-article">
 		<article class="cl pd-20">
-			<div class="text-c"> 日期范围：
-				<input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;">
-				-
-				<input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;">
-				<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="">
-				<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
-			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
-				<span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="auth_select.action"><button type="button" class="btn btn-primary">查询</button></a>&nbsp&nbsp<button type="button" class="btn btn-primary btn-lg"
-					data-toggle="modal" data-target="#myModal">增加</button>
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+				<span class="l"> <a href="auth_select.action"><button type="button" class="btn btn-primary">查询</button></a>&nbsp&nbsp				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
@@ -66,18 +57,10 @@ table {
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<div class="modal-body">
-								<form action="auth_save.action" method="post">
-									id:<input type="text" name="aut.auth_id"><br /> <br />
-									名字:<input type="text" name="aut.auth_name"><br /> <br />
-									描述:<input type="text" name="aut.auth_info"><br /> <br />
-									<input type="submit" value="提交" />
-								</form>
-							</div>
 						</div>
 					</div>
 				</div></span>
-				<span class="r">共有数据：<strong>54</strong> 条</span>
+				
 			</div>
 			<table class="table table-border table-bordered table-bg">
 				<thead>
@@ -85,10 +68,9 @@ table {
 						<th scope="col" colspan="10">角色列表</th>
 					</tr>
 					<tr class="text-c">
-						<!-- <th width="25"><input type="checkbox" name="" value=""></th> -->
+						<th width="25"><input type="checkbox" name="" value=""></th>
 						<th width="40">账号</th>
 						<th width="80">权限</th>
-						<th width="90">描述</th>
 						<th width="80">操作</th>
 					</tr>
 				</thead>
@@ -105,31 +87,44 @@ table {
 						<td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="admin-add.jsp" onclick="admin_edit('管理员编辑','admin-add.jsp','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="user_del.action" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 						<td>超级管理员</td>
 					</tr>  -->
-					 <c:forEach items="${lv}" var="rr">
+					 <c:forEach items="${lq}" var="rr">
 					 <tr>
-						<td>${rr.auth_id}</td>
-						<td>${rr.auth_name}</td>
-						<td>${rr.auth_info}</td>
+					 <td width="25"><input type="checkbox" name="" value=""></td>
+						<td>${rr.user_id}</td>
+						<td>${rr.name}</td>
 						<td>
-					<a href="auth_delete.action?a=${rr.auth_id}">
-						<button type="button" class="btn btn-primary ">删除</button> 
-					</a>
 						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-						data-target="#myModal">修改</button>
+						data-target="#myModal1">修改权限</button>
 
-					<div class="modal fade bs-example-modal-lg" tabindex="-1"
-						role="dialog" aria-labelledby="myLargeModalLabel" id="a1">
-						<div class="modal-dialog modal-lg" role="document">
-							<div class="modal-content" id="a1">
+					<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
 								<form action="auth_update.action" method="post">
-									查询条件:<input type="text" name="aut.auth_id"/><br>
-									角色:<input type="text" name="aut.auth_name"/><br>
-									描述:<input type="text" name="aut.auth_info"/><br>
+									查询条件:<input type="text" name="rlu.user_id"><br /> <br /><%--
+									权限:<input type="text" name="rlu.user_power"><br /> <br />
+									权限:--%><select name="rlu.user_power" size="1">
+										<option value=1>系统管理员</option>
+										<option value=2>大堂经理</option>
+										<option value=3>厨师长</option>
+										<option value=4>服务员</option>
+										
+									</select>
 									<input type="submit" value="提交" />
 								</form>
 							</div>
 						</div>
 					</div>
+				</div></span>
+				
+			</div>
 					
 					<%--<div class="modal fade"  tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel">

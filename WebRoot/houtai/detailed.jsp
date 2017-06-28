@@ -46,29 +46,21 @@
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="100">订单Id</th>
-					<th width="100">详单Id</th>
+					<th width="100">订单Id</th>					
 					<th width="100">详单下单时间</th>
 					<th width="130">菜品</th>
+					<th width="100">单价</th>
 					<th width="100">数量</th>								
-					<th width="60">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 		      <c:forEach items="${detailedListhoutai }" var="detailed">
-				 <tr class="text-c">
-					<td><input type="checkbox" value="1" name=""></td>
-					<td>${detailed.orderId }</td>
-					<td>${detailed.detailedId }</a></td>
+				 <tr class="text-c">	
+					<td>${detailed.orderId }</td>					
 					<td>${detailed.datetime }</td>
 					<td>${detailed.menuName }</td>
-					<td>${detailed.num }</td>		
-					<td class="f-14">
-					    <a title="删除" href="javascript:;" onclick="user_del(this,'${detailed.detailedId }')" class="ml-5" style="text-decoration:none">
-					    <i class="Hui-iconfont">&#xe6e2;</i></a>
-					    
-					    </td>
+					<td>${detailed.menuPrice }<span>/元</span></td>	
+					<td>${detailed.num }</td>										
 				</tr>
 				</c:forEach>
 			</tbody>
@@ -85,6 +77,7 @@
 <script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+</
 <script type="text/javascript">
 
 $('.table-sort').dataTable({
@@ -95,7 +88,10 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
 	]
 });
-/*用户-删除*/
+/**
+
+ *
+
 function user_del(obj,id){
 		$.ajax({
 			type: 'POST',
@@ -111,6 +107,8 @@ function user_del(obj,id){
 		});		
 	
 }
+*/
+
 
 </script>
 </body>
