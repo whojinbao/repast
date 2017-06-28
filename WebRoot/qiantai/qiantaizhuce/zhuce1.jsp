@@ -200,11 +200,13 @@ body {
 		<div class="dsss displayse${who_select1 }">已选桌号:${zhuo }</div>
 	</div>
 	<div id="dianmond_boss">
+		<a href="menu_gowaimai.action" >
 		<button class="diamond button gray" id="top">
 			<div>
-				<img src="../image/waimaidiancan.png"></img>  
+				<img src="../image/waimaidiancan.png"></img> 
 			</div>
 		</button>
+		</a>
 		<a href="javascript:;" class="md-trigger btn btn-primary btn-sm"
 			data-modal="modal-3">
 			<button class="diamond button gray" id="bottom">
@@ -342,42 +344,37 @@ body {
 	        };
 		});
 		$("#inputmobile").blur(function(){
-		 if ((/^1[34578]\d{9}$/).test($("#inputmobile").val())){
-		    $("#shoujihao").css("display","none");
-		    mobile=true;
-		  }else {
-		    $("#shoujihao").css("display","block");
-		    mobile=false;
-		  }
-	        
-	        var menuName=$("#inputmobile").val();
- 	 		 $.ajax({
- 	 			type:"post",
- 	 			url:"qtlogin_jiaoyan.action",
- 	 			data:{name:menuName},
- 	 			datatype:"json",
- 	 			success:function(data){
- 	 				if(!data){
- 	 					$("#shoujihao").html("手机号已存在");
- 	 				 	$("#shoujihao").css("display","block");
- 	 				 	 mobile=false;
- 	 				}else{
- 	 					$("#shoujihao").css("display","none");
- 	 					mobile=true;
- 	 				}
- 	 				
- 	 			}
- 	 		});
+ 	 			 if ((/^1[34578]\d{9}$/).test($("#inputmobile").val())){
+ 	 			    $("#shoujihao").css("display","none");
+ 	 			    mobile=true;
+ 	 			  }else {
+ 	 			    $("#shoujihao").css("display","block");
+ 	 			    mobile=false;
+ 	 			  }
  	 		 
 		  if(mobile&&psw&&psw2&&name){
 	           $("#zhucesubmit").attr("disabled",false);
 	        }else{
 	        	 $("#zhucesubmit").attr("disabled",true);
 	        }; 
-	        
-		});
+	        var menuName=$("#inputmobile").val();
+	 		 $.ajax({
+	 			type:"post",
+	 			url:"qtlogin_jiaoyan.action",
+	 			data:{name:menuName},
+	 			datatype:"json",
+	 			success:function(data){
+	 				if(data==1){
+	 					$("#shoujihao").html("手机号已存在");
+	 				 	$("#shoujihao").css("display","block");
+	 				 	 mobile=false;
+	 				}else{
+	 					$("#shoujihao").html("手机号格式不正确");
+	 				}	
+	 			}
+	 		});
+	 	});
 		$("#inputPassword1").blur(function(){
-		 
 		  if ((/^[a-z0-9_-]{6,16}$/).test($("#inputPassword1").val())){
 		    $("#password").css("display","none");
 		    psw = true;

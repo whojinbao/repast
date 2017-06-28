@@ -213,7 +213,24 @@ public class UseMenuAction extends ActionSupport{
 		}
 		return "diancan";
 	}
-
+	
+	/*
+	 * »•Õ‚¬Ù
+	 */
+	public String gowaimai(){
+		UseMenuTypeAction uta =new UseMenuTypeAction();
+		uta.sel();
+		List<orderUtil> util = selTyMenuService.getList();
+		List<ShopCartUtil> ss = (List<ShopCartUtil>)session.getAttribute("shopCartList");
+		if(ss!=null){
+			List<orderUtil> util1 =getDishesNum(ss,util);
+			session.setAttribute("orderUtilList",util1 );
+		}else{
+			session.setAttribute("orderUtilList",util );
+		}
+		return "waimai";
+	}
+	
 	public List<orderUtil> getDishesNum(List<ShopCartUtil> ss,List<orderUtil> util){
 		for (int i = 0; i < ss.size(); i++) {
 			int id1=ss.get(i).getMenuId();

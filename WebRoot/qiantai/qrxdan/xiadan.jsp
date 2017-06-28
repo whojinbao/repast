@@ -13,7 +13,23 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link href="css/component.css" rel="stylesheet">
 <style type="text/css">
-
+	#adddizhi{
+		display:none;
+	}
+	#adddizhi1{
+		width:400px;
+		height:200px;
+		margin-top:9px;
+		border:3px dashed #F4F4F4;
+	}
+	#adddizhi1 div{
+		margin-top:10px;
+		margin-left:10px;
+	}
+	#adddizhi1 input{
+		border:none;
+		border-bottom:1px solid #000;
+	}
 </style>
 
 <script type="text/javascript"src="http://webapi.amap.com/maps?v=1.3&key=1e0f7c1cdf3a9526dbaf174623808955"></script>
@@ -27,7 +43,7 @@
 		<div class="wrap-left">
 			<div class="header">
 				<h2>订单详情</h2>
-				<span>返回商家修改</span>
+				<a href="menu_gowaimai.action" ><span>返回商家修改</span></a>
 			</div>
 			<table class="mall-content">
 			  <thead>
@@ -38,30 +54,25 @@
 			    </tr>
 			  </thead>
 			  <tbody>
+			  
+			  <c:forEach items="${shopCartList }" var="shopCart">
+			  
+			  
 			    <tr>
-			      <td>酸菜鱼米线</td>
+			    <td class="munuid" style="display: none;">${shopCart.menuId}</td>
+			      <td>${shopCart.menuName}</td>
 			      <td>
 			      	<div class="gw_num">
 						<em class="jian">-</em>
-						<input type="text" value="1" class="num"/>
+						<input type="text" value="${shopCart.num }" class="num"/>
 						<em class="add">+</em>
 					</div>
 			      </td>
-			      <td>¥100</td>
+			      <td><span>¥</span><span class="danjia"> ${shopCart.menuPrice }</span></td>
 			    </tr>
-			    <tr>
-			      <td>麻辣米线</td>
-			      <td>
-			      	<div class="gw_num">
-						<em class="jian">-</em>
-						<input type="text" value="1" class="num"/>
-						<em class="add">+</em>
-					</div>
-			      </td>
-			      <td>¥100</td>
-			    </tr>
+			  </c:forEach>
 			  </tbody>
-			  <tfoot>
+			  <%--<tfoot>
 			    <tr>
 			      <td colspan="2">餐盒</td>
 			      <td >¥180</td>
@@ -71,28 +82,38 @@
 			      <td >¥180</td>
 			    </tr>
 			  </tfoot>
-			</table>
+			--%></table>
 			<div class="foot-content">
 				<div class="sum">
-					<h1><span>¥</span>145.00</h1>
+					<h1><span>¥</span><span id="summoney"></span>  </h1>
 				</div>
 			</div>
 		</div>
-		<form action="">
 		<div class="wrap-right">
 			<div class="right-content">
 				<div class="item">
 					<div class="right-header">
 						<h2>收货地址</h2>
 					</div>
-					<p>郑飞<span>先生</span>1000000000</p>
+					<p>账户：${username }</p>
 					
 						<div id="oldAddress"></div>
 					<div id="addposition">
 						<a href="javascript:;" class="md-trigger btn-sm" data-modal="modal-13">
 							<button>+新地址</button>
 						</a>
-						<button>删除此地址</button>	
+						<button id="delectAddress">删除此地址</button>
+						<%--<a href="who_order_deleteAddress.action"></a>	--%>
+						<div id="adddizhi${kongzhiadd}">
+							<div>地址：${newdizhi }</div>
+							<div>详细地址：<input type="text" id="addxxdz" size="30px" value="${xiangxi }"></div>
+							<div>姓名：<input type="text" id="addname"value="${newmingzi }"></div>
+							<div>电话：<input id="adddianhua"size="20px" value="${dianhua }"></div>
+							<div>
+								<a href="who_order_addDizhi.action"><button>确认保存</button></a>&nbsp;&nbsp;
+								<button id="qingkong">清空退出</button>
+							</div>
+						</div>
 					<div>
 				</div>
 
@@ -120,7 +141,7 @@
 					<div class="other"><span>其他备注</span><input type="" name=""></div>
 				</div>
 			<div class="ent-btn">
-				<div class="btn">
+				<div class="btn" id="xiadan">
 					<span>确认下单</span>
 				</div>
 			</div>
@@ -128,7 +149,6 @@
 		</div>
 	</div>
 	</div>
-	</form>
 	</div>
 
 
@@ -167,20 +187,12 @@
 <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.12.1/jquery.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			//加的效果
-			$(".add").click(function(){
-				var n=$(this).prev().val();
-				var num=parseInt(n)+1;
-				if(num==0){ return;}
-					$(this).prev().val(num);
-			});
-			//减的效果
-			$(".jian").click(function(){
-				var n=$(this).next().val();
-				var num=parseInt(n)-1;
-			if(num==0){ return}
-				$(this).next().val(num);
-				});
+			function refresh() 
+			{ 
+				history.go(0); 
+			} 
+			setTimeout("refresh()",1000); 
+			
 			
 			function getAddress(){
 				$.ajax({
@@ -191,30 +203,161 @@
 	 	 				data = data.slice(1, data.length);
 	 	 	 			data = data.slice(0, data.length-1);
 	 	 	 			var strs= data.split(",");
-	 	 	 			var id=[];
-	 	 	 			var name=[];
-	 	 				for(var i=0;i<strs.length;i++){
-	 	 					if(i%2==0){
-	 	 						id[id.length]=strs[i];
-	 	 					}else{
-	 	 						name[name.length]=strs[i];
-	 	 					}
-	 	 				}
-	 	 				for(var i=0;i<id.length;i++){
-	 	 					var str=$("#oldAddress").html();
-	 	 					if(i==0){
-	 	 						str="<div><input type='radio' name='selectAddress' value='"+id[i]+"'checked/><span>"+name[i]+"</span></div>";
-	 	 					}else{
-	 	 						str +="<div><input type='radio' name='selectAddress' value='"+id[i]+"'/><span>"+name[i]+"</span></div>";
-	 	 					}
-	 	 					$("#oldAddress").html(str);
-	 	 				}
+	 	 	 			if(strs!=""){
+		 	 	 			var id=[];
+		 	 	 			var address=[];
+		 	 	 			var name=[];
+		 	 	 			var phone=[];
+		 	 				for(var i=0;i<strs.length;i++){
+		 	 					if(i%4==0){
+		 	 						id[id.length]=strs[i];
+		 	 					}else if(i%4==1){
+		 	 						address[address.length]=strs[i];
+		 	 					}else if(i%4==2){
+		 	 						name[name.length]=strs[i];
+		 	 					}else{
+		 	 						phone[phone.length]=strs[i];
+		 	 					}
+		 	 				}
+		 	 				for(var i=0;i<id.length;i++){
+		 	 					var str=$("#oldAddress").html();
+		 	 					if(i==0){
+		 	 						str="<div><input type='radio' name='selectAddress' value='"+id[i]+"'checked/> 地址：<span>"+address[i]+"</span>&nbsp;&nbsp;&nbsp;&nbsp;姓名：<span>"+name[i]+"</span>&nbsp;&nbsp;&nbsp;&nbsp;电话：<span>"+phone[i]+"</span></div>";
+		 	 					}else{
+		 	 						str +="<div><input type='radio' name='selectAddress' value='"+id[i]+"'/> 地址：<span>"+address[i]+"</span>&nbsp;&nbsp;&nbsp;&nbsp;姓名：<span>"+name[i]+"</span>&nbsp;&nbsp;&nbsp;&nbsp;电话：<span>"+phone[i]+"</span></div>";
+		 	 					}
+		 	 					$("#oldAddress").html(str);
+		 	 				}
+	 	 	 			}
 	 	 			}
 	 	 		});
 			};
 			getAddress();
+		    	  
+		    	  function Total(){
+		  	        var money=0;
+		  	        var txt = $(".num"); 
+		  	        for (var i = 0; i < txt.length; i++) {
+		  	            money += (txt.eq(i).val()*1) * (txt.eq(i).parent().parent().parent().find(".danjia").html()*1);
+		  	        }
+		  	        
+		  	      $("#summoney").html(money);
+		  	    };
+		    	  Total();
+		    	  
+					//加的效果
+					$(".add").click(function(){
+						var n=$(this).prev().val();
+						var num=parseInt(n)+1;
+						$(this).prev().val(num);
+						Total();
+						var id=$(this).parent().parent().parent().find(".munuid").html();
+						getNum(num,id);
+						
+					});
+					//减的效果
+					$(".jian").click(function(){
+						var n=$(this).next().val();
+						var num=parseInt(n)-1;
+						if(num<1){num=1;}
+						$(this).next().val(num);
+						Total();
+						var id=$(this).parent().parent().parent().find(".munuid").html();
+						getNum(num,id);
+						});
+				
+					
+					$(".num").blur(function (){
+						var num=$(this).val()*1;
+						if(num<1){
+							num=1;
+						}
+						$(this).val(num);
+						Total();
+						var id=$(this).parent().parent().parent().find(".munuid").html();
+						getNum(num,id);
+					});
+					
+					
+					 function getNum(num,id){
+						    $.ajax({
+								type: 'POST',
+								url: 'shopOk_setParams.action',		
+								data:{num:num,id:id},
+								dataType: 'json',
+								success: function(data){
+								   
+								}
+							});	
+							
+					}
+			$("#addxxdz").blur(function(){
+				$.ajax({
+	 	 			type:"post",
+	 	 			url:"who_order_saveXiangxi.action",
+	 	 			data:{xiangxi:$("#addxxdz").val()},
+	 	 			datatype:"json",
+	 	 			success:function(data){
+	 	 			}
+	 	 		});
+			});
+			$("#addname").blur(function(){
+				$.ajax({
+	 	 			type:"post",
+	 	 			url:"who_order_saveName.action",
+	 	 			data:{mingzi:$("#addname").val()},
+	 	 			datatype:"json",
+	 	 			success:function(data){
+	 	 			}
+	 	 		});
+			});
+			$("#adddianhua").blur(function(){
+				$.ajax({
+	 	 			type:"post",
+	 	 			url:"who_order_saveDianhua.action",
+	 	 			data:{dianhua:$("#adddianhua").val()},
+	 	 			datatype:"json",
+	 	 			success:function(data){
+	 	 			}
+	 	 		});
+			});
+			
+			
 		});
-		
+		$("#delectAddress").click(function(){
+			var id = $("#oldAddress input[name='selectAddress']:checked").val();
+			$.ajax({
+ 	 			type:"post",
+ 	 			url:"who_order_deleteAddress.action",
+ 	 			data:{deleteid:id},
+ 	 			datatype:"json",
+ 	 			success:function(data){
+ 	 				window.location.href = 'http://localhost:8080/repast/qiantai/qrxdan/xiadan.jsp';
+ 	 			}
+ 	 		});
+		});
+		$("#qingkong").click(function(){
+			$("#adddizhi1").hide();
+			$.ajax({
+ 	 			type:"post",
+ 	 			url:"who_order_qingAddress.action",
+ 	 			datatype:"json",
+ 	 			success:function(data){
+ 	 			}
+ 	 		});
+		});
+		$("#xiadan").click(function (){
+			var id = $("#oldAddress input[name='selectAddress']:checked").val();
+			$.ajax({
+ 	 			type:"post",
+ 	 			url:"who_order_orderok.action",
+ 	 			data:{addressid:id},
+ 	 			datatype:"json",
+ 	 			success:function(data){
+ 	 				window.location.href = 'http://localhost:8080/repast/qiantai/qrxdan/orderok.jsp';
+ 	 			}
+ 	 		});
+		});
 	</script>
 
 <script src="js/classie.js"></script>

@@ -36,6 +36,7 @@
       <action name="menu_*" class="com.zf.action.UseMenuAction" method="{1}">
        <result name="ok">/houtai/menu.jsp</result>
        <result name="diancan" type="redirect">/ppp/diancan.jsp</result>
+       <result name="waimai" type="redirect">/ppp/waimai.jsp</result>
        <result name="Update" type="redirect">/houtai/menuUpdate.jsp</result>
      </action>    
      <!--  -->
@@ -56,6 +57,17 @@
        <result name="detailed"  >/ppp/detailed.jsp</result>
      </action>  
      
+     
+     
+     
+     <!-- 外卖配置 -->
+     <action name="waimai_*" class="com.who.struts.waimaiAction" method="{1}">
+       <result name="ok" type="redirect">/ppp/order.jsp</result> 
+       <result name="order"  type="redirect">/ppp/order.jsp</result>   
+       <result name="start"  type="redirect">/qiantai/qiantaizhuce/zhuce1.jsp</result>   
+       <result name="shopCart" type="redirect">/ppp/shopCart.jsp</result>
+       <result name="detailed"  >/ppp/detailed.jsp</result>
+     </action>  
      <!--  -->
      
      <!-- 订单详情的action，Xml设置 -->
@@ -85,11 +97,13 @@
 	<action name="qtlogin_*" class="com.who.struts.qtloginAction" method="{1}">
 			<result name="ok" type="redirect">menu_selTyMenu</result>
 			<result name="no" type="redirect">/qiantai/qiantaizhuce/zhuce1.jsp</result>
+			<result name="goxiadan" type="redirect">/qiantai/qrxdan/xiadan.jsp</result>
 	</action>
 	<!-- 确认下单高德地图 -->
 	
 	<action name="who_order_*" class="com.who.struts.PlaceOrderAction" method="{1}">
 			<result name="back" type="redirect">/qiantai/qrxdan/xiadan.jsp</result>
+			<result name="geren" type="redirect">/qiantai/qrxdan/orderok.jsp</result>
 	</action>
 	
 

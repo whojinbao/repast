@@ -170,7 +170,7 @@ AMap.plugin(['AMap.Scale','AMap.OverView'],
  	 			data:{ads:$("#message").val()},
  	 			datatype:"json",
  	 			success:function(data){
- 	 			            window.location.href = 'http://localhost:8080/repast/qiantai/qrxdan/xiadan.jsp';
+ 	 			     window.location.href = 'http://localhost:8080/repast/qiantai/qrxdan/xiadan.jsp';
  	 			}
  	 			
  	 		});

@@ -50,10 +50,22 @@ public class qtloginAction {
 	public String login(){
 		String sql="insert into qiantai (name,phone,psw) values(?,?,?)";
 		Object params[]={name,phone,password};
+		session.setAttribute("username",name);
+		session.setAttribute("phone",phone);
 		dd.updateData(sql, params);
-		System.out.println(name+";"+phone+";"+password);
-		return "ok";
+		return "no";
 	}
+	public String waimailogin(){
+		String sql="insert into qiantai (name,phone,psw) values(?,?,?)";
+		Object params[]={name,phone,password};
+		session.setAttribute("username", name);
+		session.setAttribute("phone",phone);
+		dd.updateData(sql, params);
+		return "goxiadan";
+	}
+	
+	
+	
 	public String logindenglu(){
 		String sql="select * from qiantai";
 		ResultSet rs=dd.getData(sql, null);
@@ -61,24 +73,42 @@ public class qtloginAction {
 			if(rs.next()&&rs.getString("psw").equals(password)){
 				session.setAttribute("mimacuowu", "1");
 				session.setAttribute("username", rs.getString("name"));
+				session.setAttribute("phone", rs.getString("phone"));
+			}else{
+				session.setAttribute("mimacuowu", "2");
+			}
+		} catch (Exception e) {
+		}
+		return "no";
+	}
+	
+	public String goxiadan(){
+		String sql="select * from qiantai";
+		ResultSet rs=dd.getData(sql, null);
+		try {
+			if(rs.next()&&rs.getString("psw").equals(password)){
+				session.setAttribute("mimacuowu", "1");
+				session.setAttribute("username", rs.getString("name"));
+				session.setAttribute("phone", rs.getString("phone"));
 			}else{
 				session.setAttribute("mimacuowu", "2");
 			}
 		} catch (Exception e) {
 		}
 
-		return "no";
+		return "goxiadan";
 	}
+	
+	
 	public String jiaoyan(){
 		String phone=request.getParameter("name");
-		System.out.println(phone);
 		String sql="select * from qiantai where phone='"+phone+"'";
 		ResultSet rs=dd.getData(sql, null);
 		try {
 			if(rs.next()){
-				response.getWriter().print(true);
+				response.getWriter().print(1);
 			}else{
-				response.getWriter().print(false);
+				response.getWriter().print(2);
 			}
 		} catch (Exception e) {}
 		return null;
