@@ -55,9 +55,6 @@
      <!-- 跳转到派餐界面 -->
 
      
-		<action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
-			<result name="arrange">/jsp/arrange.jsp</result>
-		</action>
 	
 
      <action name="arr_*" class="com.who.struts.ArrangeAction" method="{1}">
