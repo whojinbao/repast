@@ -1,7 +1,6 @@
 package com.who.struts;
 
 import java.sql.ResultSet;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +14,7 @@ import org.apache.struts2.ServletActionContext;
 import com.who.algorithm.GetOven;
 import com.who.algorithm.Sort1;
 import com.who.algorithm.Sort2;
+import com.who.algorithm.Sort3;
 import com.who.algorithm.sortOthers;
 import com.who.getdata.Dishes;
 import com.who.getdata.DishesDao;
@@ -141,11 +141,19 @@ public class ArrangeAction {
 			dishesList=ss.outPuttimes();
 			session.setAttribute("sortColor1", "1");
 			session.setAttribute("sortColor2", "2");
-		}else{
+			session.setAttribute("sortColor3", "2");
+		}else if(flag==2){
 			Sort2 ss=new Sort2();
 			dishesList=ss.outPuttimes();
 			session.setAttribute("sortColor1", "2");
 			session.setAttribute("sortColor2", "1");
+			session.setAttribute("sortColor3", "2");
+		}else{
+			Sort3 ss=new Sort3();
+			dishesList=ss.outPuttimes();
+			session.setAttribute("sortColor1", "2");
+			session.setAttribute("sortColor2", "2");
+			session.setAttribute("sortColor3", "1");
 		}
 		List<TotalUtil> ttlist=getMinTime(llist,dishesList,dishesingList);
 		List<Dishes> cool=cc.getLiang();

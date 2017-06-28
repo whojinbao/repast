@@ -229,7 +229,7 @@ td{
 				<span>排餐方式</span>&nbsp;
 				<a  href="arr_updateSort.action?sortid=1"><button id="sortColor${sortColor1}" class="btn btn-default">排1</button></a>
 				<a  href="arr_updateSort.action?sortid=2"><button id="sortColor${sortColor2}" class="btn btn-default">排2</button></a>
-				<button class="btn btn-default" disabled="value">排3</button>
+				<a  href="arr_updateSort.action?sortid=3"><button id="sortColor${sortColor3}" class="btn btn-default">排3</button></a>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-2 buttom zhuo">
