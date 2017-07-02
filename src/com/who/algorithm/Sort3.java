@@ -133,6 +133,7 @@ public class Sort3 {
 				if(flag!=-1){
 					ll.add(0, ll.get(flag));
 					ll.remove(flag+1);
+					break;
 				}
 			}
 		}

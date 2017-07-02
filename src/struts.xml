@@ -118,6 +118,7 @@
 	<action name="who_order_*" class="com.who.struts.PlaceOrderAction" method="{1}">
 			<result name="back" type="redirect">/qiantai/qrxdan/xiadan.jsp</result>
 			<result name="geren" type="redirect">/qiantai/qrxdan/orderok.jsp</result>
+			<result name="diancan" type="redirect">/ppp/waimai.jsp</result>
 	</action>
 	
 			

@@ -12,8 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.opensymphony.xwork2.Result;
 import com.sun.org.apache.bcel.internal.generic.Select;
 import com.who.getdata.DishesDao;
+import com.who.util.YOrderOkUtil;
 import com.who.util.orderOkUtil;
 import com.zf.entity.util.ShopCartUtil;
 
@@ -154,6 +156,7 @@ public class PlaceOrderAction {
 		dd.updateData(sql1, null);
 		session.setAttribute("shopCartList",null);
 		 gogeren();
+		 session.setAttribute("who_okorder", "");
 		return null;
 	}
 	/*
@@ -171,10 +174,123 @@ public class PlaceOrderAction {
 				ok.setPrice(rs.getFloat("totalPrice"));
 				ok.setStatus(rs.getString("orderStatus"));
 				ok.setTime(rs.getString("orderTimes"));
+				String sql2="select name,phone,c.addresss addresss from orderList o,clientaddress c where o.addresss = c.clientid and orderId='"+rs.getString("orderId")+"'";
+				ResultSet rs2=dd.getData(sql2, null);
+				while(rs2.next()){
+					ok.setName(rs2.getString("name"));
+					ok.setPhone(rs2.getString("phone"));
+					ok.setAddress(rs2.getString("addresss"));
+				}
+				String sql11="select * from detailed d,menu m where m.menuId=d.menuId and orderId='"+rs.getString("orderId")+"'";
+				ResultSet rs1=dd.getData(sql11, null);
+				List<YOrderOkUtil> yy=new ArrayList<YOrderOkUtil>();
+				while (rs1.next()) {
+					YOrderOkUtil yo=new YOrderOkUtil();
+					yo.setName(rs1.getString("menuName"));
+					yo.setNum(rs1.getString("detailednum"));
+					yo.setPrices(rs1.getString("menuPrice"));
+					yy.add(yo);
+				}
+				ok.setList(yy);
 				list.add(ok);
 			}
 		} catch (Exception e) {}
 		session.setAttribute("dingdan", list);
+		 oldOrder();
 		return "geren";
+	}
+	/*
+	 * 外卖确认收货
+	 */
+	public String orderConfirm(){
+		String orderId=request.getParameter("wmorderId");
+		String sql="update orderList set orderStatus=1 where orderId='"+orderId+"'";
+		dd.updateData(sql, null);
+		gogeren();
+		return "geren";
+	}
+	/*
+	 * 已完成订单数据提取
+	 */
+	public String oldOrder(){
+		String numstr=request.getParameter("yemanum");
+		Integer numSession=(Integer) session.getAttribute("numSession");
+		String phone=(String) session.getAttribute("phone");
+		String sqq="select COUNT(orderId) num from orderList o,qiantai q,clientaddress c where o.addresss=c.clientid and q.id=c.id and o.orderStatus=1 and q.phone='"+phone+"'";
+		ResultSet rrs=dd.getData(sqq, null);
+		int a=0;
+		try {
+			rrs.next();
+			a=rrs.getInt("num");
+		} catch (Exception e) {}
+		int b=0;
+		if(a!=0){
+			b=a/10;
+		}
+		if(numSession==null){
+			numSession=0;
+		}	
+		if(!(numstr==null)){
+			session.setAttribute("who_okorder", "1");
+			if(numstr.equals("1")){
+				numSession=numSession+1;
+			}else if(numstr.equals("-1")){
+				numSession=numSession-1;
+				if(numSession<0){
+					numSession=0;
+				}
+			}else{
+				numSession=0;
+			}
+		}
+		if(numSession>b){
+			numSession=b;
+		}
+		session.setAttribute("numSession", numSession);
+		List<orderOkUtil> list=new ArrayList<orderOkUtil>();
+		
+		String sql="select top 10 * from orderList o,qiantai q,clientaddress c where o.addresss=c.clientid and q.id=c.id and o.orderStatus=1 and q.phone='"+phone+"' and orderId not in(select top "+(10*numSession)+" orderId from orderList o,qiantai q,clientaddress c where o.addresss=c.clientid and q.id=c.id and o.orderStatus=1 and q.phone='"+phone+"')";
+		ResultSet rs=dd.getData(sql, null);
+		try {
+			while(rs.next()){
+				orderOkUtil ok=new orderOkUtil();
+				ok.setId(rs.getString("orderId"));
+				ok.setPrice(rs.getFloat("totalPrice"));
+				ok.setStatus(rs.getString("orderStatus"));
+				ok.setTime(rs.getString("orderTimes"));
+				String sql2="select name,phone,c.addresss addresss from orderList o,clientaddress c where o.addresss = c.clientid and orderId='"+rs.getString("orderId")+"'";
+				ResultSet rs2=dd.getData(sql2, null);
+				while(rs2.next()){
+					ok.setName(rs2.getString("name"));
+					ok.setPhone(rs2.getString("phone"));
+					ok.setAddress(rs2.getString("addresss"));
+				}
+				String sql11="select * from detailed d,menu m where m.menuId=d.menuId and orderId='"+rs.getString("orderId")+"'";
+				ResultSet rs1=dd.getData(sql11, null);
+				List<YOrderOkUtil> yy=new ArrayList<YOrderOkUtil>();
+				while (rs1.next()) {
+					YOrderOkUtil yo=new YOrderOkUtil();
+					yo.setName(rs1.getString("menuName"));
+					yo.setNum(rs1.getString("detailednum"));
+					yo.setPrices(rs1.getString("menuPrice"));
+					yy.add(yo);
+				}
+				ok.setList(yy);
+				list.add(ok);
+			}
+		} catch (Exception e) {}
+		session.setAttribute("oldorder_who", list);	
+		if(b!=0){
+			session.setAttribute("oldorder_who_num", numSession+1);
+		}else{
+			session.setAttribute("oldorder_who_num", 1);
+		}
+		session.setAttribute("oldorder_who_num_sun", b+1);
+		return null;
+	}
+	public String zhuxiao(){
+		session.setAttribute("username",null);
+		session.setAttribute("phone",null);
+		return "diancan";
 	}
 }

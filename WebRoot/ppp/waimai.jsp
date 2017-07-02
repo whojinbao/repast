@@ -331,7 +331,6 @@ a {
 .username{
 	position :absolute;
 	right: 20px;
-	border:1px solid red;
 }
 
 
@@ -378,7 +377,7 @@ a {
 .quxiadan1{
 	display:none;
 }
-
+#nav a{ color:black;}
 
 </style>
 <link rel="stylesheet" href="../qiantai/css/component.css" type="text/css"></link>
@@ -415,9 +414,9 @@ a {
 		<div class="col-xs-12 col-sm-12" id="top"></div>
 		<div class="col-xs-12 col-sm-12" id="nav">
 			<div class="username">
-				<span>个人中心</span>
+				<span><a href="who_order_gogeren.action">个人中心</a></span>
 				<span>欢迎&nbsp;&nbsp;</span>
-				<span id="username">${username }</span>&nbsp;&nbsp;<a>注销</a>
+				<span id="username">${username }</span>&nbsp;&nbsp;<a href="who_order_zhuxiao.action">注销</a>
 			</div>
 		</div>
 		<div class="col-xs-9 col-sm-7 buttom">

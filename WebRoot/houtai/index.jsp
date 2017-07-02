@@ -134,8 +134,8 @@
 			<dt><i class="Hui-iconfont">&#xe61a;</i>餐桌管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="caoqi/zhuozi.jsp" data-title="大厅" href="javascript:void(0)">大厅</a></li>
-					<li><a data-href="caoqi/baotest.jsp" data-title="包厢" href="javascript:void(0)">包厢</a></li>
+					<li><a data-href="caoqi/zhuozi.jsp" data-title="大厅" href="javascript:void(0)">餐桌</a></li>
+					<!-- <li><a data-href="caoqi/baotest.jsp" data-title="包厢" href="javascript:void(0)">包厢</a></li> -->
 			</ul>
 		</dd>
 	</dl>
